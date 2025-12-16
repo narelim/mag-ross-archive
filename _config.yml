@@ -1,0 +1,8 @@
+title: "Archive : Douglas Maguire x Adeline Ross"
+description: "Eternal Universe Archive"
+baseurl: ""
+url: ""
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-seo-tag
