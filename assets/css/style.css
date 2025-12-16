@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Serif+KR:wght@300;500;700&display=swap');
+
+:root {
+    --bg-color: #Fdfcfb;       /* 아주 연한 미색 (눈 편함) */
+    --text-color: #111111;     /* 리얼 블랙 */
+    --accent-color: #780C1B;   /* 딥 버건디 (강렬한 포인트) */
+    --sub-text: #555555;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Noto Sans KR', sans-serif;
+    line-height: 1.8;
+    margin: 0;
+    padding: 0;
+}
+
+/* 폰트 & 타이포그래피 */
+h1, h2, h3, .logo, .date { font-family: 'Noto Serif KR', serif; }
+a { color: var(--text-color); text-decoration: none; transition: 0.3s; }
+a:hover { color: var(--accent-color); }
+
+/* 레이아웃 */
+header {
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.logo { font-size: 1.4rem; font-weight: bold; letter-spacing: 0.1em; }
+
+.container { max-width: 720px; margin: 0 auto; padding: 60px 20px; }
+
+/* 대문 이미지 */
+.hero { text-align: center; margin-bottom: 60px; }
+.hero img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* 그림자 효과 */
+}
+
+/* 버튼들 */
+.shortcuts { margin-top: 40px; display: flex; justify-content: center; gap: 10px; }
+.tag-btn {
+    padding: 8px 18px;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--sub-text);
+}
+.tag-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+/* 리스트 */
+.post-item {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 15px 0; border-bottom: 1px solid #eee;
+}
+.post-meta { font-size: 0.75rem; color: var(--accent-color); display: block; margin-bottom: 4px; }
