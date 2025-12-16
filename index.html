@@ -1,0 +1,41 @@
+---
+layout: default
+title: Home
+---
+
+<div class="hero">
+    <img src="루하님 0414_Original.jpeg" alt="Main Couple Image">
+    
+    <h1 style="margin-top: 50px; font-weight: 300; font-size: 2rem;">Waltz in the Red</h1>
+    <p style="color: #666; font-size: 0.95rem;">Our infinity time and space.</p>
+
+    <div class="shortcuts">
+        <a href="#" class="tag-btn">#Main Story</a>
+        <a href="#" class="tag-btn">#AU_1930</a>
+        <a href="#" class="tag-btn">#Illust</a>
+    </div>
+</div>
+
+<div style="margin-top: 80px;">
+    <h3 style="font-size: 1.1rem; border-left: 3px solid #780C1B; padding-left: 12px; margin-bottom: 20px;">Recent Logs</h3>
+    
+    <div class="post-item">
+        <div>
+            <span class="post-meta">System</span>
+            <span style="color:#999;">아직 작성된 글이 없습니다. 첫 글을 작성해보세요!</span>
+        </div>
+        <span class="date">2025.12.16</span>
+    </div>
+
+    <ul style="list-style:none; padding:0;">
+        {% for post in site.posts limit:5 %}
+        <li class="post-item">
+            <div>
+                <span class="post-meta">{{ post.category }}</span>
+                <a href="{{ post.url }}">{{ post.title }}</a>
+            </div>
+            <span class="date">{{ post.date | date: "%Y.%m.%d" }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
