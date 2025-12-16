@@ -1,6 +1,6 @@
 title: "Archive : Douglas Maguire x Adeline Ross"
 description: "Eternal Universe Archive"
-baseurl: "mag-ross-archive"
+baseurl: "/mag-ross-archive"
 url: "https://narelim.github.io"
 markdown: kramdown
 theme: minima
