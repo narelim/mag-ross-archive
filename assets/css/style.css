@@ -93,3 +93,66 @@ header {
 .space-20 { height: 20px; }
 .space-50 { height: 50px; }
 
+
+/* --- 스케치 레이아웃용 스타일 추가 --- */
+
+/* 1. 2단 분할 레이아웃 (왼쪽: 추천글 / 오른쪽: 메뉴) */
+.split-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 40px; /* 사이 간격 */
+    margin: 60px 0;
+}
+.split-left { flex: 1.2; } /* 왼쪽을 좀 더 넓게 */
+.split-right { flex: 0.8; } /* 오른쪽 메뉴 영역 */
+
+/* 2. Today's Pick 카드 디자인 */
+.pick-card {
+    border: 1px solid #000;
+    padding: 10px;
+    background: #fff;
+    text-align: center;
+    transition: transform 0.3s;
+}
+.pick-card:hover { transform: translateY(-5px); box-shadow: 5px 5px 0px rgba(0,0,0,0.2); }
+.pick-title {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+/* 3. 오른쪽 세로 메뉴 (HOME, CANON...) */
+.vertical-nav {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    border-left: 1px solid #ddd; /* 왼쪽에 살짝 선 긋기 */
+    padding-left: 30px;
+}
+.vertical-nav li { margin-bottom: 15px; }
+.vertical-nav a {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase; /* 대문자로 변환 */
+    letter-spacing: 2px;
+    color: #888;
+}
+.vertical-nav a:hover { color: #780C1B; font-weight: bold; }
+.nav-icon { margin-right: 8px; font-size: 0.8em; } /* 아이콘 크기 */
+
+/* 4. 까만 푸터 */
+.footer-black {
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 100px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 0.9rem;
+}
+
+
