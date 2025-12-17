@@ -15,6 +15,29 @@ title: Search
 
 <ul id="search-results" style="list-style: none; padding: 0;">
     {% for post in site.posts %}
+    <ul id="search-results" style="list-style: none; padding: 0;">
+    {% for post in site.posts %}
+    
+    {% unless post.type == 'Secret' %}
+    
+    <li class="post-item search-item" data-title="{{ post.title }}" data-tags="{{ post.tags | join: ',' }}">
+        <div>
+            <span class="post-meta">
+                {{ post.category }} 
+                <span style="color: #999; font-size: 0.8em; margin-left: 5px;">
+                    {% for tag in post.tags %}#{{ tag }} {% endfor %}
+                </span>
+            </span>
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </div>
+        <span class="date">{{ post.date | date: "%Y.%m.%d" }}</span>
+    </li>
+    
+    {% endunless %}
+    
+    {% endfor %}
+</ul>
+
     <li class="post-item search-item" data-title="{{ post.title }}" data-tags="{{ post.tags | join: ',' }}">
         <div>
             <span class="post-meta">
