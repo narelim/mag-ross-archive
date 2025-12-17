@@ -4,7 +4,7 @@ title: Home
 ---
 
 <div class="hero">
-    <img src="{{ 'main_image.png' | relative_url }}" alt="Main Cover" style="border: 2px solid #000; padding: 5px;">
+    <img src="{{ 'main_image.jpeg' | relative_url }}" alt="Main Cover" style="border: 2px solid #000; padding: 5px;">
 </div>
 
 <div class="split-layout">
@@ -14,10 +14,11 @@ title: Home
             Today's Pick
         </h3>
         
-        {% assign pick = site.posts.first %} <a href="{{ pick.url | relative_url }}" style="text-decoration:none; color:inherit;">
+        <a id="daily-pick-link" href="#" style="text-decoration:none; color:inherit;">
             <div class="pick-card">
-                <img src="{{ 'image.png' | relative_url }}" style="width:100%; height:200px; object-fit:cover; filter:grayscale(100%);">
-                <span class="pick-title">{{ pick.title }}</span>
+                <img id="daily-pick-img" src="{{ 'main_image.jpeg' | relative_url }}" style="width:100%; height:200px; object-fit:cover; filter:grayscale(100%); transition:0.3s;">
+                
+                <span id="daily-pick-title" class="pick-title">Loading...</span>
             </div>
         </a>
     </div>
@@ -30,7 +31,7 @@ title: Home
             </li>
             <li>
                 <span class="nav-icon">†</span>
-                <a href="#">CANON (Original)</a>
+                <a href="{{ '/main-story/2025/12/17/original.html' | relative_url }}">CANON (Original)</a>
             </li>
             <li>
                 <span class="nav-icon">✦</span>
@@ -43,11 +44,48 @@ title: Home
 <div style="margin-top: 60px;">
     <h3 style="font-family:'Noto Sans KR'; font-size:1.5rem; text-align:left;">Recent Post</h3>
     <ul style="list-style:none; padding:0; border-top:1px solid #000;">
-        {% for post in site.posts offset:1 limit:5 %}
-        <li style="padding: 15px 0; border-bottom: 1px solid #ddd; display:flex; justify-content:space-between;">
-            <a href="{{ post.url | relative_url }}" style="font-size:1.1rem;">{{ post.title }}</a>
-            <span style="font-size:0.9rem; color:#999;">{{ post.date | date: "%m.%d" }}</span>
-        </li>
+        {% assign count = 0 %}
+        {% for post in site.posts %}
+            {% unless post.type == 'Secret' %} <li style="padding: 15px 0; border-bottom: 1px solid #ddd; display:flex; justify-content:space-between;">
+                    <a href="{{ post.url | relative_url }}" style="font-size:1.1rem;">{{ post.title }}</a>
+                    <span style="font-size:0.9rem; color:#999;">{{ post.date | date: "%m.%d" }}</span>
+                </li>
+                {% assign count = count | plus: 1 %}
+                {% if count == 5 %}{% break %}{% endif %} {% endunless %}
         {% endfor %}
     </ul>
 </div>
+
+<script>
+    // 1. 지킬이 가지고 있는 글 목록을 자바스크립트 변수로 가져옵니다.
+    const posts = [
+        {% for post in site.posts %}
+            {% unless post.type == 'Secret' %} // Secret 타입은 제외!
+            {
+                title: "{{ post.title }}",
+                url: "{{ post.url | relative_url }}",
+                // 글에 image 정보가 없으면 기본 이미지(main_image.jpeg)를 씁니다
+                image: "{{ post.image | default: 'main_image.jpeg' | relative_url }}" 
+            },
+            {% endunless %}
+        {% endfor %}
+    ];
+
+    // 2. 오늘 날짜를 숫자로 만듭니다 (예: 20251217)
+    const today = new Date();
+    const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+
+    // 3. 날짜 숫자를 이용해서 랜덤한 인덱스를 뽑습니다.
+    // (Math.random은 매번 바뀌지만, 이 방식은 날짜가 같으면 결과가 같습니다)
+    const randomIndex = seed % posts.length;
+    const todaysPick = posts[randomIndex];
+
+    // 4. 화면에 뿌려줍니다.
+    if (posts.length > 0) {
+        document.getElementById('daily-pick-title').innerText = todaysPick.title;
+        document.getElementById('daily-pick-link').href = todaysPick.url;
+        document.getElementById('daily-pick-img').src = todaysPick.image;
+    } else {
+        document.getElementById('daily-pick-title').innerText = "No Public Posts";
+    }
+</script>
