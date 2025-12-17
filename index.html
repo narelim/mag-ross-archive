@@ -57,30 +57,31 @@ title: Home
 </div>
 
 <script>
-    // 1. 지킬이 가지고 있는 글 목록을 자바스크립트 변수로 가져옵니다.
     const posts = [
         {% for post in site.posts %}
-            {% unless post.type == 'Secret' %} // Secret 타입은 제외!
+            {% unless post.type == 'Secret' %}
             {
                 title: "{{ post.title }}",
                 url: "{{ post.url | relative_url }}",
-                // 글에 image 정보가 없으면 기본 이미지(main_image.jpeg)를 씁니다
-                image: "{{ post.image | default: 'main_image.jpeg' | relative_url }}" 
+                
+                // ↓ 여기가 핵심! 이미지가 있으면 'assets/thumbnails/'를 앞에 자동으로 붙여줍니다.
+                // 이미지가 없으면 기본 대문 이미지(main_image.jpeg)를 씁니다.
+                {% if post.image %}
+                    image: "{{ post.image | prepend: '/assets/thumbnails/' | relative_url }}"
+                {% else %}
+                    image: "{{ 'main_image.jpeg' | relative_url }}"
+                {% endif %}
             },
             {% endunless %}
         {% endfor %}
     ];
 
-    // 2. 오늘 날짜를 숫자로 만듭니다 (예: 20251217)
+    // (아래는 기존과 똑같습니다)
     const today = new Date();
     const seed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
-
-    // 3. 날짜 숫자를 이용해서 랜덤한 인덱스를 뽑습니다.
-    // (Math.random은 매번 바뀌지만, 이 방식은 날짜가 같으면 결과가 같습니다)
     const randomIndex = seed % posts.length;
     const todaysPick = posts[randomIndex];
 
-    // 4. 화면에 뿌려줍니다.
     if (posts.length > 0) {
         document.getElementById('daily-pick-title').innerText = todaysPick.title;
         document.getElementById('daily-pick-link').href = todaysPick.url;
