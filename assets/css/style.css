@@ -1,11 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Serif+KR:wght@300;500;700&display=swap');
 
 :root {
-    --bg-color: #Fdfcfb;       /* 아주 연한 미색 (눈 편함) */
-    --text-color: #111111;     /* 리얼 블랙 */
-    --accent-color: #780C1B;   /* 딥 버건디 (강렬한 포인트) */
-    --sub-text: #555555;
+    /* 1. 배경: 완전 흰색보다는 아주 미세한 회색이 눈이 편하고 고급스러워요 */
+    --bg-color: #FAFAFA;       
+    
+    /* 2. 글자: 완전 검정(#000)보다 살짝 뺀 먹색이 세련됐습니다 */
+    --text-color: #121212;     
+    
+    /* 3. 포인트: 뱀파이어의 피 색깔 (이게 핵심!) */
+    --accent-color: #8D021F;   
+    
+    --sub-text: #666666;
 }
+
+/* 링크에 마우스 올리면 붉게 변함 */
+a { color: var(--text-color); text-decoration: none; transition: 0.3s; }
+a:hover { 
+    color: var(--accent-color); /* 여기서 붉은색이 짠! */
+    font-style: italic; /* 살짝 기울여서 우아하게 */
+}
+
+/* Today's Pick 박스 테두리도 마우스 올리면 붉게 */
+.pick-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+
+
 
 body {
     background-color: var(--bg-color);
