@@ -30,13 +30,22 @@ title: Home
 
     <ul style="list-style:none; padding:0;">
         {% for post in site.posts limit:5 %}
+            <ul style="list-style:none; padding:0;">
+        {% for post in site.posts limit:10 %}
+        {% unless post.type == 'Secret' %}
+        
         <li class="post-item">
             <div>
                 <span class="post-meta">{{ post.category }}</span>
-                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                <a href="{{ post.url }}">{{ post.title }}</a>
             </div>
             <span class="date">{{ post.date | date: "%Y.%m.%d" }}</span>
         </li>
+        
+        {% endunless %}
+        {% endfor %}
+    </ul>
+
         {% endfor %}
     </ul>
 </div>
