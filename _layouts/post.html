@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<article class="post">
+  <header style="margin-bottom: 40px; text-align: center;">
+    <span style="color: #780C1B; font-weight: bold; font-size: 0.9rem;">{{ page.category }}</span>
+    <h1 style="font-size: 2rem; margin: 10px 0;">{{ page.title }}</h1>
+    <p style="color: #888; font-family: 'Noto Serif KR', serif;">{{ page.date | date: "%Y.%m.%d" }}</p>
+    <hr style="width: 50px; border: 1px solid #ddd; margin: 30px auto;">
+  </header>
+
+  <div class="post-content" style="font-size: 1.05rem; line-height: 1.9;">
+    {{ content }}
+  </div>
+</article>
+
+<div style="margin-top: 80px; text-align: center;">
+    <a href="{{ '/' | relative_url }}" class="tag-btn">← Back to Archive</a>
+</div>
