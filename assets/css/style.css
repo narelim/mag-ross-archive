@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Noto+Serif+KR:wght@300;500;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Gruppo&display=swap');
+
+.gruppo-regular {
+  font-family: "Gruppo", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
 :root {
     /* 1. 배경: 완전 흰색보다는 아주 미세한 회색이 눈이 편하고 고급스러워요 */
     --bg-color: #FAFAFA;       
