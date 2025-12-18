@@ -343,4 +343,104 @@ header {
 }
 
 
+/* --- [NEW] 아카이브 레이아웃 (사이드바 + 메인) --- */
+.archive-container {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+    align-items: flex-start; /* 위쪽 라인 맞춤 */
+}
+
+/* 1. 왼쪽 사이드바 (검색 + 필터) */
+.sidebar {
+    width: 250px; /* 사이드바 너비 고정 */
+    flex-shrink: 0;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    min-height: 500px;
+}
+.sidebar-section { margin-bottom: 30px; }
+.sidebar-title {
+    font-family: 'Gruppo', sans-serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    display: block;
+    border-bottom: 2px solid #111;
+    padding-bottom: 5px;
+}
+.filter-link {
+    display: block;
+    padding: 8px 0;
+    color: #666;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.filter-link:hover, .filter-link.active {
+    color: #780C1B;
+    font-weight: bold;
+    padding-left: 5px; /* 살짝 오른쪽으로 이동 */
+}
+
+/* 2. 오른쪽 메인 콘텐츠 영역 */
+.archive-main { flex: 1; }
+
+/* 3. 상단 컨트롤 바 (선택된 태그 + 뷰 버튼) */
+.archive-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+.selected-tag {
+    background: #111;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+.view-options button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #ccc;
+    margin-left: 5px;
+}
+.view-options button.active { color: #111; } /* 선택된 아이콘 진하게 */
+
+/* 4. 리스트 vs 그리드 변신 마법 */
+/* (A) 리스트 뷰 (기본) */
+.post-list.view-list .post-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.post-list.view-list img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+/* (B) 그리드 뷰 (바둑판) */
+.post-list.view-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 반응형 바둑판 */
+    gap: 30px;
+}
+.post-list.view-grid .post-item {
+    display: block; /* 세로 배치 */
+    border-bottom: none;
+}
+.post-list.view-grid img {
+    width: 100%;
+    height: 200px; /* 이미지를 크게 */
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+
 
