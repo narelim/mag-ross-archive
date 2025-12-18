@@ -463,7 +463,7 @@ header {
 .post-list.view-list .post-item {
     display: flex;
     gap: 20px;
-    align-items: left;
+    align-items: center;
 }
 .post-list.view-list img {
     width: 120px;
