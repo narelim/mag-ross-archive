@@ -16,7 +16,6 @@ title: Archive
                 <input type="text" id="search-input" placeholder="Search..." 
                 style="width: 100%; box-sizing: border-box; padding: 10px 0; border: none; border-bottom: 2px solid #111; background: transparent; font-family: 'Noto Sans KR'; outline: none; border-radius: 0;">
             </div>
-
             <div class="sidebar-section">
                 <span class="sidebar-title">MENU</span>
                 <div class="filter-group">
@@ -30,7 +29,7 @@ title: Archive
         <div class="filter-panel">
             <div id="submenu-all" class="submenu-box" style="display: block;">
                 <h2 style="font-family:'Gruppo'; margin-top:0;">ALL ARCHIVES</h2>
-                <span class="submenu-desc">Explore the entire history of Maguire & Ross.</span>
+                <span class="submenu-desc" style="color:#666;">Explore the entire history of Maguire & Ross.</span>
             </div>
 
             <div id="submenu-category" class="submenu-box" style="display: none;">
@@ -68,7 +67,8 @@ title: Archive
                 </div>
             </div>
         </div>
-    </div> <div class="archive-bottom-section">
+    </div> 
+    <div class="archive-bottom-section">
         
         <div class="view-options-bar">
             <span id="current-status" style="color:#888; font-size:0.9rem;">Showing All</span>
@@ -82,7 +82,6 @@ title: Archive
             {% for post in site.posts %}
             {% assign p_type = post.type | downcase %}
             {% unless p_type == 'secret' %}
-            
             <li class="post-item search-item" 
                 data-title="{{ post.title }}" 
                 data-tags="{{ post.tags | join: ',' }}"
@@ -106,11 +105,11 @@ title: Archive
                     <a href="{{ post.url | relative_url }}" style="font-size: 1.2rem; font-weight: bold;">{{ post.title }}</a>
                 </div>
             </li>
-            
             {% endunless %}
             {% endfor %}
         </ul>
-    </div> </div>
+    </div> 
+    </div>
 
 
 <style>
