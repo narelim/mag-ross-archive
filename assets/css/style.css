@@ -464,5 +464,5 @@ header {
     margin-bottom: 15px;
 }
 
-
+main, .page-content, .archive-container { flex:1;}
 
