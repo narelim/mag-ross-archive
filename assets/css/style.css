@@ -208,6 +208,8 @@ body {
 
 main, .archive-container, .page-content {
     flex: 1;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* 폰트 & 타이포그래피 */
@@ -226,12 +228,16 @@ header {
 .container { max-width: 720px; margin: 0 auto; padding: 60px 20px; }
 
 /* 대문 이미지 */
-.hero { text-align: center; margin-bottom: 60px; }
+.hero { text-align: center; margin-bottom: 60px; margin-bottom: 60px; }
 .hero img {
     width: 100%;
     max-width: 100%;
     height: auto;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* 그림자 효과 */
+}
+.hero h1 {
+    font-family: 'Gruppo', sans-serif;
+    font-size: 2.5rem;
 }
 
 /* 버튼들 */
@@ -342,17 +348,21 @@ header {
 /* --- [NEW] 아카이브 레이아웃 (사이드바 + 메인) --- */
 .archive-container {
     display: flex;
-    gap: 40px;
+    gap: 60px;
     margin-top: 40px;
     align-items: flex-start; /* 위쪽 라인 맞춤 */
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
 }
 
 /* 1. 왼쪽 사이드바 (검색 + 필터) */
 .sidebar {
-    width: 250px; /* 사이드바 너비 고정 */
+    width: 220px; /* 사이드바 너비 고정 */
     flex-shrink: 0;
-    border-right: 1px solid #ddd;
-    padding-right: 20px;
+    /* border-right: 1px solid #ddd; */
+    /* padding-right: 20px; */
     min-height: 500px;
 }
 .sidebar-section { margin-bottom: 30px; }
