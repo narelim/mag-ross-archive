@@ -346,147 +346,52 @@ header {
 .vertical-nav a:hover { color: #780C1B; font-weight: bold; }
 .nav-icon { margin-right: 8px; font-size: 0.8em; } /* 아이콘 크기 */
 
+/* --- [NEW] 아카이브 2단 레이아웃 (위: 필터 / 아래: 리스트) --- */
 
-/* --- [NEW] 아카이브 레이아웃 (사이드바 + 메인) --- */
 .archive-container {
-    display: flex;
-    gap: 60px;
-    margin-top: 40px;
-    align-items: flex-start; /* 위쪽 라인 맞춤 */
     max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 40px auto;
     padding: 0 20px;
+    /* display: flex; <-- 이거 삭제! 이제 세로로 쌓을 거예요 */
 }
 
-/* 1. 왼쪽 사이드바 (검색 + 필터) */
+/* 1층: 컨트롤 타워 (사이드바 + 필터칩 영역) */
+.archive-top-section {
+    display: flex;
+    gap: 60px; /* 사이드바와 필터 사이 간격 */
+    margin-bottom: 60px; /* 1층과 2층 사이 간격 */
+    align-items: flex-start;
+}
+
+/* 왼쪽: 대분류 메뉴 (너비 고정) */
 .sidebar {
-    width: 220px; /* 사이드바 너비 고정 */
+    width: 220px;
     flex-shrink: 0;
-    /* border-right: 1px solid #ddd; */
-    /* padding-right: 20px; */
-    min-height: 500px;
 }
-.sidebar-section { margin-bottom: 30px; }
-.sidebar-title {
-    font-family: 'Gruppo', sans-serif;
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    display: block;
-    border-bottom: 2px solid #111;
-    padding-bottom: 5px;
-    letter-spacing: 2px;
-}
-.filter-link {
-    display: block;
-    padding: 8px 0;
-    color: #666;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.filter-link:hover, .filter-link.active {
-    color: #780C1B;
-    font-weight: bold;
-    padding-left: 5px; /* 살짝 오른쪽으로 이동 */
+/* 오른쪽: 소분류 칩들이 뜨는 공간 (남는 공간 다 차지) */
+.filter-panel {
+    flex: 1; 
+    min-height: 200px; /* 필터가 없어도 최소 높이 유지 (모양새 위해) */
+    /* border-left: 1px solid #ddd;  <-- 원하시면 중간 선 추가 가능 */
+    /* padding-left: 40px; */
 }
 
-/* 1. 검색창 디자인 (길이 딱 맞춤 + 폰트 적용) */
-#search-input {
-    width: 100%;             /* 부모 너비에 꽉 차게 */
-    box-sizing: border-box;  /* 테두리까지 포함해서 계산 (이게 핵심!) */
-    padding: 10px 0;         
-    border: none;            
-    border-bottom: 2px solid #111; 
-    background: transparent; 
-    
-    /* 입력할 때는 가독성 좋은 고딕체 */
-    font-family: 'Noto Sans KR', sans-serif; 
-    font-size: 1rem;
-    
-    outline: none;           
-    border-radius: 0;        
+/* 2층: 글 목록 (전체 너비 사용) */
+.archive-bottom-section {
+    width: 100%;
+    border-top: 1px solid #eee; /* 위쪽 구역과 구분선 */
+    padding-top: 40px;
 }
 
-/* 2. 사이드바 제목 (CATEGORY, TAGS) */
-.sidebar-title {
-    /* UNIVERSE 타이틀과 같은 폰트로 통일감 */
-    font-family: 'Gruppo', sans-serif; 
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    display: block;
-    border-bottom: 2px solid #111;
-    padding-bottom: 5px;
-    letter-spacing: 2px; /* 자간을 넓혀서 더 고급스럽게 */
-}
-
-
-/* 검색창 클릭했을 때 효과 */
-#search-input:focus {
-    border-bottom-color: #780C1B; /* 클릭하면 붉은색으로 변신 */
-}
-
-
-/* 2. 오른쪽 메인 콘텐츠 영역 */
-.archive-main { flex: 1; }
-
-/* 3. 상단 컨트롤 바 (선택된 태그 + 뷰 버튼) */
-.archive-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-}
-.selected-tag {
-    background: #111;
-    color: #fff;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    display: inline-block;
-}
-.view-options button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #ccc;
-    margin-left: 5px;
-}
-.view-options button.active { color: #111; } /* 선택된 아이콘 진하게 */
-
-/* 4. 리스트 vs 그리드 변신 마법 */
-/* (A) 리스트 뷰 (기본) */
-.post-list.view-list .post-item {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-}
-.post-list.view-list img {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-}
-
-/* (B) 그리드 뷰 (바둑판) */
+/* (그리드 뷰일 때 이미지를 더 시원하게) */
 .post-list.view-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* 반응형 바둑판 */
-    gap: 30px;
+    /* 화면 꽉 차게 4~5개씩 배치 */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    gap: 40px;
 }
-.post-list.view-grid .post-item {
-    display: block; /* 세로 배치 */
-    border-bottom: none;
-}
-.post-list.view-grid img {
-    width: 100%;
-    height: 200px; /* 이미지를 크게 */
-    object-fit: cover;
-    margin-bottom: 15px;
-}
+
+
 
 /* 4. 까만 푸터 */
 .footer-black {
