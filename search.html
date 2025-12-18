@@ -9,33 +9,32 @@ title: Archive
 
 <div class="archive-container">
     
-    <aside class="sidebar">
-        <div class="sidebar-section">
-            <input type="text" id="search-input" placeholder="Search..." 
-            style="width: 100%; box-sizing: border-box; padding: 10px 0; border: none; border-bottom: 2px solid #111; background: transparent; font-family: 'Noto Sans KR'; outline: none; border-radius: 0;">
-        </div>
-
-        <div class="sidebar-section">
-            <span class="sidebar-title">MENU</span>
-            <div class="filter-group">
-                <span class="filter-link active" onclick="switchMode('all', this)">ALL POSTS</span>
-                <span class="filter-link" onclick="switchMode('category', this)">BY CATEGORY</span>
-                <span class="filter-link" onclick="switchMode('tag', this)">BY TAGS</span>
-            </div>
-        </div>
-    </aside>
-
-
-    <main class="archive-main">
+    <div class="archive-top-section">
         
-        <div class="archive-header-area">
-            
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <input type="text" id="search-input" placeholder="Search..." 
+                style="width: 100%; box-sizing: border-box; padding: 10px 0; border: none; border-bottom: 2px solid #111; background: transparent; font-family: 'Noto Sans KR'; outline: none; border-radius: 0;">
+            </div>
+
+            <div class="sidebar-section">
+                <span class="sidebar-title">MENU</span>
+                <div class="filter-group">
+                    <span class="filter-link active" onclick="switchMode('all', this)">ALL POSTS</span>
+                    <span class="filter-link" onclick="switchMode('category', this)">BY CATEGORY</span>
+                    <span class="filter-link" onclick="switchMode('tag', this)">BY TAGS</span>
+                </div>
+            </div>
+        </aside>
+
+        <div class="filter-panel">
             <div id="submenu-all" class="submenu-box" style="display: block;">
-                <span class="submenu-desc">All posts are listed below.</span>
+                <h2 style="font-family:'Gruppo'; margin-top:0;">ALL ARCHIVES</h2>
+                <span class="submenu-desc">Explore the entire history of Maguire & Ross.</span>
             </div>
 
             <div id="submenu-category" class="submenu-box" style="display: none;">
-                <span class="submenu-title">Select Category:</span>
+                <h2 style="font-family:'Gruppo'; margin-top:0;">CATEGORY</h2>
                 <div class="chip-container">
                     <button class="filter-chip" onclick="filterList('all')">View All</button>
                     {% assign sorted_categories = site.categories | sort %}
@@ -45,7 +44,6 @@ title: Archive
                         {% for post in category[1] %}
                             {% unless post.type == 'Secret' %}{% assign show_cat = true %}{% endunless %}
                         {% endfor %}
-                        
                         {% if show_cat %}
                         <button class="filter-chip" onclick="filterList('{{ cat_name }}')">{{ cat_name }}</button>
                         {% endif %}
@@ -54,7 +52,7 @@ title: Archive
             </div>
 
             <div id="submenu-tag" class="submenu-box" style="display: none;">
-                <span class="submenu-title">Select Tag:</span>
+                <h2 style="font-family:'Gruppo'; margin-top:0;">TAGS</h2>
                 <div class="chip-container">
                     {% assign sorted_tags = site.tags | sort %}
                     {% for tag in sorted_tags %}
@@ -63,7 +61,6 @@ title: Archive
                         {% for post in tag[1] %}
                             {% unless post.type == 'Secret' %}{% assign show_tag = true %}{% endunless %}
                         {% endfor %}
-
                         {% if show_tag %}
                         <button class="filter-chip" onclick="filterSearch('{{ tag_name }}')">#{{ tag_name }}</button>
                         {% endif %}
@@ -71,7 +68,8 @@ title: Archive
                 </div>
             </div>
         </div>
-
+    </div> <div class="archive-bottom-section">
+        
         <div class="view-options-bar">
             <span id="current-status" style="color:#888; font-size:0.9rem;">Showing All</span>
             <div>
@@ -112,8 +110,8 @@ title: Archive
             {% endunless %}
             {% endfor %}
         </ul>
-    </main>
-</div>
+    </div> </div>
+
 
 <style>
     /* 상단 메뉴 박스 */
