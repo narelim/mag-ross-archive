@@ -4,78 +4,77 @@ title: Archive
 ---
 
 <div class="hero">
-    <h1 style="font-family: 'Gruppo', sans-serif;">UNIVERSE</h1>
+    <h1 style="font-family: 'Gruppo', sans-serif;">ARCHIVE</h1>
 </div>
 
 <div class="archive-container">
     
     <aside class="sidebar">
-    <div class="sidebar-section">
-        <input type="text" id="search-input" placeholder="Search..." 
-        style="width: 100%; padding: 10px; border: 1px solid #111; font-family: 'Noto Sans KR'; outline: none;">
-    </div>
-
-    <div class="sidebar-section">
-        <span class="sidebar-title">CATEGORY</span>
-        <div class="filter-group">
-            <span class="filter-link active" onclick="filterCategory('all', this)">ALL</span>
-            
-            {% assign sorted_categories = site.categories | sort %}
-            {% for category in sorted_categories %}
-                {% assign cat_name = category[0] %}
-                {% assign cat_posts = category[1] %}
-                
-                {% assign show_cat = false %}
-                {% for post in cat_posts %}
-                    {% assign p_type = post.type | downcase %}
-                    {% unless p_type == 'secret' %}
-                        {% assign show_cat = true %}
-                    {% endunless %}
-                {% endfor %}
-
-                {% if show_cat %}
-                <span class="filter-link" onclick="filterCategory('{{ cat_name }}', this)">{{ cat_name }}</span>
-                {% endif %}
-            {% endfor %}
+        <div class="sidebar-section">
+            <input type="text" id="search-input" placeholder="Search..." 
+            style="width: 100%; box-sizing: border-box; padding: 10px 0; border: none; border-bottom: 2px solid #111; background: transparent; font-family: 'Noto Sans KR'; outline: none; border-radius: 0;">
         </div>
-    </div>
 
-    <div class="sidebar-section">
-        <span class="sidebar-title">TAGS</span>
-        <div class="filter-group">
-            
-            {% assign sorted_tags = site.tags | sort %}
-            {% for tag in sorted_tags %}
-                {% assign tag_name = tag[0] %}
-                {% assign tag_posts = tag[1] %}
-                
-                {% assign show_tag = false %}
-                {% for post in tag_posts %}
-                    {% assign p_type = post.type | downcase %}
-                    {% unless p_type == 'secret' %}
-                        {% assign show_tag = true %}
-                    {% endunless %}
-                {% endfor %}
-
-                {% if show_tag %}
-                <span class="filter-link" onclick="filterSearch('{{ tag_name }}', this)"># {{ tag_name }}</span>
-                {% endif %}
-            {% endfor %}
+        <div class="sidebar-section">
+            <span class="sidebar-title">MENU</span>
+            <div class="filter-group">
+                <span class="filter-link active" onclick="switchMode('all', this)">ALL POSTS</span>
+                <span class="filter-link" onclick="switchMode('category', this)">BY CATEGORY</span>
+                <span class="filter-link" onclick="switchMode('tag', this)">BY TAGS</span>
+            </div>
         </div>
-    </div>
-</aside>
-
+    </aside>
 
 
     <main class="archive-main">
         
-        <div class="archive-header">
-            <div>
-                <span style="color:#999; margin-right:10px;">Filter:</span>
-                <span id="current-filter" class="selected-tag">ALL</span>
-            </div>
+        <div class="archive-header-area">
             
-            <div class="view-options">
+            <div id="submenu-all" class="submenu-box" style="display: block;">
+                <span class="submenu-desc">All posts are listed below.</span>
+            </div>
+
+            <div id="submenu-category" class="submenu-box" style="display: none;">
+                <span class="submenu-title">Select Category:</span>
+                <div class="chip-container">
+                    <button class="filter-chip" onclick="filterList('all')">View All</button>
+                    {% assign sorted_categories = site.categories | sort %}
+                    {% for category in sorted_categories %}
+                        {% assign cat_name = category[0] %}
+                        {% assign show_cat = false %}
+                        {% for post in category[1] %}
+                            {% unless post.type == 'Secret' %}{% assign show_cat = true %}{% endunless %}
+                        {% endfor %}
+                        
+                        {% if show_cat %}
+                        <button class="filter-chip" onclick="filterList('{{ cat_name }}')">{{ cat_name }}</button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="submenu-tag" class="submenu-box" style="display: none;">
+                <span class="submenu-title">Select Tag:</span>
+                <div class="chip-container">
+                    {% assign sorted_tags = site.tags | sort %}
+                    {% for tag in sorted_tags %}
+                        {% assign tag_name = tag[0] %}
+                        {% assign show_tag = false %}
+                        {% for post in tag[1] %}
+                            {% unless post.type == 'Secret' %}{% assign show_tag = true %}{% endunless %}
+                        {% endfor %}
+
+                        {% if show_tag %}
+                        <button class="filter-chip" onclick="filterSearch('{{ tag_name }}')">#{{ tag_name }}</button>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="view-options-bar">
+            <span id="current-status" style="color:#888; font-size:0.9rem;">Showing All</span>
+            <div>
                 <button onclick="changeView('grid')" id="btn-grid">▦</button>
                 <button onclick="changeView('list')" id="btn-list" class="active">≡</button>
             </div>
@@ -116,46 +115,88 @@ title: Archive
     </main>
 </div>
 
-<script>
-    // 1. 보기 방식 변경 (그리드 <-> 리스트)
-    function changeView(type) {
-        const list = document.getElementById('post-list');
-        const btnGrid = document.getElementById('btn-grid');
-        const btnList = document.getElementById('btn-list');
+<style>
+    /* 상단 메뉴 박스 */
+    .archive-header-area {
+        min-height: 60px; /* 높이 확보 */
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+    .submenu-title { font-family: 'Gruppo'; font-weight: bold; margin-right: 10px; }
+    .submenu-desc { color: #888; font-style: italic; }
+    
+    /* 둥근 버튼 (Chip) 스타일 */
+    .chip-container { display: inline-flex; flex-wrap: wrap; gap: 8px; vertical-align: middle; }
+    .filter-chip {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        padding: 5px 15px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: 0.2s;
+        font-family: 'Noto Sans KR';
+        color: #666;
+    }
+    .filter-chip:hover, .filter-chip.active {
+        background: #111;
+        color: #fff;
+        border-color: #111;
+    }
 
-        if (type === 'grid') {
-            list.classList.remove('view-list');
-            list.classList.add('view-grid');
-            btnGrid.classList.add('active');
-            btnList.classList.remove('active');
-        } else {
-            list.classList.remove('view-grid');
-            list.classList.add('view-list');
-            btnList.classList.add('active');
-            btnGrid.classList.remove('active');
+    /* 뷰 옵션 바 */
+    .view-options-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .view-options-bar button { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #ccc; }
+    .view-options-bar button.active { color: #111; }
+</style>
+
+<script>
+    // 1. 왼쪽 대분류 전환 (Mode Switch)
+    function switchMode(mode, btn) {
+        // 왼쪽 버튼 스타일 업데이트
+        document.querySelectorAll('.filter-link').forEach(el => el.classList.remove('active'));
+        btn.classList.add('active');
+
+        // 오른쪽 상단 메뉴 박스 교체
+        document.getElementById('submenu-all').style.display = 'none';
+        document.getElementById('submenu-category').style.display = 'none';
+        document.getElementById('submenu-tag').style.display = 'none';
+
+        document.getElementById('submenu-' + mode).style.display = 'block';
+
+        // ALL을 누르면 목록도 초기화
+        if(mode === 'all') {
+            filterList('all');
+            document.getElementById('current-status').innerText = "Showing All Posts";
         }
     }
 
-    // 2. 카테고리 필터링
-    function filterCategory(category, element) {
-        updateActiveLink(element); // 클릭한 글자 붉게 만들기
-        document.getElementById('current-filter').innerText = category.toUpperCase();
+    // 2. 카테고리/태그 필터링 (기존 기능 + 버튼 활성화)
+    function filterList(category) {
+        // 버튼 색깔 켜기
+        document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+        event.target.classList.add('active'); // 클릭한 놈만 켜짐
+
+        document.getElementById('current-status').innerText = "Filter: " + category;
         
         const items = document.getElementsByClassName('search-item');
         for (let item of items) {
             let itemCat = item.getAttribute('data-category');
             if (category === 'all' || itemCat === category) {
-                item.style.display = 'flex'; // 혹은 block (뷰 모드에 따라 CSS가 알아서 처리함)
+                item.style.display = 'flex';
             } else {
                 item.style.display = 'none';
             }
         }
     }
 
-    // 3. 태그 검색 필터링 (왼쪽 태그 클릭 시)
-    function filterSearch(keyword, element) {
-        updateActiveLink(element);
-        document.getElementById('current-filter').innerText = "# " + keyword;
+    function filterSearch(keyword) {
+        // 버튼 색깔 켜기
+        document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+        event.target.classList.add('active');
+
+        document.getElementById('current-status').innerText = "Tag: #" + keyword;
         
         const items = document.getElementsByClassName('search-item');
         for (let item of items) {
@@ -168,11 +209,25 @@ title: Archive
         }
     }
 
-    // 4. 검색창 입력
+    // 3. 뷰 모드 (그리드/리스트)
+    function changeView(type) {
+        const list = document.getElementById('post-list');
+        document.getElementById('btn-grid').classList.toggle('active', type === 'grid');
+        document.getElementById('btn-list').classList.toggle('active', type === 'list');
+
+        if (type === 'grid') {
+            list.classList.remove('view-list');
+            list.classList.add('view-grid');
+        } else {
+            list.classList.remove('view-grid');
+            list.classList.add('view-list');
+        }
+    }
+    
+    // 4. 검색창 기능 (유지)
     document.getElementById('search-input').addEventListener('keyup', function() {
         let val = this.value.toLowerCase();
-        document.getElementById('current-filter').innerText = "SEARCH: " + val;
-        
+        document.getElementById('current-status').innerText = "Searching: " + val;
         const items = document.getElementsByClassName('search-item');
         for (let item of items) {
             let title = item.getAttribute('data-title').toLowerCase();
@@ -184,11 +239,4 @@ title: Archive
             }
         }
     });
-
-    // (보조) 클릭한 메뉴만 붉게 표시하는 함수
-    function updateActiveLink(target) {
-        const links = document.querySelectorAll('.filter-link');
-        links.forEach(link => link.classList.remove('active'));
-        target.classList.add('active');
-    }
 </script>
