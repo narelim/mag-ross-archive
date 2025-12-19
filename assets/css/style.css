@@ -380,7 +380,7 @@ header {
     flex-direction: column; /* 무조건 세로로 쌓여라! */
     gap: 10px;              /* 메뉴 사이 간격 */
     margin-top: 20px;
-    font-family: 'playfair-display-sc-regular';
+    font-family: "Playfair Display SC", serif;
 }
 .filter-link {
     display: block;         /* 한 줄을 혼자 다 차지 */
@@ -420,7 +420,7 @@ header {
     border-radius: 50px;           /* 완전 둥근 캡슐 모양 */
     padding: 6px 18px;             /* 내용물 숨쉬기 편하게 여백 */
     font-size: 0.7rem;             /* 글자 크기 적당히 */
-    font-family: 'Pretendard-Light';
+    font-family: 'Pretendard';
     letter-spacing: 0.5px;         /* 자간 살짝 넓혀서 고급스럽게 */
     
     cursor: pointer;
@@ -444,6 +444,7 @@ header {
     margin-top: 10px;
     color: #666;
     font-style: italic;
+    font-family: "Dancing Script", cursive;
 }
 
 
