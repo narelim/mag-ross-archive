@@ -346,6 +346,8 @@ header {
 .vertical-nav a:hover { color: #780C1B; font-weight: bold; }
 .nav-icon { margin-right: 8px; font-size: 0.8em; } /* 아이콘 크기 */
 
+
+
 /* --- [FINAL CORRECTED] 아카이브 레이아웃 --- */
 
 /* 전체 컨테이너: 위(1층) -> 아래(2층)로 흐르는 구조 */
@@ -360,7 +362,7 @@ header {
 .archive-top-section {
     display: flex;       /* 좌우 배치 시작 */
     align-items: flex-start;
-    gap: 80px;           /* 사이드바와 오른쪽 내용 사이 간격 */
+    gap: 50px;           /* 사이드바와 오른쪽 내용 사이 간격 */
     margin-bottom: 50px; /* 2층과의 거리 */
 }
 
