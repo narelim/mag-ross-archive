@@ -116,46 +116,62 @@ title: Archive
 <script>
     // 1. 왼쪽 대분류 전환 (Mode Switch)
     function switchMode(mode, btn) {
-        // 왼쪽 메뉴 버튼 활성화
-        document.querySelectorAll('.filter-link').forEach(el => el.classList.remove('active'));
+        // 왼쪽 메뉴 스타일 변경
+        var links = document.querySelectorAll('.filter-link');
+        for (var i = 0; i < links.length; i++) {
+            links[i].classList.remove('active');
+        }
         btn.classList.add('active');
 
         // 오른쪽 패널 교체
         document.getElementById('submenu-all').style.display = 'none';
         document.getElementById('submenu-category').style.display = 'none';
         document.getElementById('submenu-tag').style.display = 'none';
+        
         document.getElementById('submenu-' + mode).style.display = 'block';
 
-        // ALL 메뉴 누르면 초기화
+        // ALL 모드면 전체 보이기
         if(mode === 'all') {
-            document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+            resetAllChips();
             filterItems('all', 'category'); 
             document.getElementById('current-status').innerText = "Showing All Posts";
         }
     }
 
-    // 2. 카테고리 필터 (토글 기능 완벽 수정)
+    // [보조 함수] 모든 칩의 불 끄기 (빨간색 제거)
+    function resetAllChips() {
+        var chips = document.querySelectorAll('.filter-chip');
+        for (var i = 0; i < chips.length; i++) {
+            chips[i].classList.remove('active');
+        }
+    }
+
+    // 2. 카테고리 필터 (토글 기능)
     function filterList(category, btn) {
-        // 1) 지금 누른 버튼이 이미 켜져있는지 확인 (빨간색인지?)
-        const wasActive = btn.classList.contains('active');
+        // 버튼을 자동으로 찾습니다 (HTML에 this가 없어도 작동)
+        var targetBtn = btn || event.target; 
+        
+        // 방금 누른 게 이미 켜져 있었는지 확인
+        var wasActive = targetBtn.classList.contains('active');
 
-        // 2) 일단 모든 버튼의 불을 끕니다 (하얗게 초기화)
-        document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+        // 일단 다 끕니다
+        resetAllChips();
 
-        // 3) 토글 로직
         if (category !== 'all' && wasActive) {
-            // 💡 "켜져 있는 걸 또 눌렀다" -> 꺼진 상태 유지 (취소)
-            // 전체 리스트 보여주기
-            category = 'all'; 
+            // 💡 "켜진 걸 또 눌렀다" -> 취소! (전체 보기)
+            category = 'all';
             document.getElementById('current-status').innerText = "Showing All Posts";
             
-            // (선택사항) 'View All' 버튼이 있다면 다시 켜주기
-            const viewAll = document.querySelector('#submenu-category button'); 
-            if(viewAll && viewAll.innerText === 'View All') viewAll.classList.add('active');
-
+            // (선택사항) 'View All' 버튼이 있으면 켜주기
+            var viewAllBtns = document.querySelectorAll('button');
+            for(var i=0; i<viewAllBtns.length; i++){
+                if(viewAllBtns[i].innerText === 'View All' && viewAllBtns[i].offsetParent !== null) {
+                    viewAllBtns[i].classList.add('active');
+                }
+            }
         } else {
-            // "꺼져 있는 걸 눌렀다" -> 불 켜기 (빨간색)
-            btn.classList.add('active');
+            // "꺼진 걸 눌렀다" -> 선택!
+            targetBtn.classList.add('active');
             
             if (category === 'all') {
                 document.getElementById('current-status').innerText = "Showing All Posts";
@@ -164,95 +180,96 @@ title: Archive
             }
         }
 
-        // 4) 실제 목록 필터링 실행
+        // 실제 필터링 적용
         filterItems(category, 'category');
     }
 
-    // 3. 태그 검색 (토글 기능 완벽 수정)
+    // 3. 태그 검색 (토글 기능)
     function filterSearch(keyword, btn) {
-        // 1) 상태 확인
-        const wasActive = btn.classList.contains('active');
+        var targetBtn = btn || event.target; 
+        var wasActive = targetBtn.classList.contains('active');
 
-        // 2) 전체 초기화
-        document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
+        resetAllChips();
 
-        // 3) 토글 로직
         if (wasActive) {
             // 💡 취소 -> 전체 목록
             keyword = ''; 
             document.getElementById('current-status').innerText = "Showing All Posts";
         } else {
             // 선택 -> 불 켜기
-            btn.classList.add('active');
+            targetBtn.classList.add('active');
             document.getElementById('current-status').innerText = "Tag: #" + keyword;
         }
 
-        // 4) 필터링 실행
         filterItems(keyword, 'tag');
     }
 
-    // [공통 함수] 실제 화면에 글을 보여주고 숨기는 로직
+    // [핵심] 실제 화면에 글을 보여주고 숨기는 로직
     function filterItems(filterValue, type) {
-        const items = document.getElementsByClassName('search-item');
-        
-        for (let item of items) {
-            let isMatch = false;
+        var items = document.getElementsByClassName('search-item');
+        var viewMode = document.getElementById('post-list').classList.contains('view-grid') ? 'block' : 'flex';
+
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            var isMatch = false;
 
             if (filterValue === 'all' || filterValue === '') {
                 isMatch = true;
             } else if (type === 'category') {
                 if (item.getAttribute('data-category') === filterValue) isMatch = true;
             } else if (type === 'tag') {
-                let tags = item.getAttribute('data-tags').toLowerCase();
+                var tags = item.getAttribute('data-tags').toLowerCase();
                 if (tags.includes(filterValue.toLowerCase())) isMatch = true;
             }
 
-            if (isMatch) item.style.display = 'flex'; // 혹은 block (뷰 모드에 따라 다름)
+            if (isMatch) item.style.display = viewMode;
             else item.style.display = 'none';
-        }
-        
-        // (그리드/리스트 뷰 깨짐 방지용 리셋)
-        const list = document.getElementById('post-list');
-        if(list.classList.contains('view-list')) {
-             for(let item of items) { if(item.style.display !== 'none') item.style.display = 'flex'; }
-        } else {
-             for(let item of items) { if(item.style.display !== 'none') item.style.display = 'block'; }
         }
     }
 
-    // 4. 뷰 모드 변경 (기존 유지)
+    // 4. 뷰 모드 변경
     function changeView(type) {
-        const list = document.getElementById('post-list');
-        document.getElementById('btn-grid').classList.toggle('active', type === 'grid');
-        document.getElementById('btn-list').classList.toggle('active', type === 'list');
-        
-        const items = document.getElementsByClassName('search-item');
-        
+        var list = document.getElementById('post-list');
+        var btnGrid = document.getElementById('btn-grid');
+        var btnList = document.getElementById('btn-list');
+
         if (type === 'grid') {
+            btnGrid.classList.add('active');
+            btnList.classList.remove('active');
             list.classList.remove('view-list');
             list.classList.add('view-grid');
-            // 그리드일 땐 display: block
-            for(let item of items) { if(item.style.display !== 'none') item.style.display = 'block'; }
         } else {
+            btnList.classList.add('active');
+            btnGrid.classList.remove('active');
             list.classList.remove('view-grid');
             list.classList.add('view-list');
-            // 리스트일 땐 display: flex
-            for(let item of items) { if(item.style.display !== 'none') item.style.display = 'flex'; }
+        }
+        
+        // 뷰 모드 바꿀 때 display 속성 재정렬 (깨짐 방지)
+        var items = document.getElementsByClassName('search-item');
+        var displayStyle = type === 'grid' ? 'block' : 'flex';
+        for(var i=0; i<items.length; i++) {
+            if(items[i].style.display !== 'none') {
+                items[i].style.display = displayStyle;
+            }
         }
     }
     
-    // 5. 검색창 기능 (기존 유지)
+    // 5. 검색창 기능
     document.getElementById('search-input').addEventListener('keyup', function() {
-        let val = this.value.toLowerCase();
+        var val = this.value.toLowerCase();
         document.getElementById('current-status').innerText = "Searching: " + val;
-        const items = document.getElementsByClassName('search-item');
-        for (let item of items) {
-            let title = item.getAttribute('data-title').toLowerCase();
-            let tags = item.getAttribute('data-tags').toLowerCase();
+        
+        var items = document.getElementsByClassName('search-item');
+        var viewMode = document.getElementById('post-list').classList.contains('view-grid') ? 'block' : 'flex';
+
+        for (var i = 0; i < items.length; i++) {
+            var title = items[i].getAttribute('data-title').toLowerCase();
+            var tags = items[i].getAttribute('data-tags').toLowerCase();
             if (title.includes(val) || tags.includes(val)) {
-                item.style.display = document.getElementById('post-list').classList.contains('view-list') ? 'flex' : 'block';
+                items[i].style.display = viewMode;
             } else {
-                item.style.display = 'none';
+                items[i].style.display = 'none';
             }
         }
     });
