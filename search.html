@@ -4,7 +4,7 @@ title: Archive
 ---
 
 <div class="hero">
-    <h1 style="font-family: 'Gruppo', sans-serif;">ARCHIVE</h1>
+    <h1 style="font-family: 'Gruppo', sans-serif;">UNIVERSE</h1>
 </div>
 
 <div class="archive-container">
@@ -14,7 +14,7 @@ title: Archive
         <aside class="sidebar">
             <div class="sidebar-section">
                 <input type="text" id="search-input" placeholder="Search..." 
-                style="width: 100%; box-sizing: border-box; padding: 10px 0; border: none; border-bottom: 2px solid #111; background: transparent; font-family: 'Noto Sans KR'; outline: none; border-radius: 0; font-size: 1rem;">
+                style="width: 100%; box-sizing: border-box; padding: 10px 0; border: none; border-bottom: 2px solid #111; background: transparent; font-family: 'Pretendard-Light'; outline: none; border-radius: 0; font-size: 1rem;">
             </div>
 
             <div class="sidebar-section">
@@ -28,13 +28,13 @@ title: Archive
 
         <div class="filter-panel">
             <div id="submenu-all" class="submenu-box" style="display: block;">
-                <h2 style="font-family:'Gruppo'; margin-top:0; font-size:2rem;">ALL ARCHIVES</h2>
+                <h2 style="font-family: 'playfair-display-sc-regular'; margin-top:0; font-size:1rem;">ALL ARCHIVES</h2>
                 <span class="submenu-desc">Explore the entire history of Maguire & Ross.</span>
             </div>
 
             <div id="submenu-category" class="submenu-box" style="display: none;">
-                <h2 style="font-family:'Gruppo'; margin-top:0; font-size:2rem;">CATEGORY</h2>
-                <div class="chip-container" style="margin-top:20px;">
+                <h2 style="font-family: 'playfair-display-sc-regular'; margin-top:0; font-size:1rem;">CATEGORY</h2>
+                <div class="chip-container" style="margin-top:10px;">
                     <button class="filter-chip" onclick="filterList('all')">View All</button>
                     {% assign sorted_categories = site.categories | sort %}
                     {% for category in sorted_categories %}
@@ -51,8 +51,8 @@ title: Archive
             </div>
 
             <div id="submenu-tag" class="submenu-box" style="display: none;">
-                <h2 style="font-family:'Gruppo'; margin-top:0; font-size:2rem;">TAGS</h2>
-                <div class="chip-container" style="margin-top:20px;">
+                <h2 style="font-family: 'playfair-display-sc-regular'; margin-top:0; font-size:1rem;">TAGS</h2>
+                <div class="chip-container" style="margin-top:10px;">
                     {% assign sorted_tags = site.tags | sort %}
                     {% for tag in sorted_tags %}
                         {% assign tag_name = tag[0] %}
