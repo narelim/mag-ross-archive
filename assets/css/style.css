@@ -378,8 +378,9 @@ header {
 .filter-group {
     display: flex;
     flex-direction: column; /* 무조건 세로로 쌓여라! */
-    gap: 15px;              /* 메뉴 사이 간격 */
+    gap: 10px;              /* 메뉴 사이 간격 */
     margin-top: 20px;
+    font-family: 'playfair-display-sc-regular';
 }
 .filter-link {
     display: block;         /* 한 줄을 혼자 다 차지 */
@@ -417,9 +418,9 @@ header {
     
     /* 2. 모양 만들기 */
     border-radius: 50px;           /* 완전 둥근 캡슐 모양 */
-    padding: 8px 20px;             /* 내용물 숨쉬기 편하게 여백 */
-    font-size: 0.9rem;             /* 글자 크기 적당히 */
-    font-family: 'Noto Sans KR', sans-serif;
+    padding: 6px 18px;             /* 내용물 숨쉬기 편하게 여백 */
+    font-size: 0.7rem;             /* 글자 크기 적당히 */
+    font-family: 'Pretendard-Light';
     letter-spacing: 0.5px;         /* 자간 살짝 넓혀서 고급스럽게 */
     
     cursor: pointer;
@@ -434,8 +435,6 @@ header {
     border-color: #780C1B;         /* 테두리도 같은 색으로 */
     
     font-weight: 500;              /* 글자 살짝 두껍게 */
-    transform: translateY(-2px);   /* 살짝 떠오르는 느낌 (선택사항) */
-    box-shadow: 0 4px 10px rgba(120, 12, 27, 0.2); /* 붉은색 그림자 */
 }
 
 
@@ -452,7 +451,7 @@ header {
 .archive-bottom-section {
     width: 100%;
     border-top: 2px solid #111; /* 1층과 구분되는 굵은 선 (스케치 반영) */
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 /* 뷰 옵션 바 */
