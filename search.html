@@ -35,7 +35,7 @@ title: Archive
             <div id="submenu-category" class="submenu-box" style="display: none;">
                 <h2 style="font-family: 'playfair-display-sc-regular'; margin-top:0; font-size:1rem;">CATEGORY</h2>
                 <div class="chip-container" style="margin-top:10px;">
-                    <button class="filter-chip" onclick="filterList('all')">View All</button>
+                    <button class="filter-chip" onclick="filterList('all',this)">View All</button>
                     {% assign sorted_categories = site.categories | sort %}
                     {% for category in sorted_categories %}
                         {% assign cat_name = category[0] %}
@@ -44,7 +44,7 @@ title: Archive
                             {% unless post.type == 'Secret' %}{% assign show_cat = true %}{% endunless %}
                         {% endfor %}
                         {% if show_cat %}
-                        <button class="filter-chip" onclick="filterList('{{ cat_name }}')">{{ cat_name }}</button>
+                        <button class="filter-chip" onclick="filterList('{{ cat_name }}',this)">{{ cat_name }}</button>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -61,7 +61,7 @@ title: Archive
                             {% unless post.type == 'Secret' %}{% assign show_tag = true %}{% endunless %}
                         {% endfor %}
                         {% if show_tag %}
-                        <button class="filter-chip" onclick="filterSearch('{{ tag_name }}')">#{{ tag_name }}</button>
+                        <button class="filter-chip" onclick="filterSearch('{{ tag_name }}',this)">#{{ tag_name }}</button>
                         {% endif %}
                     {% endfor %}
                 </div>
@@ -126,40 +126,36 @@ title: Archive
         document.getElementById('submenu-tag').style.display = 'none';
         document.getElementById('submenu-' + mode).style.display = 'block';
 
-        // ALL 메뉴를 누르면 무조건 전체 목록 보여주기
+        // ALL 메뉴 누르면 초기화
         if(mode === 'all') {
-            // 강제로 'all' 필터 적용
-            resetFilters();
+            document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
             filterItems('all', 'category'); 
             document.getElementById('current-status').innerText = "Showing All Posts";
         }
     }
 
-    // [공통 함수] 필터 초기화 (모든 칩 끄기)
-    function resetFilters() {
+    // 2. 카테고리 필터 (토글 기능 완벽 수정)
+    function filterList(category, btn) {
+        // 1) 지금 누른 버튼이 이미 켜져있는지 확인 (빨간색인지?)
+        const wasActive = btn.classList.contains('active');
+
+        // 2) 일단 모든 버튼의 불을 끕니다 (하얗게 초기화)
         document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
-    }
 
-    // [핵심] 2. 카테고리 필터 (토글 기능 추가!)
-    function filterList(category) {
-        const clickedBtn = event.target; // 방금 누른 버튼
-        const wasActive = clickedBtn.classList.contains('active'); // 켜져 있었는지 확인
-
-        // 일단 모든 버튼 끄기
-        resetFilters();
-
+        // 3) 토글 로직
         if (category !== 'all' && wasActive) {
-            // 💡 "켜져 있는 걸 또 눌렀다" -> 취소! (전체 보기로)
+            // 💡 "켜져 있는 걸 또 눌렀다" -> 꺼진 상태 유지 (취소)
+            // 전체 리스트 보여주기
             category = 'all'; 
-            
-            // (선택사항) 'View All' 버튼이 있다면 켜주기
-            const viewAllBtn = document.querySelector('button[onclick="filterList(\'all\')"]');
-            if(viewAllBtn) viewAllBtn.classList.add('active');
-            
             document.getElementById('current-status').innerText = "Showing All Posts";
+            
+            // (선택사항) 'View All' 버튼이 있다면 다시 켜주기
+            const viewAll = document.querySelector('#submenu-category button'); 
+            if(viewAll && viewAll.innerText === 'View All') viewAll.classList.add('active');
+
         } else {
-            // "꺼져 있는 걸 눌렀다" -> 선택!
-            clickedBtn.classList.add('active');
+            // "꺼져 있는 걸 눌렀다" -> 불 켜기 (빨간색)
+            btn.classList.add('active');
             
             if (category === 'all') {
                 document.getElementById('current-status').innerText = "Showing All Posts";
@@ -168,27 +164,30 @@ title: Archive
             }
         }
 
-        // 실제 목록 보여주기/숨기기
+        // 4) 실제 목록 필터링 실행
         filterItems(category, 'category');
     }
 
-    // [핵심] 3. 태그 검색 (토글 기능 추가!)
-    function filterSearch(keyword) {
-        const clickedBtn = event.target;
-        const wasActive = clickedBtn.classList.contains('active');
+    // 3. 태그 검색 (토글 기능 완벽 수정)
+    function filterSearch(keyword, btn) {
+        // 1) 상태 확인
+        const wasActive = btn.classList.contains('active');
 
-        resetFilters();
+        // 2) 전체 초기화
+        document.querySelectorAll('.filter-chip').forEach(el => el.classList.remove('active'));
 
+        // 3) 토글 로직
         if (wasActive) {
-            // 💡 "켜져 있는 태그를 또 눌렀다" -> 취소! (전체 보기로)
-            keyword = ''; // 검색어 삭제
+            // 💡 취소 -> 전체 목록
+            keyword = ''; 
             document.getElementById('current-status').innerText = "Showing All Posts";
         } else {
-            // "꺼져 있는 걸 눌렀다" -> 선택!
-            clickedBtn.classList.add('active');
+            // 선택 -> 불 켜기
+            btn.classList.add('active');
             document.getElementById('current-status').innerText = "Tag: #" + keyword;
         }
 
+        // 4) 필터링 실행
         filterItems(keyword, 'tag');
     }
 
@@ -200,52 +199,61 @@ title: Archive
             let isMatch = false;
 
             if (filterValue === 'all' || filterValue === '') {
-                isMatch = true; // 필터가 없으면 다 보여줌
+                isMatch = true;
             } else if (type === 'category') {
-                // 카테고리 일치 확인
                 if (item.getAttribute('data-category') === filterValue) isMatch = true;
             } else if (type === 'tag') {
-                // 태그 포함 확인
                 let tags = item.getAttribute('data-tags').toLowerCase();
                 if (tags.includes(filterValue.toLowerCase())) isMatch = true;
             }
 
-            // 결과 반영
-            if (isMatch) item.style.display = 'flex';
+            if (isMatch) item.style.display = 'flex'; // 혹은 block (뷰 모드에 따라 다름)
             else item.style.display = 'none';
+        }
+        
+        // (그리드/리스트 뷰 깨짐 방지용 리셋)
+        const list = document.getElementById('post-list');
+        if(list.classList.contains('view-list')) {
+             for(let item of items) { if(item.style.display !== 'none') item.style.display = 'flex'; }
+        } else {
+             for(let item of items) { if(item.style.display !== 'none') item.style.display = 'block'; }
         }
     }
 
-    // 4. 뷰 모드 변경 (그리드/리스트) - 기존과 동일
+    // 4. 뷰 모드 변경 (기존 유지)
     function changeView(type) {
         const list = document.getElementById('post-list');
         document.getElementById('btn-grid').classList.toggle('active', type === 'grid');
         document.getElementById('btn-list').classList.toggle('active', type === 'list');
+        
+        const items = document.getElementsByClassName('search-item');
+        
         if (type === 'grid') {
             list.classList.remove('view-list');
             list.classList.add('view-grid');
+            // 그리드일 땐 display: block
+            for(let item of items) { if(item.style.display !== 'none') item.style.display = 'block'; }
         } else {
             list.classList.remove('view-grid');
             list.classList.add('view-list');
-            // 리스트 뷰 복구 시 display 속성 재확인 (Flex 깨짐 방지)
-            const items = document.getElementsByClassName('search-item');
-            for(let item of items) {
-                if(item.style.display !== 'none') item.style.display = 'flex';
-            }
+            // 리스트일 땐 display: flex
+            for(let item of items) { if(item.style.display !== 'none') item.style.display = 'flex'; }
         }
     }
-
-    // 5. 검색창 입력 - 기존과 동일
+    
+    // 5. 검색창 기능 (기존 유지)
     document.getElementById('search-input').addEventListener('keyup', function() {
         let val = this.value.toLowerCase();
         document.getElementById('current-status').innerText = "Searching: " + val;
-        
         const items = document.getElementsByClassName('search-item');
         for (let item of items) {
             let title = item.getAttribute('data-title').toLowerCase();
             let tags = item.getAttribute('data-tags').toLowerCase();
-            if (title.includes(val) || tags.includes(val)) item.style.display = 'flex';
-            else item.style.display = 'none';
+            if (title.includes(val) || tags.includes(val)) {
+                item.style.display = document.getElementById('post-list').classList.contains('view-list') ? 'flex' : 'block';
+            } else {
+                item.style.display = 'none';
+            }
         }
     });
 </script>
