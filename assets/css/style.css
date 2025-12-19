@@ -346,41 +346,70 @@ header {
 .vertical-nav a:hover { color: #780C1B; font-weight: bold; }
 .nav-icon { margin-right: 8px; font-size: 0.8em; } /* 아이콘 크기 */
 
-/* --- [FINAL FIX] 1층/2층 완벽 분리 레이아웃 --- */
+/* --- [FINAL CORRECTED] 아카이브 레이아웃 --- */
 
-/* 전체 컨테이너: 그냥 위에서 아래로 흐르는 박스 (Flex 아님!) */
+/* 전체 컨테이너: 위(1층) -> 아래(2층)로 흐르는 구조 */
 .archive-container {
     max-width: 1400px;
     margin: 60px auto;
     padding: 0 20px;
-    display: block; /* 중요! flex를 뺍니다 */
+    display: block; /* Flex 아님! 위에서 아래로 쌓임 */
 }
 
-/* === 1층: 컨트롤 타워 (사이드바 + 필터) === */
+/* === 🏠 1층: 컨트롤 타워 (사이드바 + 필터 내용) === */
 .archive-top-section {
-    display: flex;       /* 내부에서 좌우 배치 */
+    display: flex;       /* 좌우 배치 시작 */
     align-items: flex-start;
-    gap: 80px;           /* 사이드바와 필터 사이 간격 */
-    margin-bottom: 60px; /* 2층과의 거리 */
+    gap: 80px;           /* 사이드바와 오른쪽 내용 사이 간격 */
+    margin-bottom: 50px; /* 2층과의 거리 */
 }
 
-/* 왼쪽: 사이드바 (너비 고정) */
+/* (Left) 왼쪽 사이드바 기둥 */
 .sidebar {
-    width: 250px;       /* 넉넉하게 잡음 */
+    width: 220px;       /* 너비 고정 */
     flex-shrink: 0;     /* 절대 찌그러지지 않음 */
+    border-right: 1px solid #eee; /* (선택) 오른쪽 구분선 살짝 */
+    padding-right: 20px;
 }
 
-/* 오른쪽: 필터 패널 (남는 공간 차지) */
+/* 🚨 핵심 수정: 메뉴 아이템들을 세로로 정렬! */
+.filter-group {
+    display: flex;
+    flex-direction: column; /* 무조건 세로로 쌓여라! */
+    gap: 15px;              /* 메뉴 사이 간격 */
+    margin-top: 20px;
+}
+.filter-link {
+    display: block;         /* 한 줄을 혼자 다 차지 */
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 1.1rem;
+    color: #888;
+}
+.filter-link:hover, .filter-link.active {
+    color: #780C1B;
+    font-weight: bold;
+    padding-left: 5px; /* 선택되면 살짝 오른쪽 이동 */
+}
+
+/* (Right) 오른쪽 필터 패널 (설명글 & 칩) */
 .filter-panel {
-    flex: 1;
+    flex: 1;            /* 남는 공간 다 차지 */
     padding-top: 10px;  /* 시각적 줄맞춤 */
 }
+/* 필터 설명글 */
+.submenu-desc {
+    display: block;
+    margin-top: 10px;
+    color: #666;
+    font-style: italic;
+}
 
 
-/* === 2층: 글 목록 (전체 너비) === */
+/* === 🏠 2층: 글 목록 (전체 너비 사용) === */
 .archive-bottom-section {
-    width: 100%;        /* 화면 끝까지 */
-    border-top: 1px solid #111; /* 구분선 */
+    width: 100%;
+    border-top: 2px solid #111; /* 1층과 구분되는 굵은 선 (스케치 반영) */
     padding-top: 40px;
 }
 
@@ -392,36 +421,43 @@ header {
     margin-bottom: 30px;
 }
 
-/* --- 리스트 디자인 (깨짐 방지) --- */
+/* --- 리스트 디자인 (이미지+텍스트 가로 배치) --- */
 .post-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-/* (A) 리스트 뷰 스타일 */
+/* (A) 리스트 뷰: 썸네일 왼쪽, 텍스트 오른쪽 */
 .post-list.view-list .post-item {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 30px;
+    display: flex;       /* 가로 배치 */
+    gap: 40px;           /* 사진과 글 사이 간격 */
+    margin-bottom: 40px;
+    padding-bottom: 40px;
     border-bottom: 1px solid #eee;
-    padding-bottom: 30px;
-    width: 100%; /* 너비 강제 확보 */
+    align-items: flex-start;
 }
-.post-list.view-list img {
-    width: 200px; /* 썸네일 크기 */
-    height: 140px;
+.post-list.view-list .thumb-link img {
+    width: 280px;        /* 썸네일 크기 */
+    height: 180px;
     object-fit: cover;
-    flex-shrink: 0;
+    display: block;
+}
+/* 텍스트 영역 */
+.post-info {
+    flex: 1;             /* 남는 공간 다 차지 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-/* (B) 그리드 뷰 스타일 */
+/* (B) 그리드 뷰: 바둑판 */
 .post-list.view-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
     gap: 50px;
 }
-.post-list.view-grid img {
+.post-list.view-grid .thumb-link img {
     width: 100%;
     height: 280px;
     object-fit: cover;
