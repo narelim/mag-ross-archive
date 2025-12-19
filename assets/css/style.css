@@ -346,47 +346,45 @@ header {
 .vertical-nav a:hover { color: #780C1B; font-weight: bold; }
 .nav-icon { margin-right: 8px; font-size: 0.8em; } /* 아이콘 크기 */
 
-/* --- [FIXED] 아카이브 2층 구조 (1층: 필터 / 2층: 리스트) --- */
+/* --- [FINAL FIX] 1층/2층 완벽 분리 레이아웃 --- */
 
+/* 전체 컨테이너: 그냥 위에서 아래로 흐르는 박스 (Flex 아님!) */
 .archive-container {
     max-width: 1400px;
-    margin: 40px auto;
+    margin: 60px auto;
     padding: 0 20px;
-    
-    /* 🔥 핵심 수정: 무조건 위아래로 쌓아라! */
-    display: flex;
-    flex-direction: column; 
-    gap: 60px; /* 1층과 2층 사이 간격 */
+    display: block; /* 중요! flex를 뺍니다 */
 }
 
-/* === 1층: 컨트롤 타워 (왼쪽 메뉴 + 오른쪽 칩) === */
+/* === 1층: 컨트롤 타워 (사이드바 + 필터) === */
 .archive-top-section {
-    display: flex; /* 내부에서는 좌우 배치 */
-    gap: 60px;     /* 메뉴와 칩 사이 간격 */
+    display: flex;       /* 내부에서 좌우 배치 */
     align-items: flex-start;
-    width: 100%;   /* 가로 꽉 차게 */
+    gap: 80px;           /* 사이드바와 필터 사이 간격 */
+    margin-bottom: 60px; /* 2층과의 거리 */
 }
 
-/* 왼쪽: 대분류 메뉴 (고정 너비) */
+/* 왼쪽: 사이드바 (너비 고정) */
 .sidebar {
-    width: 220px;
-    flex-shrink: 0;
+    width: 250px;       /* 넉넉하게 잡음 */
+    flex-shrink: 0;     /* 절대 찌그러지지 않음 */
 }
 
-/* 오른쪽: 필터 칩 패널 (남는 공간 다 차지) */
+/* 오른쪽: 필터 패널 (남는 공간 차지) */
 .filter-panel {
     flex: 1;
-    min-height: 150px; /* 칩이 없어도 최소 높이 유지 */
+    padding-top: 10px;  /* 시각적 줄맞춤 */
 }
 
-/* === 2층: 글 목록 (전체 너비 사용) === */
+
+/* === 2층: 글 목록 (전체 너비) === */
 .archive-bottom-section {
-    width: 100%;
-    border-top: 1px solid #111; /* 1층과 구분되는 굵은 선 */
+    width: 100%;        /* 화면 끝까지 */
+    border-top: 1px solid #111; /* 구분선 */
     padding-top: 40px;
 }
 
-/* 뷰 옵션 바 (리스트 바로 위) */
+/* 뷰 옵션 바 */
 .view-options-bar {
     display: flex;
     justify-content: space-between;
@@ -394,21 +392,42 @@ header {
     margin-bottom: 30px;
 }
 
-/* 그리드 뷰일 때 시원하게 배치 */
-.post-list.view-grid {
-    display: grid;
-    /* 화면 꽉 차게 4~5개씩 배치 (반응형) */
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-    gap: 40px;
+/* --- 리스트 디자인 (깨짐 방지) --- */
+.post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* (혹시 모를 이미지 크기 문제 방지) */
+/* (A) 리스트 뷰 스타일 */
+.post-list.view-list .post-item {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 30px;
+    width: 100%; /* 너비 강제 확보 */
+}
+.post-list.view-list img {
+    width: 200px; /* 썸네일 크기 */
+    height: 140px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* (B) 그리드 뷰 스타일 */
+.post-list.view-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 50px;
+}
 .post-list.view-grid img {
     width: 100%;
-    height: 250px; /* 정사각형에 가깝게 */
+    height: 280px;
     object-fit: cover;
     margin-bottom: 15px;
 }
+
 
 
 
