@@ -593,7 +593,7 @@ header {
 }
 
 /* 1. 작은 글씨 (our infinity) */
-.small-text.gru-font {
+.small-text {
     font-family: 'Gruppo', sans-serif;
     font-size: 1rem;         /* 아주 작고 심플하게 */
     letter-spacing: 0.4em;   /* 자간을 넓혀서 여유롭게 */
@@ -606,7 +606,7 @@ header {
 }
 
 /* 2. 큰 글씨 (Universe) - 얇은 폰트로 변경! */
-.large-text.fancy-font {
+.large-text {
     /* ✨ 폰트 변경: 아주 얇은 필기체 */
     font-family: 'Monsieur La Doulaise', cursive;
     
