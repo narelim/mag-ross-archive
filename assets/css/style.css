@@ -374,25 +374,59 @@ header {
     padding-right: 20px;
 }
 
-/* 🚨 핵심 수정: 메뉴 아이템들을 세로로 정렬! */
+/* --- [왼쪽 사이드바 메뉴] 대분류 애니메이션 --- */
+
 .filter-group {
     display: flex;
-    flex-direction: column; /* 무조건 세로로 쌓여라! */
-    gap: 10px;              /* 메뉴 사이 간격 */
+    flex-direction: column;
+    gap: 15px;
     margin-top: 20px;
-    font-family: "Playfair Display SC", serif;
 }
+
 .filter-link {
-    display: block;         /* 한 줄을 혼자 다 차지 */
+    /* 1. 배치 설정 (아이콘과 글자를 나란히) */
+    display: flex;          /* flex로 바꿔야 아이콘 높이가 맞습니다 */
+    align-items: center;    /* 수직 중앙 정렬 */
+    
     cursor: pointer;
-    transition: 0.2s;
+    transition: color 0.3s ease; 
     font-size: 1.1rem;
     color: #888;
+    
+    /* 기존에 있던 padding-left 애니메이션은 제거하고, 아이콘으로 대체합니다 */
 }
+
+/* 🌟 [핵심] 숨겨진 특수문자 (처음엔 반시계로 돌아가 있음) */
+.filter-link::before {
+    content: "✦";   /* 원하시는 특수문자 (예: ✤, ✶, ❖) */
+    
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    
+    /* 숨김 상태 설정 */
+    opacity: 0;
+    max-width: 0;       /* 너비 0 (공간 차지 X) */
+    margin-right: 0;    /* 간격 0 */
+    transform: rotate(-180deg) scale(0.5); /* 반시계로 돌아가 있고 작음 */
+    
+    /* 부드러운 움직임 (튕기는 효과) */
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #780C1B;     /* 아이콘 색상 (크림슨) */
+}
+
+/* 🌟 [활성화] 선택되었을 때 */
 .filter-link:hover, .filter-link.active {
-    color: #780C1B;
+    color: #780C1B;     /* 글자색 변경 */
     font-weight: bold;
-    padding-left: 5px; /* 선택되면 살짝 오른쪽 이동 */
+}
+
+/* 선택되면 아이콘 등장! (시계방향 회전) */
+.filter-link.active::before {
+    opacity: 1;         /* 보임 */
+    max-width: 20px;    /* 공간 확보 */
+    margin-right: 8px;  /* 글자와의 간격 */
+    transform: rotate(0deg) scale(1); /* 정방향으로 돌아옴 */
 }
 
 /* (Right) 오른쪽 필터 패널 (설명글 & 칩) */
@@ -403,74 +437,39 @@ header {
 
 /* --- [Chip Design] 둥근 캡슐 디자인 --- */
 
-/* --- [Chip Design] 캡슐 디자인 + 회전 애니메이션 --- */
-
 .chip-container {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-wrap: wrap; /* 창이 좁아지면 다음 줄로 넘어가게 */
+    gap: 10px;       /* 칩 사이 간격 */
     margin-top: 20px;
 }
 
 .filter-chip {
-    /* 배치 정렬 (아이콘과 글자 수직 중앙 정렬) */
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    /* 1. [기본 상태 - 선택X] 디자인 */
+    background-color: #FFFFFF;     /* 흰색 배경 */
+    border: 1.5px solid #780C1B;   /* 크림슨색 테두리 (살짝 두껍게) */
+    color: #780C1B;                /* 크림슨색 글씨 */
     
-    background-color: #FFFFFF;
-    border: 1.5px solid #780C1B;
-    color: #780C1B;
-    
-    border-radius: 50px;
-    padding: 8px 20px;
-    font-size: 0.9rem;
-    font-family: 'Noto Sans KR', sans-serif;
-    letter-spacing: 0.5px;
+    /* 2. 모양 만들기 */
+    border-radius: 50px;           /* 완전 둥근 캡슐 모양 */
+    padding: 6px 18px;             /* 내용물 숨쉬기 편하게 여백 */
+    font-size: 0.7rem;             /* 글자 크기 적당히 */
+    font-family: 'Pretendard';
+    letter-spacing: 0.5px;         /* 자간 살짝 넓혀서 고급스럽게 */
     
     cursor: pointer;
-    transition: all 0.3s ease; /* 배경색 바뀌는 속도 */
-    outline: none;
+    transition: all 0.3s ease;     /* 색깔 변할 때 부드럽게 */
+    outline: none;                 /* 클릭했을 때 생기는 못생긴 선 제거 */
 }
 
-/* 🌟 [핵심] 특수문자 애니메이션 설정 (기본: 숨김 상태) */
-.filter-chip::before {
-    content: "✦";  /* ✨ 원하는 특수문자로 바꾸세요 (예: ✤, ✶, +) */
-    
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    
-    /* 1. 처음엔 투명하고, 좁고, 돌아가 있는 상태 */
-    opacity: 0;
-    max-width: 0;      /* 너비를 0으로 해서 공간 차지 안 함 */
-    margin-right: 0;   /* 글자와의 간격도 없음 */
-    transform: rotate(-180deg) scale(0.5); /* 반시계로 돌아가 있고 작아져 있음 */
-    
-    /* 2. 부드러운 움직임 설정 */
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-    /* ↑ cubic-bezier를 쓰면 살짝 튕기듯이 등장해서 더 예쁩니다 */
-}
-
-/* 🌟 [핵심] 선택되었을 때 (.active) */
+/* 3. [선택된 상태 & 마우스 올림] 디자인 */
 .filter-chip:hover, .filter-chip.active {
-    background-color: #780C1B;
-    color: #FAFAFA;
-    border-color: #780C1B;
-    font-weight: 500;
-    box-shadow: 0 4px 10px rgba(120, 12, 27, 0.2);
-}
-
-/* 선택되었을 때 특수문자 등장! */
-.filter-chip.active::before {
-    opacity: 1;        /* 보여라! */
-    max-width: 20px;   /* 공간 확보 (특수문자 크기에 맞춰 조절) */
-    margin-right: 6px; /* 글자와 간격 벌리기 */
+    background-color: #780C1B;     /* 크림슨색 배경으로 채우기 */
+    color: #FAFAFA;                /* 글씨는 미색(Off-white)으로 */
+    border-color: #780C1B;         /* 테두리도 같은 색으로 */
     
-    /* 3. 시계방향으로 0도가 되면서 커짐 */
-    transform: rotate(0deg) scale(1); 
+    font-weight: 500;              /* 글자 살짝 두껍게 */
 }
-
 
 
 /* 필터 설명글 */
@@ -558,4 +557,3 @@ header {
     font-size: 1.1rem;
     letter-spacing: 1px;
 }
-
