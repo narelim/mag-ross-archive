@@ -601,7 +601,7 @@ header {
     color: #333;             /* 너무 진하지 않은 회색 */
     
     position: relative;
-    z-index: 2;
+    z-index: 1;
     margin-bottom: -35px;    /* 👇 아래 글씨랑 겹치는 위치 조절 */
 }
 
@@ -612,13 +612,13 @@ header {
     
     font-size: 9rem;         /* 얇으니까 크기는 더 시원하게 키움 */
     line-height: 0.7;        /* 위아래 여백 줄이기 */
-    color: #111;             
+    color: #121212;             
     
     position: relative;
-    z-index: 1;              /* 뒤로 배치 */
+    z-index: 2;              /* 뒤로 배치 */
     
     /* 투명도 조절 (너무 진하면 두꺼워 보이니까 살짝 투명하게) */
-    opacity: 0.9; 
+    /*opacity: 0.9; */
     
     /* 얇은 폰트는 시각적으로 작아 보여서 마진 조정이 필요함 */
     margin-top: 0; 
