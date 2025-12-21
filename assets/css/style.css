@@ -610,7 +610,7 @@ header {
     /* ✨ 폰트 변경: 아주 얇은 필기체 */
     font-family: 'Monsieur La Doulaise', cursive;
     
-    font-size: 9rem;         /* 얇으니까 크기는 더 시원하게 키움 */
+    font-size: 5rem;         /* 얇으니까 크기는 더 시원하게 키움 */
     line-height: 0.7;        /* 위아래 여백 줄이기 */
     color: #121212;             
     
