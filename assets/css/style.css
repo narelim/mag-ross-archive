@@ -596,7 +596,7 @@ header {
 .small-text {
     font-family: 'Gruppo', sans-serif;
     font-size: 1rem;         /* 아주 작고 심플하게 */
-    letter-spacing: 0.4rem;   /* 자간을 넓혀서 여유롭게 */
+    letter-spacing: 0.4px;   /* 자간을 넓혀서 여유롭게 */
     text-transform: lowercase;
     color: #333;             /* 너무 진하지 않은 회색 */
     
