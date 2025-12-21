@@ -462,26 +462,6 @@ header {
     outline: none;                 /* 클릭했을 때 생기는 못생긴 선 제거 */
 }
 
-/* 1. [기본 상태] Active가 붙었을 때만 확실하게 빨강! */
-.filter-chip.active,
-.filter-link.active {
-    background-color: #780C1B !important;
-    color: #FAFAFA !important;
-    border-color: #780C1B !important;
-    font-weight: 500;
-    box-shadow: 0 4px 10px rgba(120, 12, 27, 0.2);
-}
-
-/* 2. [컴퓨터 마우스 전용] 마우스 올렸을 때만 살짝 빨강 (터치 기기는 무시함) */
-@media (hover: hover) {
-    .filter-chip:hover, 
-    .filter-link:hover {
-        background-color: #780C1B;
-        color: #FAFAFA;
-        border-color: #780C1B;
-        cursor: pointer;
-    }
-}
 
 /* --- [System] 터치/포커스 문제 해결 및 스타일 분리 --- */
 
