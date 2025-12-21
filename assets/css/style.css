@@ -462,14 +462,35 @@ header {
     outline: none;                 /* 클릭했을 때 생기는 못생긴 선 제거 */
 }
 
-/* 3. [선택된 상태 & 마우스 올림] 디자인 */
-.filter-chip:hover, .filter-chip.active {
-    background-color: #780C1B;     /* 크림슨색 배경으로 채우기 */
-    color: #FAFAFA;                /* 글씨는 미색(Off-white)으로 */
-    border-color: #780C1B;         /* 테두리도 같은 색으로 */
-    
-    font-weight: 500;              /* 글자 살짝 두껍게 */
+/* 1. [기본 상태] Active가 붙었을 때만 확실하게 빨강! */
+.filter-chip.active,
+.filter-link.active {
+    background-color: #780C1B !important;
+    color: #FAFAFA !important;
+    border-color: #780C1B !important;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(120, 12, 27, 0.2);
 }
+
+/* 2. [컴퓨터 마우스 전용] 마우스 올렸을 때만 살짝 빨강 (터치 기기는 무시함) */
+@media (hover: hover) {
+    .filter-chip:hover, 
+    .filter-link:hover {
+        background-color: #780C1B;
+        color: #FAFAFA;
+        border-color: #780C1B;
+        cursor: pointer;
+    }
+}
+
+/* 3. [중요] 눌렀다 뗐을 때(Focus) 억지로 남는 색깔 강제로 빼기 */
+.filter-chip:focus:not(.active),
+.filter-link:focus:not(.active) {
+    background-color: #FFFFFF !important; /* 다시 흰색으로 돌아갓! */
+    color: #780C1B !important;
+    border-color: #780C1B !important;
+}
+
 
 
 /* 필터 설명글 */
