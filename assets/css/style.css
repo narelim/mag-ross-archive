@@ -613,7 +613,7 @@ header {
     font-size: 5rem;  /* 아주 크게! */
     line-height: 1;   /* 줄 간격 좁게 */
     margin: 0;        /* 기본 여백 제거 */
-    color: #FAFAFA;   /* 밝은 흰색 */
+    color: #121212;
     
     position: relative;
     z-index: 2;       /* 앞으로 보냄 */
