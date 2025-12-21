@@ -137,7 +137,7 @@ title: Archive
         }
     }
 
-    // [보조 함수] 모든 칩 초기화
+    // [보조 함수] 모든 칩 초기화 (불 끄기)
     function resetAllChips() {
         var chips = document.querySelectorAll('.filter-chip');
         for (var i = 0; i < chips.length; i++) {
@@ -145,34 +145,24 @@ title: Archive
         }
     }
 
-    // 2. 카테고리 필터 (토글 기능 수정됨)
+    // 2. 카테고리 필터 (토글 기능)
     function filterList(category, btn) {
         var targetBtn = btn || event.target; 
-        
-        // 1) 지금 누른 버튼이 이미 켜져 있었는지 확인
         var wasActive = targetBtn.classList.contains('active');
 
-        // 2) 일단 모든 버튼 끄기
         resetAllChips();
 
         if (category !== 'all' && wasActive) {
-            // 💡 "켜진 걸 또 눌렀다" -> 취소! (전체 보기로 돌아감)
+            // 💡 켜진 카테고리 또 누름 -> 취소 (전체보기)
             category = 'all';
             document.getElementById('current-status').innerText = "Showing All Posts";
             
-            // 🚨 "View All" 버튼을 자동으로 찾아서 켜줍니다!
-            var container = targetBtn.parentElement; // 같은 그룹 안에 있는 버튼들 중에서
-            var siblings = container.getElementsByTagName('button');
-            for(var i=0; i<siblings.length; i++) {
-                // 글자가 "View All"인 버튼을 찾음
-                if(siblings[i].innerText.trim() === 'View All') {
-                    siblings[i].classList.add('active');
-                    break;
-                }
-            }
+            // "View All" 버튼 다시 켜주기
+            var viewAllBtn = document.getElementById('btn-cat-all');
+            if(viewAllBtn) viewAllBtn.classList.add('active');
 
         } else {
-            // "꺼진 걸 눌렀다" -> 켜기
+            // 꺼진 거 누름 -> 선택
             targetBtn.classList.add('active');
             
             if (category === 'all') {
@@ -182,35 +172,41 @@ title: Archive
             }
         }
 
-        // 3) 필터링 실행
         filterItems(category, 'category');
     }
 
-    // 3. 태그 검색 (토글 기능 수정됨)
+    // 3. 태그 검색 (토글 기능 추가됨!)
     function filterSearch(keyword, btn) {
         var targetBtn = btn || event.target; 
+        
+        // 1) 지금 누른 태그가 이미 빨간색(active)인지 확인
         var wasActive = targetBtn.classList.contains('active');
 
+        // 2) 일단 모든 태그를 흰색으로 초기화
         resetAllChips();
 
+        // 3) 토글 로직
         if (wasActive) {
-            // 💡 태그 선택 취소 -> 전체 목록
+            // 💡 켜져 있던 태그를 또 눌렀다 -> 취소! (전체 보기)
+            // 검색어(keyword)를 비워서 전체 글이 나오게 함
             keyword = ''; 
             document.getElementById('current-status').innerText = "Showing All Posts";
-            // (태그는 돌아갈 'View All' 버튼이 없으므로 다 꺼진 상태가 정상입니다)
+            
+            // 태그는 'View All' 버튼이 없으므로, 
+            // 모든 버튼이 꺼진 상태(흰색)가 곧 '전체 보기' 상태입니다.
         } else {
-            // 태그 선택 -> 불 켜기
-            targetBtn.classList.add('active');
+            // 💡 꺼져 있던 태그를 눌렀다 -> 선택!
+            targetBtn.classList.add('active'); // 빨간불 켜기
             document.getElementById('current-status').innerText = "Tag: #" + keyword;
         }
 
+        // 4) 필터링 실행
         filterItems(keyword, 'tag');
     }
 
-    // [핵심] 필터링 로직
+    // [핵심] 필터링 로직 (유지)
     function filterItems(filterValue, type) {
         var items = document.getElementsByClassName('search-item');
-        // 현재 뷰 모드(그리드/리스트)에 맞춰서 display 속성 결정
         var viewMode = document.getElementById('post-list').classList.contains('view-grid') ? 'block' : 'flex';
 
         for (var i = 0; i < items.length; i++) {
@@ -218,7 +214,7 @@ title: Archive
             var isMatch = false;
 
             if (filterValue === 'all' || filterValue === '') {
-                isMatch = true;
+                isMatch = true; // 검색어가 없으면 다 보여줌
             } else if (type === 'category') {
                 if (item.getAttribute('data-category') === filterValue) isMatch = true;
             } else if (type === 'tag') {
@@ -231,7 +227,7 @@ title: Archive
         }
     }
 
-    // 4. 뷰 모드 변경
+    // 4. 뷰 모드 변경 (유지)
     function changeView(type) {
         var list = document.getElementById('post-list');
         var btnGrid = document.getElementById('btn-grid');
@@ -249,7 +245,6 @@ title: Archive
             list.classList.add('view-list');
         }
         
-        // 뷰 변경 시 display 속성 재정렬 (깨짐 방지)
         var items = document.getElementsByClassName('search-item');
         var displayStyle = type === 'grid' ? 'block' : 'flex';
         for(var i=0; i<items.length; i++) {
@@ -259,7 +254,7 @@ title: Archive
         }
     }
     
-    // 5. 검색창 기능
+    // 5. 검색창 기능 (유지)
     document.getElementById('search-input').addEventListener('keyup', function() {
         var val = this.value.toLowerCase();
         document.getElementById('current-status').innerText = "Searching: " + val;
