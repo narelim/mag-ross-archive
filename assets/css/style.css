@@ -473,14 +473,6 @@ header {
     box-shadow: 0 4px 10px rgba(120, 12, 27, 0.2);
 }
 
-/* 2. [왼쪽 메뉴 글자] 선택되면 글자만 빨개짐 (배경 투명!) */
-.filter-link.active {
-    background-color: transparent !important; /* 배경 절대 금지 */
-    color: #780C1B !important;                /* 글자색만 변경 */
-    font-weight: bold;
-    border: none !important;
-}
-
 /* 3. [컴퓨터 마우스 전용 Hover] */
 @media (hover: hover) {
     /* 칩 버튼은 배경색 변경 */
@@ -502,11 +494,6 @@ header {
     background-color: #FFFFFF !important;
     color: #780C1B !important;
     border-color: #780C1B !important;
-}
-/* (메뉴 글자는 그냥 원래대로) */
-.filter-link:focus:not(.active) {
-    background-color: transparent !important;
-    color: #888 !important; /* 원래 회색으로 */
 }
 
 /* 5. 터치 시 번쩍이는 하이라이트 제거 */
