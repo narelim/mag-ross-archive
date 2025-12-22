@@ -5,7 +5,7 @@ date: 2025-12-21
 category: "DxV"
 tags: [닥터빌런,히어로,회귀,시리즈]
 type: Default
-image: "thumb_DxV_original.png"
+image: "thumb_doctorxvillain.png"
 ---
 
 닥터빌런 오리지널<br>
