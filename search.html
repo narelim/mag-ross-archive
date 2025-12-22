@@ -94,12 +94,22 @@ title: Archive
                 data-category="{{ post.category }}">
                 
                 <a href="{{ post.url | relative_url }}" class="thumb-link">
-                    {% if post.image %}
-                        <img src="{{ post.image | prepend: '/assets/thumbnails/' | relative_url }}" alt="thumb">
-                    {% else %}
-                        <img src="{{ 'main_image.jpeg' | relative_url }}" alt="thumb">
-                    {% endif %}
-                </a>
+    {% if post.image %}
+        <img src="{{ post.image | prepend: '/assets/thumbnails/' | relative_url }}" alt="thumb">
+    {% else %}
+        {% assign color_pool = "#780C1B,#121212,#3E3E3E,#5D101D,#2C2C2C,#4A0E12,#000000" | split: "," %}
+        
+        {% assign title_size = post.title | size %}
+        {% assign date_num = post.date | date: "%s" | minus: 0 %} {% assign seed = title_size | plus: date_num %}
+        {% assign color_index = seed | modulo: color_pool.size %}
+        {% assign pick_color = color_pool[color_index] %}
+
+        <div class="no-thumb-box" style="background-color: {{ pick_color }};">
+            <span class="no-thumb-title">{{ post.title }}</span>
+        </div>
+    {% endif %}
+</a>
+
 
                 <div class="post-info">
                     <div class="post-meta" style="margin-bottom: 10px;">
