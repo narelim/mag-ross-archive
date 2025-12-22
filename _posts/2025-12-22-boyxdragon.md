@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The boy x dragon"
-date:2025-12-22
+date: 2025-12-22
 categories: "Fantasy"
 tags: [ 판타지,역키잡,드래곤,집착 ]
 types: Default
