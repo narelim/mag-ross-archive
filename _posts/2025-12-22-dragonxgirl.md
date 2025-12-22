@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "dragon x the girl"
-date:2025-12-22
+date: 2025-12-22
 categories: "Fantasy"
 tags: [ 판타지,키잡,인외,드래곤 ]
 types: Default
