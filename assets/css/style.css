@@ -669,6 +669,32 @@ header {
     filter: brightness(0.8);
 }
 
+/* --- [Today's Pick] 썸네일 없을 때 박스 디자인 --- */
+
+/* 기존 .no-thumb-box 스타일을 상속받되, 크기만 재정의 */
+.no-thumb-box.pick-ver {
+    width: 100%;       /* 카드를 가득 채우게 */
+    height: 350px;     /* 🔥 중요: Today's Pick에 어울리는 높이로 설정하세요 */
+    padding: 40px;     /* 여백을 좀 더 넉넉하게 */
+}
+
+/* 제목 글자도 좀 더 크게 */
+.no-thumb-box.pick-ver .no-thumb-title {
+    font-size: 2rem;   /* 제목 큼직하게 */
+    line-height: 1.5;
+}
+
+/* (모바일에서는 높이 줄이기) */
+@media (max-width: 768px) {
+    .no-thumb-box.pick-ver {
+        height: 250px;
+    }
+    .no-thumb-box.pick-ver .no-thumb-title {
+        font-size: 1.5rem;
+    }
+}
+
+
 
 /* 4. 까만 푸터 */
 .footer-black {
