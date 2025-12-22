@@ -218,27 +218,54 @@ title: Archive
     }
 
     // [핵심] 필터링 로직 (유지)
+        // [핵심] 필터링 로직 (업그레이드 버전) 🚀
     function filterItems(filterValue, type) {
         var items = document.getElementsByClassName('search-item');
+        // 현재 뷰 모드(그리드/리스트) 확인
         var viewMode = document.getElementById('post-list').classList.contains('view-grid') ? 'block' : 'flex';
+        
+        // 검색어(필터값)를 소문자로 바꾸고, 양옆 공백을 없앱니다 (청소 작업)
+        var cleanFilter = filterValue.toLowerCase().trim();
 
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
             var isMatch = false;
 
             if (filterValue === 'all' || filterValue === '') {
-                isMatch = true; // 검색어가 없으면 다 보여줌
-            } else if (type === 'category') {
-                if (item.getAttribute('data-category') === filterValue) isMatch = true;
-            } else if (type === 'tag') {
-                var tags = item.getAttribute('data-tags').toLowerCase();
-                if (tags.includes(filterValue.toLowerCase())) isMatch = true;
+                isMatch = true;
+            } 
+            // 1. 카테고리 비교 (정확히 일치해야 함)
+            else if (type === 'category') {
+                var itemCat = item.getAttribute('data-category');
+                // 데이터가 비어있을 수 있으니 안전장치
+                if (itemCat) {
+                    // 카테고리도 소문자+공백제거 후 비교
+                    if (itemCat.toLowerCase().trim() === cleanFilter) isMatch = true;
+                }
+            } 
+            // 2. 태그 비교 (쉼표로 쪼개서 하나하나 비교)
+            else if (type === 'tag') {
+                var rawTags = item.getAttribute('data-tags');
+                if (rawTags) {
+                    // "역키잡,로맨스,키잡" -> ["역키잡", "로맨스", "키잡"] 으로 쪼갭니다
+                    var tagArray = rawTags.toLowerCase().split(',');
+                    
+                    // 쪼갠 조각들 중에 필터값과 '정확히' 똑같은 게 있는지 확인
+                    for(var j=0; j < tagArray.length; j++) {
+                        if(tagArray[j].trim() === cleanFilter) {
+                            isMatch = true;
+                            break; // 찾았으면 그만 찾아도 됨
+                        }
+                    }
+                }
             }
 
+            // 결과 반영
             if (isMatch) item.style.display = viewMode;
             else item.style.display = 'none';
         }
     }
+
 
     // 4. 뷰 모드 변경 (유지)
     function changeView(type) {
