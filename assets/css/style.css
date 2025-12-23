@@ -178,13 +178,12 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     .mobile-search-wrapper {
         display: block !important;
         width: 100%;
-        padding: 15px 20px;       /* 양옆 여백 넉넉히 */
-        background-color: #fff;   /* 배경 흰색 */
+        padding: 10px 10px;       /* 양옆 여백 넉넉히 */
         position: sticky;         /* 상단 고정 */
         top: 0;
         z-index: 100;             /* 다른 것보다 위에 */
         border-bottom: 1px solid #f0f0f0; /* 아주 연한 구분선 */
-        box-shadow: 0 4px 10px rgba(0,0,0,0.03); /* 살짝 그림자 줘서 입체감 */
+        /*box-shadow: 0 4px 10px rgba(0,0,0,0.03);*/ /* 살짝 그림자 줘서 입체감 */
     }
 
     #mobile-search-input {
@@ -224,7 +223,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
     /* (왼쪽) 메뉴 기둥 */
     .sidebar {
-        width: 32%;               /* 너비 살짝 조절 */
+        width: 20%;               /* 너비 살짝 조절 */
         background-color: #fafafa; /* 아주 연한 회색 */
         border-right: 1px solid #eee;
         padding: 0;
@@ -233,7 +232,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     
     /* 메뉴 버튼 디자인 */
     .filter-link {
-        padding: 18px 5px;        /* 위아래 높이를 줘서 터치하기 좋게 */
+        padding: 5px 5px;        /* 위아래 높이를 줘서 터치하기 좋게 */
         font-size: 0.8rem;        /* 글자 크기 단정하게 */
         justify-content: center;
         text-align: center;
@@ -257,8 +256,8 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
     /* (오른쪽) 내용 패널 */
     .filter-panel {
-        width: 68%;
-        padding: 25px 20px;       /* 🚨 중요: 안쪽 여백을 줘서 글자가 벽에 안 붙게! */
+        width: 88%;
+        padding: 10px 10px;       /* 🚨 중요: 안쪽 여백을 줘서 글자가 벽에 안 붙게! */
         background: #fff;
     }
     
