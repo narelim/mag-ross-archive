@@ -40,7 +40,7 @@ title: Archive
                 <div class="chip-container" style="margin-top:10px;">
                     <button id="btn-cat-all" class="filter-chip" onclick="filterList('all', this)">View All</button>
                     
-                    {% assign sorted_categories = site.categories | sort %}
+                    {% assign sorted_categories = site.categories %}
                     {% for category in sorted_categories %}
                         {% assign cat_name = category[0] %}
                         {% assign show_cat = false %}
@@ -57,7 +57,7 @@ title: Archive
             <div id="submenu-tag" class="submenu-box" style="display: none;">
                 <h2 style="font-family: 'playfair-display-sc-regular'; margin-top:0; font-size:1rem;">TAGS</h2>
                 <div class="chip-container" style="margin-top:10px;">
-                    {% assign sorted_tags = site.tags | sort %}
+                    {% assign sorted_tags = site.tags %}
                     {% for tag in sorted_tags %}
                         {% assign tag_name = tag[0] %}
                         {% assign show_tag = false %}
