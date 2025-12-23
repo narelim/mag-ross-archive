@@ -168,66 +168,158 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .pc-search-wrapper { display: block; }    /* PC바 보임 */
 .footer-black { width: 100% !important; margin-left: 0 !important; margin-right: 0 !important; background-color: #000; color: #fff; text-align: center; padding: 60px 0; margin-top: 100px; font-family: 'Playfair Display SC', serif; font-size: 1.1rem; letter-spacing: 1px; }
 
-
 /* =========================================
-   5. [MOBILE] 모바일 전용 덮어쓰기 (가장 마지막에 위치!)
+   5. [MOBILE] 모바일 전용 디자인 (예쁘게 수정됨 ✨)
    ========================================= */
 
 @media (max-width: 768px) {
 
-    /* (1) 검색창: 모바일바 켜고, 나머지는 싹 다 숨김 */
+    /* --- 1. 🔍 상단 검색창: 둥글고 깔끔하게! --- */
     .mobile-search-wrapper {
-        display: block !important; /* 모바일바 강제 표시 */
-        width: 100%; padding: 15px 0; background-color: #fff; position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #eee;
+        display: block !important;
+        width: 100%;
+        padding: 15px 20px;       /* 양옆 여백 넉넉히 */
+        background-color: #fff;   /* 배경 흰색 */
+        position: sticky;         /* 상단 고정 */
+        top: 0;
+        z-index: 100;             /* 다른 것보다 위에 */
+        border-bottom: 1px solid #f0f0f0; /* 아주 연한 구분선 */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.03); /* 살짝 그림자 줘서 입체감 */
     }
-    #mobile-search-input { width: 100%; padding: 12px 15px; font-size: 1rem; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9; outline: none; }
 
-    /* 🚨 3개 뜨는 문제 해결: PC용 및 사이드바 내 모든 인풋 강제 숨김 */
-    .pc-search-wrapper, 
-    .sidebar input { 
-        display: none !important; 
+    #mobile-search-input {
+        width: 100%;
+        padding: 12px 20px;       /* 입력창 안쪽 여백 */
+        font-size: 0.95rem;
+        
+        /* ✨ 디자인 핵심: 캡슐 모양 */
+        border: none;             /* 투박한 테두리 없애기 */
+        border-radius: 50px;      /* 완전 둥글게 (캡슐형) */
+        background-color: #f5f5f5; /* 연한 회색 배경 (애플 스타일) */
+        color: #333;
+        outline: none;
+        
+        /* 텍스트 입력할 때 부드러운 효과 */
+        transition: 0.3s;
     }
-
-
-    /* (2) 2단 분할 레이아웃 (교보문고 스타일) */
-    .archive-top-section { flex-direction: row !important; align-items: stretch; margin: 0 -20px; border-bottom: 2px solid #111; }
-    .sidebar { width: 35%; background-color: #f7f7f7; border-right: 1px solid #eee; padding: 0; flex-shrink: 0; }
-    .filter-link { padding: 15px 5px; font-size: 0.85rem; justify-content: center; text-align: center; border-bottom: 1px solid #e8e8e8; }
-    .filter-link::before { display: none !important; } /* 아이콘 숨김 */
     
-    .filter-link.active { background-color: #ffffff !important; border-right: 1px solid #fff; width: calc(100% + 1px); margin-right: -1px; font-weight: bold; color: #780C1B !important; }
-    .filter-panel { width: 65%; padding: 20px 10px; background: #fff; }
-    .chip-container { gap: 6px; }
-    .filter-chip { font-size: 0.75rem; padding: 5px 10px; }
+    /* 입력하려고 누르면 살짝 진해짐 */
+    #mobile-search-input:focus {
+        background-color: #eee;
+        box-shadow: inset 0 0 0 1px #ddd; /* 안쪽으로 살짝 테두리 */
+    }
+
+    /* (PC용 검색창 등 숨기기) */
+    .pc-search-wrapper, .sidebar input { display: none !important; }
+
+
+    /* --- 2. ✂️ 2단 분할 (메뉴 + 내용) --- */
+    
+    .archive-top-section {
+        flex-direction: row !important;
+        align-items: stretch;
+        margin: 0 -20px;          /* 화면 꽉 차게 */
+        border-bottom: 1px solid #eee;
+    }
+
+    /* (왼쪽) 메뉴 기둥 */
+    .sidebar {
+        width: 32%;               /* 너비 살짝 조절 */
+        background-color: #fafafa; /* 아주 연한 회색 */
+        border-right: 1px solid #eee;
+        padding: 0;
+        flex-shrink: 0;
+    }
+    
+    /* 메뉴 버튼 디자인 */
+    .filter-link {
+        padding: 18px 5px;        /* 위아래 높이를 줘서 터치하기 좋게 */
+        font-size: 0.8rem;        /* 글자 크기 단정하게 */
+        justify-content: center;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
+        color: #888;              /* 기본은 회색 */
+        letter-spacing: 0.5px;
+    }
+    .filter-link::before { display: none !important; }
+
+    /* 활성화된 메뉴 (흰색으로 뚫린 느낌) */
+    .filter-link.active {
+        background-color: #ffffff !important;
+        color: #780C1B !important; /* 포인트 컬러 */
+        font-weight: bold;
+        border-right: 1px solid #fff; /* 오른쪽 선 지우기 (핵심!) */
+        width: calc(100% + 1px);      /* 1px 덮어쓰기 */
+        margin-right: -1px;
+        position: relative;
+        z-index: 5;
+    }
+
+    /* (오른쪽) 내용 패널 */
+    .filter-panel {
+        width: 68%;
+        padding: 25px 20px;       /* 🚨 중요: 안쪽 여백을 줘서 글자가 벽에 안 붙게! */
+        background: #fff;
+    }
+    
+    /* 태그 칩 간격 */
+    .chip-container { gap: 8px; }
+    .filter-chip { 
+        font-size: 0.75rem; 
+        padding: 6px 12px;
+        border-width: 1px;
+    }
     .submenu-desc { display: none; }
 
 
-    /* (3) 리스트 뷰 & 썸네일 크기 강제 축소 */
-    .post-list.view-list .post-item { flex-direction: row; align-items: center; gap: 15px; padding: 15px 0; }
+    /* --- 3. 리스트 & 썸네일 (100px 고정) --- */
+    .archive-bottom-section { border-top: 1px solid #eee; } /* 구분선 얇게 */
     
-    /* 🚨 여기서 280px를 100px로 덮어씁니다! (이제 작동할 겁니다) */
+    .post-list.view-list .post-item { 
+        flex-direction: row; 
+        align-items: center; 
+        gap: 20px;                /* 사진과 글 사이 간격 넓힘 */
+        padding: 20px 0;          /* 리스트 위아래 간격 넓힘 */
+    }
+    
+    /* 썸네일 & 박스 크기 */
     .post-list.view-list .thumb-link img,
     .post-list.view-list .no-thumb-box {
-        width: 100px !important;
-        height: 100px !important;
-        min-width: 100px; /* 찌그러짐 방지 */
-        border-radius: 4px;
+        width: 90px !important;       /* 100px -> 90px (조금 더 컴팩트하게) */
+        height: 90px !important;
+        min-width: 90px;
+        border-radius: 12px !important; /* 모서리 둥글게 */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* 살짝 그림자 */
     }
 
-    .no-thumb-box .no-thumb-title { font-size: 0.7rem !important; line-height: 1.2; padding: 0 5px; -webkit-line-clamp: 3; }
+    .no-thumb-box .no-thumb-title { 
+        font-size: 0.65rem !important; 
+        line-height: 1.3; 
+        padding: 0 5px; 
+    }
     
-    /* 글씨 크기 조절 */
-    .post-info a { font-size: 1.1rem !important; line-height: 1.3; display: block; margin-top: 5px; }
-    .post-meta span { font-size: 0.75rem !important; }
+    /* 글 제목 */
+    .post-info a { 
+        font-size: 1rem !important; /* 제목 크기 적당히 */
+        font-weight: 600;           /* 살짝 두껍게 */
+        line-height: 1.4; 
+        margin-top: 4px;
+        color: #333;
+    }
+    
+    /* 날짜/카테고리 */
+    .post-meta span { font-size: 0.75rem !important; color: #999; }
 
     /* Today's Pick 모바일용 */
-    .no-thumb-box.pick-ver { height: 250px; }
+    .no-thumb-box.pick-ver { height: 250px; border-radius: 0; }
     .no-thumb-box.pick-ver .no-thumb-title { font-size: 1.5rem; }
     
-    /* 유니버스 타이틀 모바일용 */
+    /* 유니버스 타이틀 */
     .small-text { font-size: 0.8rem; margin-bottom: -20px; }
     .large-text { font-size: 4.5rem; }
 }
+
+
 
 /* =========================================
    6. 스토리용 타임라인 & 캐릭터 카드 (추가)
