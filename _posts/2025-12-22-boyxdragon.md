@@ -4,7 +4,7 @@ title: "The boy x Dragon"
 date: 2025-12-22
 category: "Fantasy"
 tags: [판타지,역키잡,인외,드래곤,집착]
-types: Default
+type: Default
 image: 
 ---
 
