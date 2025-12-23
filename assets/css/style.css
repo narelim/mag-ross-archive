@@ -215,6 +215,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     /* --- 2. ✂️ 2단 분할 (메뉴 + 내용) --- */
     
     .archive-top-section {
+       padding-top: -50px;
         flex-direction: row !important;
         align-items: stretch;
         margin: 0 0px;          /* 화면 꽉 차게 */
@@ -241,7 +242,6 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
         border-bottom: 1px solid #f0f0f0;
         color: #888;              /* 기본은 회색 */
         letter-spacing: 0.5px;
-       z-index: 3;
     }
     .filter-link::before { display: none !important; }
 
@@ -250,7 +250,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
         background-color: #ffffff !important;
         color: #780C1B !important; /* 포인트 컬러 */
         font-weight: bold;
-        border-right: 2px solid #fff; /* 오른쪽 선 지우기 (핵심!) */
+        border-right: 1px solid #fff; /* 오른쪽 선 지우기 (핵심!) */
         width: calc(100%);      /* 1px 덮어쓰기 */
         margin-right: -1px;
         position: relative;
@@ -261,7 +261,8 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     .filter-panel {
         width: 100%;
         padding: 10px 20px;       /* 🚨 중요: 안쪽 여백을 줘서 글자가 벽에 안 붙게! */
-        background: #fff;
+        padding-left: 10px;
+       background: #fff;
     }
     
     /* 태그 칩 간격 */
