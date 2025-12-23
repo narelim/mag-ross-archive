@@ -621,10 +621,92 @@ header {
     padding: 0 20px; /* 양옆 여백 */
 }
 
-/* (모바일 조절) */
+/* --- [Mobile] 교보문고 스타일 2단 레이아웃 --- */
+
 @media (max-width: 768px) {
-    .small-text { font-size: 0.8rem; margin-bottom: -20px; }
-    .large-text { font-size: 5rem; }
+
+    /* 1. 전체 틀: 위아래로 쌓지 말고, 강제로 '좌우 배치' 유지 */
+    .archive-top-section {
+        flex-direction: row !important; /* 가로 배치 강제 */
+        align-items: stretch;           /* 높이를 똑같이 맞춤 */
+        gap: 0 !important;              /* 사이 간격 없앰 (딱 붙이기) */
+        margin: 0 -20px;                /* 화면 꽉 차게 양옆 여백 제거 */
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* 2. (왼쪽) 사이드바: 회색 배경 메뉴 */
+    .sidebar {
+        width: 30%;                     /* 화면의 30% 차지 */
+        background-color: #f7f7f7;      /* 연한 회색 배경 */
+        padding: 20px 0;                /* 안쪽 여백 */
+        border-right: 1px solid #eee;   /* 오른쪽 구분선 */
+    }
+
+    /* 왼쪽 메뉴 글자들 */
+    .filter-group {
+        gap: 0;                         /* 간격 초기화 */
+        margin-top: 0;
+    }
+    
+    .filter-link {
+        padding: 15px 10px;             /* 터치하기 좋게 영역 넓힘 */
+        font-size: 0.9rem;              /* 글자 크기 조정 */
+        justify-content: center;        /* 가운데 정렬 */
+        color: #666;
+        border-bottom: 1px solid #eee;  /* 메뉴 사이 얇은 선 */
+    }
+
+    /* 선택된 메뉴 (흰색으로 변해서 오른쪽과 이어지는 느낌) */
+    .filter-link.active {
+        background-color: #ffffff !important; /* 배경 흰색 */
+        color: #780C1B !important;            /* 글자 빨간색 */
+        border-right: 1px solid #fff;         /* 오른쪽 선을 지워서 뚫린 느낌 */
+        margin-right: -1px;                   /* 1픽셀 밀어서 선 덮기 */
+        font-weight: bold;
+    }
+    /* 선택된 메뉴 앞의 아이콘(✦) 숨기기 (공간 부족함) */
+    .filter-link::before { display: none !important; } 
+
+
+    /* 3. (오른쪽) 필터 패널: 흰색 배경 내용 */
+    .filter-panel {
+        width: 70%;                     /* 화면의 70% 차지 */
+        background-color: #ffffff;      /* 흰색 배경 */
+        padding: 20px 15px;             /* 안쪽 여백 */
+    }
+
+    /* 태그들이 담길 그릇 */
+    .chip-container {
+        display: flex;
+        flex-wrap: wrap;                /* 줄바꿈 허용! (핵심) */
+        gap: 8px;                       /* 태그 사이 간격 좁게 */
+        justify-content: flex-start;    /* 왼쪽부터 차곡차곡 */
+    }
+
+    /* 태그 버튼 디자인 (모바일에 맞게 작게) */
+    .filter-chip {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+        width: auto;                    /* 내용만큼만 늘어나게 */
+        flex-grow: 0;                   /* 억지로 늘리지 않기 */
+        border-width: 1px;              /* 테두리 얇게 */
+    }
+
+    /* 제목 숨기기 or 작게 하기 */
+    .submenu-box h2 {
+        font-size: 0.9rem !important;
+        margin-bottom: 15px;
+        color: #333;
+        border-bottom: 2px solid #111;
+        padding-bottom: 5px;
+        display: inline-block;
+    }
+    
+    /* 설명글(Italic) 숨기기 (공간 절약) */
+    .submenu-desc { display: none; }
+    
+    /* 검색창 숨기기 (필요하면 냅두세요) */
+    /* #search-input { display: none; } */
 }
 
 /* --- [System] 썸네일 없을 때 대체 텍스트 박스 --- */
