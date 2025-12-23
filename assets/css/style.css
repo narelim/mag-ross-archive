@@ -689,6 +689,52 @@ header {
         padding: 20px 10px;
         background: #fff;
     }
+
+        /* === 2. 글 목록 (리스트 뷰) 크기 조절 === */
+    
+    /* 전체 레이아웃 */
+    .post-list.view-list .post-item {
+        flex-direction: row;      /* 가로 배치 유지 */
+        align-items: center;      /* 수직 중앙 정렬 */
+        gap: 15px;                /* 사진과 글 사이 간격 좁힘 */
+        padding: 15px 0;
+    }
+
+    /* 🚨 썸네일 & 색상박스 크기 강제 축소 (핵심!) */
+    .post-list.view-list .thumb-link img,
+    .post-list.view-list .no-thumb-box {
+        width: 100px !important;      /* 280px -> 100px로 축소 */
+        height: 100px !important;     /* 정사각형 비율 */
+        min-width: 100px;             /* 찌그러짐 방지 */
+        border-radius: 4px;           /* 살짝 둥글게 */
+    }
+    
+    /* 색상 박스 안의 제목 글자 크기 */
+    .no-thumb-box .no-thumb-title {
+        font-size: 0.7rem !important; /* 아주 작게 */
+        line-height: 1.2;
+        padding: 0 5px;
+        -webkit-line-clamp: 3;        /* 3줄 넘어가면 자름 */
+    }
+
+    /* 글 제목 및 정보 */
+    .post-info {
+        flex: 1;                      /* 남은 공간 다 쓰기 */
+        min-width: 0;                 /* 글자 넘침 방지 */
+    }
+    
+    /* 제목 폰트 줄이기 */
+    .post-info a {
+        font-size: 1.1rem !important; 
+        line-height: 1.3;
+        display: block;
+        margin-top: 5px;
+    }
+    
+    /* 카테고리/태그 폰트 줄이기 */
+    .post-meta span {
+        font-size: 0.75rem !important;
+    }
 }
 
 /* --- [System] 썸네일 없을 때 대체 텍스트 박스 --- */
