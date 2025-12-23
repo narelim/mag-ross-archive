@@ -4,7 +4,7 @@ title: "Dragon X The girl"
 date: 2025-12-22
 category: "Fantasy"
 tags: [판타지,키잡,인외,드래곤,순애]
-types: Default
+type: Default
 image: 
 ---
 
