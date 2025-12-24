@@ -127,6 +127,25 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 * { -webkit-tap-highlight-color: transparent; }
 .submenu-desc { display: block; margin-top: 10px; color: #666; font-style: italic; font-family: "Dancing Script", cursive; }
 
+/* --- [List] 리스트 상단 옵션 바 (버튼 정렬) --- */
+
+.view-options-bar {
+    display: flex;
+    justify-content: space-between; /* 👈 핵심! 양쪽 끝으로 벌리기 */
+    align-items: center;            /* 위아래 높이 중앙 맞춤 */
+    
+    margin-bottom: 30px;            /* 아래 리스트랑 간격 */
+    padding-bottom: 15px;           /* 선이랑 간격 */
+    border-bottom: 1px solid #eee;  /* (선택사항) 바닥에 얇은 선 */
+}
+
+/* (선택사항) Showing All Posts 글자 스타일 */
+.view-options-bar span {
+    font-size: 0.9rem;
+    color: #888;
+    font-family: 'Pretendard', sans-serif;
+}
+
 /* 글 목록 리스트 */
 .archive-bottom-section { width: 100%; border-top: 2px solid #111; padding-top: 20px; }
 .post-list { list-style: none; padding: 0; margin: 0; }
