@@ -275,7 +275,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
         font-weight: bold;
         border-right: 1px solid #fff; /* 오른쪽 선 지우기 (핵심!) */
         width: calc(100%);      /* 1px 덮어쓰기 */
-        margin-right: 0px;
+        margin-right: -1px;
         position: relative;
         z-index: 5;
     }
