@@ -107,12 +107,12 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
    3. 아카이브 (Archive) 페이지 디자인
    ========================================= */
 
-.archive-container { max-width: 1400px; margin: 10px auto; padding: 0 20px; display: block; }
+.archive-container { max-width: 1400px; margin: 10px auto; padding: 20 20px; display: block; }
 .archive-top-section { display: flex; align-items: flex-start; gap: 50px; margin-bottom: 50px; }
 .sidebar { width: 220px; flex-shrink: 0; border-right: 1px solid #eee; padding-right: 20px; }
 
 /* 메뉴 필터 */
-.filter-group { display: flex; flex-direction: column; gap: 0px; margin-top: 0px; }
+.filter-group { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
 .filter-link { display: flex; align-items: center; cursor: pointer; transition: color 0.3s ease; font-size: 1.1rem; color: #888; }
 .filter-link::before { content: "✦"; display: inline-block; overflow: hidden; white-space: nowrap; opacity: 0; max-width: 0; margin-right: 0; transform: rotate(-180deg) scale(0.5); transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); color: #780C1B; }
 .filter-link:hover, .filter-link.active { color: #780C1B; font-weight: bold; }
@@ -193,7 +193,10 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 @media (max-width: 768px) {
 
-    /* --- 1. 🔍 상단 검색창: 둥글고 깔끔하게! --- */
+   .mobile-archive-container { max-width: 1400px; margin: 10px auto; padding: 0 20px; display: block; }
+   .mobile-filter-group { display: flex; flex-direction: column; gap: 0px; margin-top: 0px; }
+   
+   /* --- 1. 🔍 상단 검색창: 둥글고 깔끔하게! --- */
     .mobile-search-wrapper {
         display: block !important;
         width: 100%;
