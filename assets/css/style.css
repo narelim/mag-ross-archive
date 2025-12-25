@@ -650,7 +650,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
    display:flex;
    justify-content:flex-start;
-
+   align-items:flex-end;
    margin-bottom:30px;
 }
 .editorial-pair-grid .sheet-full-body img {
