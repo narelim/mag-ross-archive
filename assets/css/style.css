@@ -709,6 +709,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 /* 정보 영역의 마지막 요소(하단 선 등)를 바닥으로 밀기 */
 .editorial-pair-grid .sheet-right > :last-child {
     margin-top: auto;
+   padding-bottom:20px;
 }
 
 /* (나머지 디자인 요소들) */
