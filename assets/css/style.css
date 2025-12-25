@@ -500,7 +500,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .sheet-colors {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 10px;
     flex: 0 0 100px; /* 너비 100px 고정 */
 }
@@ -521,25 +521,33 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 }
 
 
-/* OK / NG 박스 */
+/* OK / NG 라벨 (테마색 적용 버전) */
 .sheet-pill {
     display: flex;
     align-items: center;
     background: #fff;
     border: 1px solid #ddd;
-    border-radius: 50px; /* 캡슐 모양 */
+    border-radius: 50px;
     padding: 8px 10px;
     margin-bottom: 10px;
 }
+
 .pill-label {
     font-weight: 900;
     font-size: 1.2rem;
     padding: 0 15px;
     margin-right: 10px;
     border-right: 1px solid #eee;
+    
+    /* 👇 여기가 핵심! 말풍선이랑 같은 색을 글자색으로 씁니다 */
+    color: var(--bubble-bg, #333); 
 }
-.pill-label.ok { color: #4CAF50; } /* 초록색 OK */
-.pill-label.ng { color: #F44336; } /* 빨간색 NG */
+
+.pill-text {
+    font-size: 0.95rem;
+    color: #333;
+}
+
 .pill-text { font-size: 0.95rem; color: #333; }
 
 
