@@ -247,7 +247,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
     /* (왼쪽) 메뉴 기둥 */
     .sidebar {
-        width: 20%;               /* 너비 살짝 조절 */
+        width: 25%;               /* 너비 살짝 조절 */
         background-color: #fafafa; /* 아주 연한 회색 */
         border-right: 1px solid #eee;
         padding: 0;
