@@ -502,11 +502,13 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 10px;
-    flex: 0 0 100px; /* 너비 100px 고정 */
+    width: fit-content;
+    flex: 0 0 auto; /* 너비 100px 고정 */
 }
 /* 색상표 (하트 모양 버전 💖) */
 .color-sq {
-    width: 100%;
+    width: 40px;
+    height:40px;
     aspect-ratio: 1/1; /* 정사각형 비율 유지 (그래야 예쁜 하트가 됨) */
     
     /* 👇 하트 모양으로 오려내기 */
