@@ -385,3 +385,155 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .char-pair-grid .char-img-area { max-width: 100%; margin-bottom: 20px; }
 .char-pair-grid .char-info-area { width: 100%; }
 @media (max-width: 768px) { .char-pair-grid { flex-direction: column; } }
+
+/* --- [Character Sheet] 캐릭터 상세 설정표 디자인 --- */
+
+.char-sheet-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 60px auto;
+    font-family: 'Pretendard', sans-serif;
+    color: #333;
+    align-items: flex-start; /* 위쪽 라인 맞춤 */
+}
+
+/* === 1. 왼쪽 (전신샷 영역) === */
+.sheet-left {
+    flex: 1; /* 너비 비율 1 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* 말풍선 */
+.sheet-bubble {
+    background-color: #ccc; /* 회색 배경 */
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    width: 80%;
+}
+/* 말풍선 꼬리 */
+.sheet-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: #ccc transparent transparent transparent;
+}
+
+/* 전신 이미지 */
+.sheet-full-body img {
+    width: 100%;
+    height: auto;
+    max-height: 600px; /* 너무 길어지지 않게 제한 */
+    object-fit: contain;
+    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.1)); /* 그림자 효과 */
+}
+
+/* 하단 설명 박스 (캐치프레이즈) */
+.sheet-box {
+    background-color: #f9f9f9; /* 연한 회색 박스 */
+    border: 1px solid #eee;
+    border-radius: 15px;
+    padding: 25px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.sheet-box h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+.sheet-box p, .sheet-box li {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+
+/* === 2. 오른쪽 (정보 영역) === */
+.sheet-right {
+    flex: 1.4; /* 너비 비율 1.4 (좀 더 넓게) */
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* 헤더 (이름 등) */
+.sheet-header { text-align: right; border-bottom: 2px solid #111; padding-bottom: 20px; }
+.sheet-name { font-size: 3.5rem; font-weight: 900; margin: 0; line-height: 1; letter-spacing: -2px; }
+.sheet-sub { font-size: 1rem; color: #888; margin: 10px 0; font-weight: 300; }
+.sheet-stats { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; display: block; }
+.sheet-tags { color: #888; font-size: 0.9rem; }
+
+/* 큰 네모 이미지 (두상/흉상) */
+.sheet-portrait {
+    width: 100%;
+    aspect-ratio: 1/1; /* 정사각형 비율 고정 */
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.sheet-portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 중간 그리드 (색상표 + 체크리스트) */
+.sheet-middle { display: flex; gap: 20px; }
+
+/* 색상표 (2x3 그리드) */
+.sheet-colors {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    flex: 0 0 100px; /* 너비 100px 고정 */
+}
+.color-sq {
+    width: 100%;
+    height: 45px;
+    border-radius: 8px;
+    background-color: #ddd; /* 기본색 */
+}
+
+/* OK / NG 박스 */
+.sheet-pill {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50px; /* 캡슐 모양 */
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+.pill-label {
+    font-weight: 900;
+    font-size: 1.2rem;
+    padding: 0 15px;
+    margin-right: 10px;
+    border-right: 1px solid #eee;
+}
+.pill-label.ok { color: #4CAF50; } /* 초록색 OK */
+.pill-label.ng { color: #F44336; } /* 빨간색 NG */
+.pill-text { font-size: 0.95rem; color: #333; }
+
+
+/* 📱 모바일 대응 */
+@media (max-width: 768px) {
+    .char-sheet-container { flex-direction: column; gap: 40px; }
+    .sheet-left, .sheet-right { width: 100%; }
+    .sheet-header { text-align: center; }
+    .sheet-middle { flex-direction: column; }
+    .sheet-colors { display: flex; flex: auto; height: 50px; } /* 모바일에선 가로로 */
+}
