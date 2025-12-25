@@ -481,8 +481,8 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     padding-bottom: 30px; 
 }
 .sheet-name { 
-    font-family: 'Monsieur La Doulaise', cursive; /* 필기체 또는 아주 굵은 명조 */
-    font-size: 5rem; /* 압도적으로 크게 */
+    font-family: 'Noto serif KR', cursive; /* 필기체 또는 아주 굵은 명조 */
+    font-size: 3rem; /* 압도적으로 크게 */
     margin: 0; 
     line-height: 0.8; 
     color: #111;
@@ -612,7 +612,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     display: flex;
     gap: 60px;             /* 두 캐릭터 사이 간격 시원하게 */
     margin: 80px 0;
-    align-items: stretch;  /* 높이 맞춤 */
+    align-items: flex-start;  /* 높이 맞춤 */
 }
 
 /* 2인용 그리드 안에서는 디자인이 변신합니다 */
