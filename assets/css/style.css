@@ -629,7 +629,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 /* 말풍선은 사진 밑으로 */
 .editorial-pair-grid .sheet-bubble {
     order: 1;
-    min-height:80px;
+    min-height:40px;
    diplay:flex;
    align-items:flex-end;
    justify-content:center;
@@ -644,13 +644,12 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 /* 1. 이미지 영역 조정 */
 .editorial-pair-grid .sheet-left {
-   min-height:750px; 
+   min-height:600px; 
    width: 100%;           /* 너비 꽉 차게 */
     order: 2;              /* 순서 1번 */
 
    display:flex;
    justify-content:flex-start;
-   align-items:flex-end;
 
    margin-bottom:30px;
 }
