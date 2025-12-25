@@ -717,6 +717,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .editorial-pair-grid .sheet-name { font-size: 2.8rem; /* 좁으니까 폰트 살짝 줄임 */ line-height: 1.1; } 
 .editorial-pair-grid .sheet-portrait { display: none; }
 .editorial-pair-grid .sheet-middle { flex-direction: column; align-items: center; gap: 20px; }
+.editorial-pair-grid .sheet-ok-ng {text-align:left;}
 .editorial-pair-grid .sheet-box ul { display: inline-block; text-align: left; }
 
 
