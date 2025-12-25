@@ -612,7 +612,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     display: flex;
     gap: 60px;             /* 두 캐릭터 사이 간격 시원하게 */
     margin: 80px 0;
-    align-items: flex-start;  /* 높이 맞춤 */
+    align-items: stretch !important;  /* 높이 맞춤 */
 }
 
 /* 2인용 그리드 안에서는 디자인이 변신합니다 */
@@ -623,6 +623,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     padding: 0;
     gap: 20px;
     border: none;
+   height: 100%
 }
 
 /* 1. 이미지 영역 조정 */
@@ -648,7 +649,13 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     width: 100%;
     order: 2;              /* 순서 2번 */
     gap: 20px;
+
+   flexx: 1;
+   display: flex;
+   flex-direction: column;
 }
+
+.editorial-pair-grid .sheet-right >:last-child{margin-top:auto;}
 
 /* 이름 가운데 정렬 및 크기 조정 */
 .editorial-pair-grid .sheet-header {
