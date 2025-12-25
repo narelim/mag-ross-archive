@@ -702,6 +702,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     /* 남는 공간 꽉 채우기 */
     flex: 1;               
     display: flex;
+   justify-content: flex-start; /* 위에서부터 글씨 시작 */
     flex-direction: column;
     gap: 20px;
 }
