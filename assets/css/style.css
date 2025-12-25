@@ -193,7 +193,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 @media (max-width: 768px) {
 
-   .archive-container { padding: 0 0px; }
+   .archive-container { padding: 0 20px; }
    .filter-group { gap: 0px; margin-top: 0px; }
    
    /* --- 1. 🔍 상단 검색창: 둥글고 깔끔하게! --- */
@@ -256,14 +256,15 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     
     /* 메뉴 버튼 디자인 */
     .filter-link {
-        padding: 5px 5px;        /* 위아래 높이를 줘서 터치하기 좋게 */
-        font-size: 0.8rem;        /* 글자 크기 단정하게 */
+        padding: 10px 10px;        /* 위아래 높이를 줘서 터치하기 좋게 */
+        font-size: 0.7rem;        /* 글자 크기 단정하게 */
         justify-content: center;
         text-align: center;
-       margin-top: 0px ;
+        margin-top: 0px ;
         border-bottom: 1px solid #f0f0f0;
         color: #888;              /* 기본은 회색 */
         letter-spacing: 0.5px;
+        font-family:"playfair Display SC";
     }
     .filter-link::before { display: none !important; }
 
@@ -274,7 +275,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
         font-weight: bold;
         border-right: 1px solid #fff; /* 오른쪽 선 지우기 (핵심!) */
         width: calc(100%);      /* 1px 덮어쓰기 */
-        margin-right: -1px;
+        margin-right: 0px;
         position: relative;
         z-index: 5;
     }
