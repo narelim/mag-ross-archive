@@ -193,7 +193,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 @media (max-width: 768px) {
 
-   .archive-container { padding: 0 20px; }
+   .archive-container { padding: 0 0px; }
    .filter-group { gap: 0px; margin-top: 0px; }
    
    /* --- 1. 🔍 상단 검색창: 둥글고 깔끔하게! --- */
@@ -285,6 +285,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
         padding: 10px 20px;       /* 🚨 중요: 안쪽 여백을 줘서 글자가 벽에 안 붙게! */
         padding-left: 10px;
        background: #fff;
+       z-index: 7;
     }
     
     /* 태그 칩 간격 */
