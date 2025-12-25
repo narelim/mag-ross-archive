@@ -5,7 +5,7 @@ date: 2025-12-22
 category: "DxV"
 tags: [닥터빌런,애증,혐관,로판,복수물]
 type: Default
-image: 
+image: "thumb_dxvrofan.png"
 ---
 
 <br>
