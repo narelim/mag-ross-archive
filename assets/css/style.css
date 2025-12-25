@@ -626,28 +626,28 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
    height: 100%
 }
 
-/* 1. 이미지 영역 조정 */
-.editorial-pair-grid .sheet-left {
-    width: 100%;           /* 너비 꽉 차게 */
-    order: 1;              /* 순서 1번 */
-}
-.editorial-pair-grid .sheet-full-body img {
-    max-height: 450px;     /* 이미지가 너무 길지 않게 */
-}
 /* 말풍선은 사진 밑으로 */
 .editorial-pair-grid .sheet-bubble {
-    order: 2;
+    order: 1;
     margin-top: 10px;
     text-align: center;    /* 가운데 정렬 */
     border-left: none;
     border-top: 3px solid var(--bubble-bg, #333); /* 선 위치 변경 (위쪽으로) */
 }
 
+/* 1. 이미지 영역 조정 */
+.editorial-pair-grid .sheet-left {
+    width: 100%;           /* 너비 꽉 차게 */
+    order: 2;              /* 순서 1번 */
+}
+.editorial-pair-grid .sheet-full-body img {
+    max-height: 450px;     /* 이미지가 너무 길지 않게 */
+}
 
 /* 2. 정보 영역 조정 */
 .editorial-pair-grid .sheet-right {
     width: 100%;
-    order: 2;              /* 순서 2번 */
+    order: 3;              /* 순서 2번 */
     gap: 20px;
 
    flexx: 1;
