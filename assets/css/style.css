@@ -680,7 +680,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     order: 3;
     display: flex;
     width:100%;
-    table-layout:fixed;
+    flex:1;
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: visible;
