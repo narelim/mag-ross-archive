@@ -193,8 +193,8 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 @media (max-width: 768px) {
 
-   .mobile-archive-container { max-width: 1400px; margin: 10px auto; padding: 0 20px; display: block; }
-   .mobile-filter-group { display: flex; flex-direction: column; gap: 0px; margin-top: 0px; }
+   .archive-container { padding: 0 20px; }
+   .filter-group { gap: 0px; margin-top: 0px; }
    
    /* --- 1. 🔍 상단 검색창: 둥글고 깔끔하게! --- */
     .mobile-search-wrapper {
