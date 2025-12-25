@@ -663,7 +663,8 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .editorial-pair-grid .sheet-full-body {
     order: 2;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
+   height:400px;
     justify-content: center;
     margin: 0 0 10px 0;
 }
