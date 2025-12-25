@@ -459,6 +459,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     text-transform: uppercase;
 }
 .sheet-box p, .sheet-box li {
+   font-family: 'ChosunIlboMyungjo';
     font-size: 0.9rem;
     color: #444;
     line-height: 1.8;
@@ -487,7 +488,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     color: #111;
 }
 .sheet-sub { 
-    font-family: 'Gruppo', sans-serif;
+    font-family: 'ChosunIlboMyungjo';
     font-size: 1.1rem; 
     color: #666; 
     margin: 15px 0 20px 0;
@@ -581,6 +582,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     color: var(--bubble-bg, #000); /* 캐릭터 색상 */
 }
 .pill-text {
+   font-family: 'ChosunIlboMyungjo';
     font-size: 1rem;
     color: #333;
     border-bottom: 1px dashed #ddd; /* 밑줄 추가 */
