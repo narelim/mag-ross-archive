@@ -3,7 +3,7 @@ layout: post
 title: "mermaid princess"
 date: 2025-12-25
 category: "Fantasy"
-tags: [판타지, 인어, 삽질, 해피엔딩]
+tags: [판타지, 인어, 삽질, 로판, 해피엔딩]
 type: Default
 image: "thumb_mermaidfairy.png"
 ---
