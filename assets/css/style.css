@@ -610,10 +610,23 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 .editorial-pair-grid {
     display: flex;
-    gap: 60px;             /* 두 캐릭터 사이 간격 */
-    margin: 80px 0;
-    align-items: stretch;  /* 전체 높이 맞춤 */
+    gap: 60px;
+    align-items: stretch;
+
+    /* 🚨 와이드 브레이크 아웃 (화면 뚫고 나가기) */
+    width: 100vw;              /* 화면 전체 너비 */
+    position: relative;
+    left: 50%;                 /* 왼쪽에서 50% 지점으로 이동 */
+    margin-left: -50vw;        /* 다시 내 너비의 절반만큼 왼쪽으로 당김 -> 결과: 정중앙 */
+    
+    padding: 0 20px;           /* 양옆에 최소한의 여백 */
+    box-sizing: border-box;
+    margin-top: 80px;
+    margin-bottom: 80px;
 }
+
+/* (주의) 이 방식은 가로 스크롤이 생길 수 있으니 body에 overflow-x: hidden이 있으면 좋습니다. */
+
 
 /* 2인용 그리드 내부 컨테이너 */
 .editorial-pair-grid .char-sheet-container {
@@ -711,6 +724,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .editorial-pair-grid .sheet-right > :last-child {
     margin-top: auto;
    padding-bottom:20px;
+       align-items: flex-end; /* 이미지를 바닥에 붙임 (발 위치 맞춤) */
 }
 
 /* (나머지 디자인 요소들) */
