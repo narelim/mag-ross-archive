@@ -3,7 +3,7 @@ layout: post
 title: "Doctor X Villain"
 date: 2025-12-21
 category: "DxV"
-tags: [닥터빌런,히어로,회귀,시리즈]
+tags: [닥터빌런, 히어로, 회귀, 시리즈]
 type: Default
 image: "thumb_doctorxvillain.png"
 ---
