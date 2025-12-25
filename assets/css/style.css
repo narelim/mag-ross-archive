@@ -680,10 +680,12 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     order: 3;
     height: 90px;
     display: flex;
+   width:100%;
     flex-direction: column;
     justify-content: flex-start;
-    overflow: hidden;
+    overflow-y: visible;
     text-align: center;
+    word-break: keep-all;
 }
 .editorial-pair-grid .sheet-box p { margin: 0; }
 
