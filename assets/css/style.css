@@ -386,179 +386,302 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .char-pair-grid .char-info-area { width: 100%; }
 @media (max-width: 768px) { .char-pair-grid { flex-direction: column; } }
 
-/* --- [Character Sheet] 캐릭터 상세 설정표 디자인 --- */
+/* --- [Character Sheet] 디자인 리뉴얼 (잡지 스타일) --- */
 
 .char-sheet-container {
     display: flex;
-    gap: 40px;
+    gap: 50px; /* 간격 더 넓게 */
     max-width: 1000px;
-    margin: 60px auto;
+    margin: 80px auto;
     font-family: 'Pretendard', sans-serif;
-    color: #333;
-    align-items: flex-start; /* 위쪽 라인 맞춤 */
+    color: #111;
+    align-items: flex-start;
+    
+    /* 전체 배경에 얇은 선 추가 (선택사항) */
+    /* border-top: 1px solid #111; */
+    /* border-bottom: 1px solid #111; */
+    padding: 40px 0;
 }
 
 /* === 1. 왼쪽 (전신샷 영역) === */
 .sheet-left {
-    flex: 1; /* 너비 비율 1 */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 
-/* 말풍선 (색상 변경 가능 버전) */
+/* 💬 말풍선 -> '인용구' 스타일로 변경 */
 .sheet-bubble {
-    /* 👇 기본값은 회색(#ccc)이지만, --bubble-bg 변수가 있으면 그 색을 씀 */
-    background-color: var(--bubble-bg, #ccc); 
-    color: #fff;
-    padding: 15px 20px;
-    border-radius: 10px;
-    position: relative;
-    text-align: center;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    width: 80%;
+    background-color: transparent; /* 배경색 제거 */
+    color: #111;                   /* 글자색 검정 */
+    padding: 10px 20px;
+    border-radius: 0;              /* 둥근 모서리 제거 */
+    width: 100%;
+    text-align: left;              /* 왼쪽 정렬 */
+    font-family: 'BookkMyungjo', serif; /* 명조체로 분위기 있게 */
+    font-size: 1.1rem;
+    font-style: italic;
+    
+    /* 왼쪽 포인트 선 (캐릭터 색상) */
+    border-left: 4px solid var(--bubble-bg, #333); 
+    box-shadow: none;              /* 그림자 제거 */
 }
-
-/* 말풍선 꼬리 (색상 자동 따라감) */
-.sheet-bubble::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 10px 10px 0;
-    border-style: solid;
-    /* 👇 꼬리 색상도 몸통 색상과 똑같이! */
-    border-color: var(--bubble-bg, #ccc) transparent transparent transparent;
-}
+/* 꼬리표(삼각형) 제거 */
+.sheet-bubble::after { display: none; }
 
 
-/* 전신 이미지 */
+/* 전신 이미지 (잡지처럼) */
 .sheet-full-body img {
     width: 100%;
     height: auto;
-    max-height: 600px; /* 너무 길어지지 않게 제한 */
+    max-height: 600px;
     object-fit: contain;
-    filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.1)); /* 그림자 효과 */
+    /* 그림자 대신 흑백 필터나, 깔끔함을 위해 효과 제거 */
+    filter: none; 
 }
 
-/* 하단 설명 박스 (캐치프레이즈) */
+/* 캐치프레이즈 박스 -> '에세이' 스타일 */
 .sheet-box {
-    background-color: #f9f9f9; /* 연한 회색 박스 */
-    border: 1px solid #eee;
-    border-radius: 15px;
-    padding: 25px;
+    background-color: transparent; /* 회색 배경 제거 */
+    border: none;
+    border-top: 1px solid #111;    /* 위에만 진한 선 */
+    border-radius: 0;
+    padding: 20px 0;               /* 위아래 여백만 */
     width: 100%;
-    box-sizing: border-box;
 }
 .sheet-box h3 {
-    margin-top: 0;
-    font-size: 1.1rem;
-    color: #000;
-    margin-bottom: 10px;
-    font-weight: 800;
+    font-family: 'Playfair Display SC', serif; /* 영어 제목 폰트 */
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: var(--bubble-bg, #333); /* 캐릭터 색상 */
+    margin-bottom: 15px;
+    text-transform: uppercase;
 }
 .sheet-box p, .sheet-box li {
-    font-family: 'ChosunIlboMyungjo'; 
     font-size: 0.9rem;
-    color: #555;
-    line-height: 1.6;
-    margin: 0;
+    color: #444;
+    line-height: 1.8;
 }
 
 
 /* === 2. 오른쪽 (정보 영역) === */
 .sheet-right {
-    flex: 1.4; /* 너비 비율 1.4 (좀 더 넓게) */
+    flex: 1.3;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 40px; /* 요소 간격 시원하게 */
 }
 
-/* 헤더 (이름 등) */
-.sheet-header { text-align: right; border-bottom: 2px solid #111; padding-bottom: 20px; }
-.sheet-name { font-size: 3.5rem; font-weight: 900; margin: 0; line-height: 1; letter-spacing: -2px; }
-.sheet-sub { font-family: 'ChosunIlboMyungjo'; font-size: 1rem; color: #888; margin: 10px 0; font-weight: 300; }
-.sheet-stats { font-size: 1.1rem; font-weight: bold; margin-bottom: 5px; display: block; }
-.sheet-tags { color: #888; font-size: 0.9rem; }
+/* 헤더: 이름 디자인 변경 */
+.sheet-header { 
+    text-align: left; /* 왼쪽 정렬 */
+    border-bottom: 4px solid var(--bubble-bg, #111); /* 굵은 밑줄 */
+    padding-bottom: 30px; 
+}
+.sheet-name { 
+    font-family: 'Monsieur La Doulaise', cursive; /* 필기체 또는 아주 굵은 명조 */
+    font-size: 5rem; /* 압도적으로 크게 */
+    margin: 0; 
+    line-height: 0.8; 
+    color: #111;
+}
+.sheet-sub { 
+    font-family: 'Gruppo', sans-serif;
+    font-size: 1.1rem; 
+    color: #666; 
+    margin: 15px 0 20px 0;
+    letter-spacing: 1px;
+}
+.sheet-stats { 
+    font-family: 'Pretendard';
+    font-size: 0.9rem; 
+    color: #111; 
+    display: inline-block;
+    background: #f4f4f4; /* 살짝 배경 */
+    padding: 5px 10px;
+}
+.sheet-tags { 
+    display: block; 
+    margin-top: 10px; 
+    color: var(--bubble-bg, #888); 
+    font-weight: bold;
+}
 
-/* 큰 네모 이미지 (두상/흉상) */
+/* 두상 이미지 -> '액자' 스타일 */
 .sheet-portrait {
-    width: 100%;
-    aspect-ratio: 1/1; /* 정사각형 비율 고정 */
-    background-color: #f0f0f0;
-    border-radius: 15px;
-    overflow: hidden;
+    width: 200px; /* 크기 줄임 (증명사진 느낌) */
+    aspect-ratio: 3/4; /* 세로로 긴 비율 */
+    border-radius: 0;
+    border: 1px solid #ddd;
+    padding: 5px; /* 액자 여백 */
+    background: #fff;
+    box-shadow: 5px 5px 0px rgba(0,0,0,0.1); /* 겹친 종이 느낌 */
+    margin-bottom: 20px;
 }
-.sheet-portrait img { width: 100%; height: 100%; object-fit: cover; }
+.sheet-portrait img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(20%); /* 살짝 톤 다운 */
+}
 
-/* 중간 그리드 (색상표 + 체크리스트) */
-.sheet-middle { display: flex; gap: 20px; }
+/* 중간 영역 */
+.sheet-middle { 
+    display: flex; 
+    gap: 40px; 
+    align-items: flex-start;
+    border-top: 1px solid #eee; /* 구분선 */
+    padding-top: 30px;
+}
 
-/* 색상표 (2x3 그리드) */
+/* 색상표 (하트 유지, 배치 변경) */
 .sheet-colors {
     display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
     width: fit-content;
-    flex: 0 0 auto; /* 너비 100px 고정 */
+    flex: 0 0 auto;
 }
-/* 색상표 (하트 모양 버전 💖) */
+/* 하트칩 스타일 유지 */
 .color-sq {
-    width: 50px;
-    height:50px;
-    aspect-ratio: 1/1; /* 정사각형 비율 유지 (그래야 예쁜 하트가 됨) */
-    
-    /* 👇 하트 모양으로 오려내기 */
+    width: 35px; height: 35px;
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
-    
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: center;
-    -webkit-mask-size: contain; /* 하트가 잘리지 않게 맞춤 */
-    
-    border-radius: 0; /* 기존 둥근 모서리 제거 (하트 모양이 우선) */
+    -webkit-mask-size: contain;
+    border-radius: 0;
 }
 
-
-/* OK / NG 라벨 (테마색 적용 버전) */
+/* OK / NG -> '체크박스' 스타일 */
+.sheet-ok-ng {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+}
 .sheet-pill {
     display: flex;
-    align-items: center;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 50px;
-    padding: 8px 10px;
-    margin-bottom: 10px;
+    align-items: baseline; /* 글자 라인 맞춤 */
+    background: transparent; /* 배경 제거 */
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
 }
-
 .pill-label {
-    font-weight: 900;
+    font-family: 'Gruppo', sans-serif;
+    font-weight: bold;
     font-size: 1.2rem;
-    padding: 0 15px;
-    margin-right: 10px;
-    border-right: 1px solid #eee;
-    
-    /* 👇 여기가 핵심! 말풍선이랑 같은 색을 글자색으로 씁니다 */
-    color: var(--bubble-bg, #333); 
+    padding: 0;
+    margin-right: 15px;
+    border-right: none; /* 선 제거 */
+    min-width: 50px;
+    color: var(--bubble-bg, #000); /* 캐릭터 색상 */
 }
-
 .pill-text {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #333;
+    border-bottom: 1px dashed #ddd; /* 밑줄 추가 */
+    padding-bottom: 2px;
+    flex: 1;
 }
-
-.pill-text { font-size: 0.95rem; color: #333; }
 
 
 /* 📱 모바일 대응 */
 @media (max-width: 768px) {
-    .char-sheet-container { flex-direction: column; gap: 40px; }
+    .char-sheet-container { 
+        flex-direction: column; 
+        gap: 40px; 
+        margin: 40px 0;
+        padding: 0 20px; /* 양옆 여백 */
+    }
     .sheet-left, .sheet-right { width: 100%; }
     .sheet-header { text-align: center; }
-    .sheet-middle { flex-direction: column; }
-    .sheet-colors { display: flex; flex: auto; height: 50px; } /* 모바일에선 가로로 */
+    .sheet-name { font-size: 4rem; }
+    .sheet-portrait { margin: 0 auto 20px auto; } /* 사진 가운데 정렬 */
+    .sheet-middle { flex-direction: column; align-items: center; }
 }
+
+/* --- [Editorial Pair] 2인용 잡지 레이아웃 (양면 페이지 느낌) --- */
+
+.editorial-pair-grid {
+    display: flex;
+    gap: 60px;             /* 두 캐릭터 사이 간격 시원하게 */
+    margin: 80px 0;
+    align-items: stretch;  /* 높이 맞춤 */
+}
+
+/* 2인용 그리드 안에서는 디자인이 변신합니다 */
+.editorial-pair-grid .char-sheet-container {
+    flex: 1;               /* 50:50 비율 */
+    flex-direction: column;/* 🚨 핵심: 위(사진) -> 아래(글) 배치로 변경 */
+    margin: 0;             /* 바깥 여백 초기화 */
+    padding: 0;
+    gap: 20px;
+    border: none;
+}
+
+/* 1. 이미지 영역 조정 */
+.editorial-pair-grid .sheet-left {
+    width: 100%;           /* 너비 꽉 차게 */
+    order: 1;              /* 순서 1번 */
+}
+.editorial-pair-grid .sheet-full-body img {
+    max-height: 450px;     /* 이미지가 너무 길지 않게 */
+}
+/* 말풍선은 사진 밑으로 */
+.editorial-pair-grid .sheet-bubble {
+    order: 2;
+    margin-top: 10px;
+    text-align: center;    /* 가운데 정렬 */
+    border-left: none;
+    border-top: 3px solid var(--bubble-bg, #333); /* 선 위치 변경 (위쪽으로) */
+}
+
+
+/* 2. 정보 영역 조정 */
+.editorial-pair-grid .sheet-right {
+    width: 100%;
+    order: 2;              /* 순서 2번 */
+    gap: 20px;
+}
+
+/* 이름 가운데 정렬 및 크기 조정 */
+.editorial-pair-grid .sheet-header {
+    text-align: center;
+    border-bottom-width: 2px;
+}
+.editorial-pair-grid .sheet-name {
+    font-size: 3.5rem;     /* 5rem은 너무 크니까 살짝 줄임 */
+}
+
+/* 좁으니까 두상(증명사진)은 숨김 (전신이 있으니까요!) */
+.editorial-pair-grid .sheet-portrait {
+    display: none;
+}
+
+/* 색상표랑 체크리스트 가운데 정렬 */
+.editorial-pair-grid .sheet-middle {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+.editorial-pair-grid .sheet-box {
+    text-align: center;
+}
+.editorial-pair-grid .sheet-box ul {
+    display: inline-block;
+    text-align: left;
+}
+
+
+/* 📱 모바일에서는 다시 세로로 길게 (1명씩) */
+@media (max-width: 768px) {
+    .editorial-pair-grid {
+        flex-direction: column;
+        gap: 80px; /* 위아래 간격 */
+    }
+}
+
