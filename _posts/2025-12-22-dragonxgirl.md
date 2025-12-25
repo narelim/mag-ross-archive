@@ -3,9 +3,9 @@ layout: post
 title: "Dragon X The girl"
 date: 2025-12-22
 category: "Fantasy"
-tags: [판타지,키잡,인외,드래곤,순애]
+tags: [판타지, 키잡, 인외, 드래곤, 순애]
 type: Default
-image: 
+image: "thumb_dragonxgirl.png"
 ---
 
 드래곤 더글 마력을 지닌 소녀 아델 서사<br>
