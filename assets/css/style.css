@@ -619,6 +619,59 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     box-sizing: border-box;
 }
 
+/* --- [Slot System] 정보 영역 줄 맞춤용 높이 설정 --- */
+
+/* 1. 헤더 (이름 + 나이/키) */
+.editorial-pair-grid .slot-header {
+    min-height: 200px; /* 이름이 길어도, 짧어도 무조건 200px 확보 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* 아래쪽 라인에 맞춤 */
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--bubble-bg, #333); /* 구분선 */
+    margin-bottom: 20px;
+}
+
+/* 2. 컬러 팔레트 영역 */
+.editorial-pair-grid .slot-colors {
+    min-height: 60px;  /* 하트/네모 색상표 높이 확보 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #ddd; /* (선택사항) 연한 점선 */
+}
+
+/* 3. 외관 설명 (줄글/리스트) */
+.editorial-pair-grid .slot-appearance {
+    min-height: 150px; /* 🚨 글이 제일 많은 구간! 넉넉하게 잡으세요 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* 위에서부터 글씨 시작 */
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #ddd;
+}
+
+/* 4. Likes / Hates 영역 */
+.editorial-pair-grid .slot-likes {
+    min-height: 100px; /* 호불호 적는 구간 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #ddd;
+}
+
+/* 5. 기타 (맨 아래) */
+.editorial-pair-grid .slot-etc {
+    min-height: 150px; /* 마지막 설명 구간 */
+    margin-top: auto;  /* 혹시 공간 남으면 바닥으로 밀기 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* 바닥에서부터 글씨 채우기 */
+}
+
 /* 내부 컨테이너 */
 .editorial-pair-grid .char-sheet-container {
     flex: 1;               /* 50:50 정확히 분할 */
