@@ -336,7 +336,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
    /* 포스트 상단 카테고리 링크 스타일 */
 .post-category-link {
-    color: #888;          /* 기존 회색 톤 유지 */
+    color: #780C1B;          /* 기존 회색 톤 유지 */
     text-decoration: none; /* 밑줄 제거 */
     cursor: pointer;
     font-weight: bold;
@@ -344,8 +344,8 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 }
 
 .post-category-link:hover {
-    color: #780C1B;       /* 마우스 올리면 포인트 컬러(붉은색) */
-    text-decoration: underline; /* 살짝 밑줄 */
+    color: #8D0E1D;       /* 마우스 올리면 포인트 컬러(붉은색) */
+    text-decoration: none; /* 살짝 밑줄 */
 }
 
 
