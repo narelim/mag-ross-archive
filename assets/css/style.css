@@ -449,6 +449,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     border-radius: 0;
     padding: 20px 0;               /* 위아래 여백만 */
     width: 100%;
+    font-family: 'ridibatang'; /* 명조체로 분위기 있게 */
 }
 .sheet-box h3 {
     font-family: 'Playfair Display SC', serif; /* 영어 제목 폰트 */
