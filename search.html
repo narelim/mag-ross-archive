@@ -319,4 +319,26 @@ title: Archive
             }
         }
     });
+
+    /* --- [Auto Filter] URL에서 카테고리 읽어서 자동 클릭하기 --- */
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. 주소창의 ?category=... 값을 읽어옵니다.
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetCategory = urlParams.get('category');
+
+    // 2. 만약 카테고리 값이 있다면?
+    if (targetCategory) {
+        // 3. 왼쪽 사이드바의 메뉴들(.filter-link)을 전부 훑어봅니다.
+        const buttons = document.querySelectorAll('.filter-link');
+        
+        buttons.forEach(btn => {
+            // 버튼의 글자(예: Main Story)가 주소창의 값과 똑같다면?
+            if (btn.textContent.trim() === targetCategory) {
+                // 4. 사람 대신 컴퓨터가 '클릭' 해줍니다!
+                btn.click();
+            }
+        });
+    }
+});
+
 </script>
