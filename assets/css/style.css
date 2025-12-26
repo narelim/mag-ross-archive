@@ -565,10 +565,6 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     -webkit-mask-size: contain;
     
     border-radius: 0;
-    
-    /* 🚨 핵심 추가: 얇은 테두리 효과 (그림자 필터 이용) */
-    /* 설명: X축0, Y축0 위치에서, 1.5px만큼 퍼지는, 연한 검은색 그림자 */
-    filter: drop-shadow(0px 0px 3px rgba(0,0,0,1.0));
 }
 
 
@@ -790,7 +786,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 /* (기타 디자인 유지) */
 .editorial-pair-grid .sheet-header { text-align: center; border-bottom-width: 2px; }
 .editorial-pair-grid .sheet-name { text-align: center; font-size: 2.8rem; /* 좁으니까 폰트 살짝 줄임 */ line-height: 1.1; } 
-.editorial-pair-grid .sheet-portrait { display: none; }
+.editorial-pair-grid .sheet-portrait { display: block; }
 .editorial-pair-grid .sheet-middle { flex-direction: column; align-items: center; gap: 20px; }
 .editorial-pair-grid .sheet-ok-ng {text-align:left;}
 .editorial-pair-grid .sheet-box ul { display: inline-block; text-align: left; }
