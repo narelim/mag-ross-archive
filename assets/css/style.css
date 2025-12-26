@@ -638,24 +638,24 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-bottom: 1px dashed #ddd; /* (선택사항) 연한 점선 */
 }
 
 /* 3. 외관 설명 (줄글/리스트) */
 .editorial-pair-grid .slot-appearance {
-    min-height: 180px; /* 🚨 글이 제일 많은 구간! 넉넉하게 잡으세요 */
+    min-height: 250px; /* 🚨 글이 제일 많은 구간! 넉넉하게 잡으세요 */
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* 위에서부터 글씨 시작 */
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 /* 4. Likes / Hates 영역 */
 .editorial-pair-grid .slot-likes {
-    min-height: 130px; /* 호불호 적는 구간 */
+    min-height: 200px; /* 호불호 적는 구간 */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -771,7 +771,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 /* (기타 디자인 유지) */
 .editorial-pair-grid .sheet-header { text-align: center; border-bottom-width: 2px; }
-.editorial-pair-grid .sheet-name { font-size: 2.8rem; /* 좁으니까 폰트 살짝 줄임 */ line-height: 1.1; } 
+.editorial-pair-grid .sheet-name { text-align: center; font-size: 2.8rem; /* 좁으니까 폰트 살짝 줄임 */ line-height: 1.1; } 
 .editorial-pair-grid .sheet-portrait { display: none; }
 .editorial-pair-grid .sheet-middle { flex-direction: column; align-items: center; gap: 20px; }
 .editorial-pair-grid .sheet-ok-ng {text-align:left;}
