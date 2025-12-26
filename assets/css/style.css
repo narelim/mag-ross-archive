@@ -461,7 +461,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .sheet-box {
     background-color: transparent; /* 회색 배경 제거 */
     border: none;
-    border-top: 1px solid #111;    /* 위에만 진한 선 */
+    /*border-top: 1px solid #111;    위에만 진한 선 */
     border-radius: 0;
     padding: 20px 0;               /* 위아래 여백만 */
     width: 100%;
@@ -519,6 +519,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     display: inline-block;
     background: #f4f4f4; /* 살짝 배경 */
     padding: 5px 10px;
+   text-align: center;
 }
 .sheet-tags { 
     display: block; 
@@ -529,7 +530,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 
 /* 두상 이미지 -> '액자' 스타일 */
 .sheet-portrait {
-    align-items: center;
+    text-align: center;
     width: 200px; /* 크기 줄임 (증명사진 느낌) */
     aspect-ratio: 3/3; /* 세로로 긴 비율 */
     border-radius: 0;
