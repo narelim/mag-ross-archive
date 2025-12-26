@@ -419,6 +419,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     padding: 10px 20px;
     border-radius: 0;              /* 둥근 모서리 제거 */
     width: 100%;
+    height: width;
     text-align: left;              /* 왼쪽 정렬 */
     font-family: 'BookkMyungjo', serif; /* 명조체로 분위기 있게 */
     font-size: 1.1rem;
@@ -446,7 +447,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .sheet-box {
     background-color: transparent; /* 회색 배경 제거 */
     border: none;
-    /*border-top: 1px solid #111;    위에만 진한 선 */
+    border-bottom: 1px solid #ddd; /* 밑줄 추가 */
     border-radius: 0;
     padding: 20px 0;               /* 위아래 여백만 */
     width: 100%;
