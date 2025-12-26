@@ -733,15 +733,16 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 .editorial-pair-grid .sheet-box {
     order: 3;
     display: flex;
+   height: 180px;
     width:100%;
-    flex:1;
+    
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: visible;
     text-align: center;
     word-break: keep-all;
 }
-.editorial-pair-grid .sheet-box p { margin: 0; }
+.editorial-pair-grid .sheet-box p { margin: 0; line-height:1.6; }
 
 
 /* === [구역 2] 오른쪽 정보 영역 === */
