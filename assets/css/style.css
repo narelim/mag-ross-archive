@@ -441,6 +441,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     object-fit: contain;
     /* 그림자 대신 흑백 필터나, 깔끔함을 위해 효과 제거 */
     filter: none; 
+    gap: 0px;
 }
 
 /* 캐치프레이즈 박스 -> '에세이' 스타일 */
@@ -449,7 +450,6 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     border: none;
     border-bottom: 1px solid #ddd; /* 밑줄 추가 */
     border-radius: 0;
-    padding: 20px 0;               /* 위아래 여백만 */
     width: 100%;
     font-family: 'ridibatang'; /* 명조체로 분위기 있게 */
 }
