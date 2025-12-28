@@ -207,81 +207,86 @@
 
 
 /* =========================================
-   [Product Detail] 상세 페이지 디자인 (수정판 🛠️)
+   [Product Detail] 상세 페이지 디자인 (최종 수정판 🛠️)
    ========================================= */
 
-/* 1. 상단: 표지 + 구매정보 (2단 분할) */
+/* 1. 전체 레이아웃 */
+.dl-container {
+    max-width: 1200px; /* 전체 폭 넓게 */
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Pretendard', sans-serif;
+    box-sizing: border-box;
+}
+
+/* 2. 상단 영역 (이미지 + 구매박스) */
 .dl-product-top {
     display: flex;
-    gap: 40px;
-    margin-bottom: 60px;
+    gap: 50px;           /* 사이 간격 넓게 */
+    margin-bottom: 60px; /* 하단 영역과의 거리 */
     align-items: flex-start;
 }
 
-/* 왼쪽: 큰 표지 이미지 (사이즈 대폭 확대!) */
+/* 왼쪽: 표지 이미지 (크기 대폭 확대!) */
 .dl-cover-box {
-    flex: 2; /* 비율을 2로 늘려서 공간을 더 많이 차지하게 함 */
-    /* max-width 제한을 풀어서 컨테이너만큼 커지게 함 */
-    border: 1px solid #ddd;
-    padding: 5px;
+    flex: 1;             /* 1:1 비율로 공간 차지 (아주 큼) */
+    min-width: 300px;    /* 최소 너비 보장 */
     background: #fff;
+    border: 1px solid #eee;
+    padding: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
-.dl-cover-box img { width: 100%; height: auto; display: block; }
+.dl-cover-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
 /* 오른쪽: 정보 및 구매 박스 */
 .dl-info-box {
-    flex: 1.5; /* 비율 조정 */
+    flex: 1;             /* 1:1 비율 */
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    /* 표가 빠져서 내용이 줄었으므로, 높이를 내용물에 맞춤 */
+    gap: 25px;
+    position: sticky;    /* 스크롤 내려도 따라오게 (선택사항) */
+    top: 20px;
 }
 
-/* 제목 및 구매 패널 스타일 (기존 유지) */
-.dl-prod-title { font-size: 1.8rem; font-weight: bold; color: #333; line-height: 1.4; border-bottom: 2px solid #eee; padding-bottom: 15px; }
-.dl-prod-maker { font-size: 0.95rem; color: #666; }
+/* 제목 및 구매 패널 */
+.dl-prod-title { font-size: 2rem; font-weight: bold; color: #111; line-height: 1.3; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+.dl-prod-maker { font-size: 1rem; color: #666; }
 .dl-prod-maker a { color: var(--dl-pink); font-weight: bold; text-decoration: none; }
-.dl-buy-panel { background: #fcfcfc; border: 2px solid #E6007E; padding: 20px; border-radius: 4px; }
-.dl-price-area { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px; border-bottom: 1px dashed #ddd; padding-bottom: 15px; }
-.dl-price-label { font-size: 0.9rem; color: #555; }
-.dl-price-val { font-size: 2rem; font-weight: bold; color: #cc0000; line-height: 1; }
-.dl-price-unit { font-size: 1rem; color: #333; }
-.dl-main-btn { display: block; width: 100%; background: #E6007E; color: #fff; text-align: center; padding: 18px 0; font-size: 1.2rem; font-weight: bold; border-radius: 4px; box-shadow: 0 4px 0 #b30062; transition: transform 0.1s, box-shadow 0.1s; text-decoration: none; cursor: pointer; }
+
+.dl-buy-panel { background: #fff; border: 2px solid #E6007E; padding: 30px; border-radius: 8px; box-shadow: 0 10px 20px rgba(230, 0, 126, 0.05); }
+.dl-price-area { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; border-bottom: 1px dashed #ddd; padding-bottom: 15px; }
+.dl-price-val { font-size: 2.2rem; font-weight: bold; color: #cc0000; line-height: 1; }
+.dl-price-unit { font-size: 1rem; color: #333; margin-left: 5px;}
+.dl-main-btn { display: block; width: 100%; background: #E6007E; color: #fff; text-align: center; padding: 20px 0; font-size: 1.3rem; font-weight: bold; border-radius: 6px; box-shadow: 0 4px 0 #b30062; transition: all 0.1s; text-decoration: none; }
 .dl-main-btn:active { transform: translateY(4px); box-shadow: none; }
-.dl-sub-text { text-align: center; font-size: 0.8rem; color: #888; margin-top: 10px; }
+.dl-sub-text { text-align: center; font-size: 0.85rem; color: #888; margin-top: 15px; }
 
 
-/* 2. 하단 전체 영역 (표 + 작품내용 + 샘플) */
+/* 3. 하단 영역 (스펙 표 + 내용) - 가로 꽉 차게 */
 .dl-content-area {
-    margin-top: 60px;
-    border-top: 1px solid #ddd; /* 구분선 */
-    padding-top: 40px;
-    width: 100%; /* 가로 전체 사용 */
-}
-
-/* 📊 작품 스펙 테이블 (하단으로 이동됨) */
-.dl-spec-table-container {
-    margin-bottom: 50px; /* 작품 내용과의 간격 */
-}
-.dl-spec-table {
     width: 100%;
-    border-collapse: collapse;
-    font-size: 0.95rem; /* 글자 조금 키움 */
-    border-top: 2px solid #555;
+    border-top: 2px solid #333; /* 상단과 구분선 진하게 */
+    padding-top: 50px;
+    margin-top: 20px;
 }
-.dl-spec-table th { width: 20%; background: #f2f2f2; padding: 12px; text-align: left; border-bottom: 1px solid #ddd; color: #333; font-weight: normal; }
-.dl-spec-table td { padding: 12px; border-bottom: 1px solid #ddd; color: #111; }
-.dl-link { color: #0066cc; text-decoration: underline; cursor: pointer; }
 
-/* 섹션 헤더 및 내용 박스 */
-.dl-content-header { font-size: 1.4rem; font-weight: bold; border-left: 5px solid #E6007E; padding-left: 15px; margin-bottom: 30px; color: #333; }
-.dl-story-box { font-size: 1.05rem; line-height: 1.8; color: #333; margin-bottom: 50px; white-space: pre-wrap; }
-.dl-sample-list img { max-width: 100%; display: block; margin: 0 auto 20px auto; border: 1px solid #eee; }
+/* 스펙 테이블 */
+.dl-spec-table { width: 100%; border-collapse: collapse; margin-bottom: 60px; font-size: 1rem; }
+.dl-spec-table th { width: 15%; background: #f9f9f9; padding: 15px; text-align: left; border-bottom: 1px solid #ddd; border-top: 1px solid #ddd; color: #333; }
+.dl-spec-table td { padding: 15px; border-bottom: 1px solid #ddd; border-top: 1px solid #ddd; color: #111; }
 
-/* 📱 모바일 대응 */
+/* 내용 섹션 */
+.dl-content-header { font-size: 1.5rem; font-weight: bold; border-left: 6px solid #E6007E; padding-left: 15px; margin-bottom: 30px; color: #111; background: #fff; }
+.dl-story-box { font-size: 1.1rem; line-height: 1.8; color: #333; margin-bottom: 60px; white-space: pre-wrap; padding: 0 10px; }
+.dl-sample-list img { max-width: 100%; display: block; margin: 0 auto 40px auto; border: 1px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+
+/* 모바일 대응 */
 @media (max-width: 768px) {
-    .dl-product-top { flex-direction: column; gap: 20px; }
-    .dl-cover-box, .dl-info-box { flex: auto; width: 100%; }
-    .dl-spec-table th { width: 30%; } /* 모바일에서 th 너비 조정 */
+    .dl-product-top { flex-direction: column; gap: 30px; }
+    .dl-cover-box, .dl-info-box { width: 100%; flex: auto; }
+    .dl-spec-table th { width: 30%; }
 }
