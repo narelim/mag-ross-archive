@@ -5,7 +5,7 @@ layout: default
 
 <style>
     .container, .page-content { max-width: 1000px !important; }
-    .post-header { display: none; } /* 기본 블로그 제목 숨김 */
+    .post-header { display: none; }
 </style>
 
 
@@ -26,7 +26,7 @@ layout: default
             <div>
                 <div class="dl-prod-title">{{ page.title }}</div>
                 <div class="dl-prod-maker" style="margin-top:10px;">
-                    Circle: <a href="#">{{ page.author | default: "재은" }}</a>
+                    Circle: <a href="#">{{ page.author | default: "nsfworld" }}</a>
                 </div>
             </div>
 
@@ -38,19 +38,21 @@ layout: default
                         {% if page.price %}<span class="dl-price-unit">point</span>{% endif %}
                     </div>
                 </div>
-                
                 <a href="{{ page.file_link | default: '#' }}" class="dl-main-btn">
-                    {% if page.price %}
-                        카트에 담기
-                    {% else %}
-                        작품 열람하기
-                    {% endif %}
+                    {% if page.price %}카트에 담기{% else %}작품 열람하기{% endif %}
                 </a>
                 <div class="dl-sub-text">
                     {% if page.file_size %}용량: {{ page.file_size }}{% else %}로그인 필요 없음{% endif %}
                 </div>
             </div>
 
+        </div>
+    </div>
+
+
+    <div class="dl-content-area">
+        
+        <div class="dl-spec-table-container">
             <table class="dl-spec-table">
                 <tr>
                     <th>판매일</th>
@@ -73,13 +75,8 @@ layout: default
                     <td style="color:red; font-weight:bold;">18세 미만 구입 불가</td>
                 </tr>
             </table>
-
         </div>
-    </div>
 
-
-    <div class="dl-content-area">
-        
         <div class="dl-content-header">작품 내용</div>
         <div class="dl-story-box">
             {{ content }}
@@ -87,7 +84,7 @@ layout: default
 
         <div class="dl-content-header">유저 리뷰</div>
         <div style="background:#f9f9f9; padding:20px; border-radius:5px; text-align:center; color:#888;">
-            아직 작성된 리뷰가 없습니다. (사실 기능 없음)
+            아직 작성된 리뷰가 없습니다.
         </div>
 
     </div>
