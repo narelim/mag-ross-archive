@@ -4,12 +4,11 @@ layout: default
 <link rel="stylesheet" href="{{ '/assets/css/dl-style.css' | relative_url }}">
 
 <style>
-    .container, .page-content { max-width: 1000px !important; }
+    .container, .page-content { max-width: 100% !important; padding: 0 !important; }
     .post-header { display: none; }
 </style>
 
-
-<div class="dl-container" style="padding-top: 40px;">
+<div class="dl-container">
 
     <div class="dl-product-top">
         
@@ -17,22 +16,23 @@ layout: default
             {% if page.image %}
                 <img src="{{ page.image | relative_url }}" alt="표지">
             {% else %}
-                <div style="height:400px; background:#eee; display:flex; align-items:center; justify-content:center;">No Image</div>
+                <div style="width:100%; aspect-ratio: 3/4; background:#eee; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:1.2rem;">
+                    No Image
+                </div>
             {% endif %}
         </div>
 
         <div class="dl-info-box">
-            
             <div>
                 <div class="dl-prod-title">{{ page.title }}</div>
-                <div class="dl-prod-maker" style="margin-top:10px;">
-                    Circle: <a href="#">{{ page.author | default: "nsfworld" }}</a>
+                <div class="dl-prod-maker">
+                    Circle: <a href="#">{{ page.author | default: "none" }}</a>
                 </div>
             </div>
 
             <div class="dl-buy-panel">
                 <div class="dl-price-area">
-                    <span class="dl-price-label">판매 가격</span>
+                    <span class="dl-price-label" style="font-size:1rem;">판매 가격</span>
                     <div>
                         <span class="dl-price-val">{{ page.price | default: "Free" }}</span>
                         {% if page.price %}<span class="dl-price-unit">point</span>{% endif %}
@@ -45,48 +45,40 @@ layout: default
                     {% if page.file_size %}용량: {{ page.file_size }}{% else %}로그인 필요 없음{% endif %}
                 </div>
             </div>
-
         </div>
-    </div>
 
-
-    <div class="dl-content-area">
+    </div> <div class="dl-content-area">
         
-        <div class="dl-spec-table-container">
-            <table class="dl-spec-table">
-                <tr>
-                    <th>판매일</th>
-                    <td>{{ page.date | date: "%Y년 %m월 %d일" }}</td>
-                </tr>
-                <tr>
-                    <th>장르</th>
-                    <td>
-                        {% for tag in page.tags %}
-                            <a class="dl-link">#{{ tag }}</a> 
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>파일 형식</th>
-                    <td>{{ page.file_format | default: "Web / Text" }}</td>
-                </tr>
-                <tr>
-                    <th>연령 제한</th>
-                    <td style="color:red; font-weight:bold;">18세 미만 구입 불가</td>
-                </tr>
-            </table>
-        </div>
+        <h3 class="dl-content-header">작품 정보</h3>
+        <table class="dl-spec-table">
+            <tr>
+                <th>판매일</th>
+                <td>{{ page.date | date: "%Y년 %m월 %d일" }}</td>
+            </tr>
+            <tr>
+                <th>장르</th>
+                <td>
+                    {% for tag in page.tags %}
+                        <span style="display:inline-block; background:#f0f0f0; padding:2px 6px; margin-right:5px; border-radius:4px; font-size:0.9rem;">#{{ tag }}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>파일 형식</th>
+                <td>{{ page.file_format | default: "Web / Text" }}</td>
+            </tr>
+            <tr>
+                <th>연령 제한</th>
+                <td style="color:red; font-weight:bold;">18세 미만 구입 불가</td>
+            </tr>
+        </table>
 
-        <div class="dl-content-header">작품 내용</div>
+        <h3 class="dl-content-header">작품 내용</h3>
         <div class="dl-story-box">
             {{ content }}
         </div>
-
-        <div class="dl-content-header">유저 리뷰</div>
-        <div style="background:#f9f9f9; padding:20px; border-radius:5px; text-align:center; color:#888;">
-            아직 작성된 리뷰가 없습니다.
+        
+        <div class="dl-sub-text" style="margin-bottom:20px;">
+            ※ 위 내용은 샘플 이미지 및 텍스트입니다.
         </div>
-
-    </div>
-
-</div>
+    </div> </div> 
