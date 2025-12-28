@@ -204,3 +204,159 @@
     .dl-sidebar { width: 100%; }
     .dl-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } /* 모바일은 2열 */
 }
+
+
+/* =========================================
+   [Product Detail] 상세 페이지 디자인 🛒
+   ========================================= */
+
+/* 1. 상단: 표지 + 정보/구매버튼 (2단 분할) */
+.dl-product-top {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 60px;
+    align-items: flex-start;
+}
+
+/* 왼쪽: 큰 표지 이미지 */
+.dl-cover-box {
+    flex: 1;
+    max-width: 400px; /* 표지 최대 너비 */
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.dl-cover-box img { width: 100%; height: auto; display: block; }
+
+/* 오른쪽: 정보 및 구매 박스 */
+.dl-info-box {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 제목 섹션 */
+.dl-prod-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.4;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+}
+.dl-prod-maker {
+    font-size: 0.95rem;
+    color: #666;
+}
+.dl-prod-maker a { color: var(--dl-pink); font-weight: bold; text-decoration: none; }
+
+
+/* 💰 핵심! 구매/다운로드 박스 */
+.dl-buy-panel {
+    background: #fcfcfc;
+    border: 2px solid #E6007E; /* 핑크색 테두리 */
+    padding: 20px;
+    border-radius: 4px;
+}
+.dl-price-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 15px;
+}
+.dl-price-label { font-size: 0.9rem; color: #555; }
+.dl-price-val { font-size: 2rem; font-weight: bold; color: #cc0000; line-height: 1; }
+.dl-price-unit { font-size: 1rem; color: #333; }
+
+.dl-main-btn {
+    display: block;
+    width: 100%;
+    background: #E6007E; /* DL 핑크 */
+    color: #fff;
+    text-align: center;
+    padding: 18px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: 0 4px 0 #b30062; /* 입체 버튼 효과 */
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-decoration: none;
+    cursor: pointer;
+}
+.dl-main-btn:active {
+    transform: translateY(4px); /* 누르면 눌리는 효과 */
+    box-shadow: none;
+}
+.dl-sub-text {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+}
+
+
+/* 📊 작품 스펙 테이블 (회색/흰색 줄무늬) */
+.dl-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    border-top: 2px solid #555;
+}
+.dl-spec-table th {
+    width: 30%;
+    background: #f2f2f2; /* 회색 배경 */
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: #333;
+    font-weight: normal;
+}
+.dl-spec-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    color: #111;
+}
+.dl-link { color: #0066cc; text-decoration: underline; cursor: pointer; }
+
+
+/* 2. 하단: 작품 설명 및 샘플 */
+.dl-content-area {
+    margin-top: 60px;
+    border-top: 1px solid #ddd;
+    padding-top: 40px;
+}
+.dl-content-header {
+    font-size: 1.4rem;
+    font-weight: bold;
+    border-left: 5px solid #E6007E; /* 핑크색 기둥 */
+    padding-left: 15px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* 줄거리 텍스트 박스 */
+.dl-story-box {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 50px;
+    white-space: pre-wrap; /* 줄바꿈 유지 */
+}
+
+/* 샘플 이미지 리스트 (세로로 쭉) */
+.dl-sample-list img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto 20px auto; /* 중앙 정렬 + 간격 */
+    border: 1px solid #eee;
+}
+
+/* 📱 모바일 대응 */
+@media (max-width: 768px) {
+    .dl-product-top { flex-direction: column; gap: 20px; }
+    .dl-cover-box { max-width: 100%; margin: 0 auto; }
+}
