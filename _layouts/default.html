@@ -8,14 +8,37 @@
 </head>
 <body>
     <header>
-     <a href="{{ "/" | relative_url }}" class="logo"><span class="gruppo-regular">Maguire & Ross</span></a>
+        {% if page.url contains '/secret/' or page.layout == 'product' %}
+            
+            <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                
+                <a href="{{ "/" | relative_url }}" class="logo" style="opacity: 0.3; transform: scale(0.8);">
+                    <span class="gruppo-regular">Maguire & Ross</span>
+                </a>
+
+                <span style="color:#ddd;">|</span>
+
+                <a href="{{ '/secret/' | relative_url }}" style="text-decoration: none; font-family: sans-serif; font-weight: bold; color: #E6007E; font-size: 1.2rem; letter-spacing: -0.5px;">
+                    SECRET <span style="font-size: 0.6em;">ARCHIVE 🔞</span>
+                </a>
+            </div>
+
+        {% else %}
+
+            <a href="{{ "/" | relative_url }}" class="logo">
+                <span class="gruppo-regular">Maguire & Ross</span>
+            </a>
+
+        {% endif %}
     </header>
+
     <main class="container">
         {{ content }}
     </main>
-<footer class="footer-black">
-    MAGUIRE & ROSS<br>
-    <span style="font-size: 0.7em; color: #888; letter-spacing: 1px;">THE END OF WANDERING</span>
-</footer>
+
+    <footer class="footer-black">
+        MAGUIRE & ROSS<br>
+        <span style="font-size: 0.7em; color: #888; letter-spacing: 1px;">THE END OF WANDERING</span>
+    </footer>
 </body>
 </html>
