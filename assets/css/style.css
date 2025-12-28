@@ -575,6 +575,20 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     filter: drop-shadow(0px 0px 1px rgba(0,0,0,0.5));
 }
 
+/* --- [New] 텍스트 하트 색상칩 --- */
+.color-text {
+    font-size: 40px;          /* 하트 크기 조절 */
+    line-height: 1;           /* 줄 높이 딱 맞게 */
+    font-family: sans-serif;  /* 이모지 폰트 방지 (깔끔한 하트 모양) */
+    cursor: default;
+    
+    /* 🚨 핵심 기술: 글자 테두리 그리기 */
+    -webkit-text-stroke: 1px #ccc; /* 1px 두께의 회색 테두리 */
+    
+    /* (선택) 하트끼리 너무 붙지 않게 간격 */
+    margin: 0 2px;
+}
+
 
 /* OK / NG -> '체크박스' 스타일 */
 .sheet-ok-ng {
