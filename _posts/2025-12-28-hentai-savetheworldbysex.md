@@ -8,12 +8,61 @@ type: Secret
 image: 
 ---
 
-섹스로 세상 구하기<br>
 
-<div class="box-line">
-    무한절정 레츠고<br>
+<link rel="stylesheet" href="{{ '/assets/css/dl-style.css' | relative_url }}">
+
+<style>
+    /* 만약 블로그 본문 폭이 너무 좁아서 답답하면 이 코드를 추가하세요 */
+    .page-content, .container { max-width: 100% !important; padding: 0 !important; }
+    .post-header { text-align: center; margin-bottom: 40px; }
+</style>
+
+
+<div class="dl-container">
+    
+    <aside class="dl-sidebar">
+        <div class="dl-menu-box">
+            <div class="dl-menu-title">📂 작품 형식</div>
+            <ul class="dl-menu-list">
+                <li><a href="#">전체 작품</a></li>
+                <li><a href="#">동인지 / 만화</a></li>
+                <li><a href="#">소설 / 텍스트</a></li>
+            </ul>
+        </div>
+        </aside>
+
+    <main class="dl-main">
+        
+        <div class="dl-section-header">
+            <h2 class="dl-section-title">🏆 Weekly Ranking</h2>
+            <a href="#" class="dl-section-more">더보기 +</a>
+        </div>
+
+        <div class="dl-grid">
+            
+            <a href="#" class="dl-card">
+                <div class="dl-thumb">
+                    <span class="dl-badge rank">No.1</span>
+                    <img src="{{ '/assets/img/cover_01.png' | relative_url }}" alt="표지">
+                </div>
+                <div class="dl-info">
+                    <h3 class="dl-title">서큐버스 애들라인의 유혹</h3>
+                    <span class="dl-circle">Writer. 재은</span>
+                    <div class="dl-tags">
+                        <span class="dl-tag">#인외</span>
+                        <span class="dl-tag">#R-18</span>
+                    </div>
+                    <div class="dl-footer">
+                        <span class="dl-price">12,000p</span>
+                        <span class="dl-btn">담기</span>
+                    </div>
+                </div>
+            </a>
+
+            </div>
+    </main>
+
 </div>
-
 
 ---
 ### 💬 Comment
