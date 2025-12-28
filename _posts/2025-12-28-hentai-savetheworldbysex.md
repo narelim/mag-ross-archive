@@ -12,8 +12,6 @@ image:
 <link rel="stylesheet" href="{{ '/assets/css/dl-style.css' | relative_url }}">
 
 <style>
-    /* 만약 블로그 본문 폭이 너무 좁아서 답답하면 이 코드를 추가하세요 */
-    .page-content, .container { max-width: 100% !important; padding: 0 !important; }
     .post-header { text-align: center; margin-bottom: 40px; }
 </style>
 
