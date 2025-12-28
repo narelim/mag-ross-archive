@@ -737,7 +737,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
 /* 1-1. 대사 (말풍선) */
 .editorial-pair-grid .sheet-bubble {
     order: 1;
-    height: 50px;
+    height: 90px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
