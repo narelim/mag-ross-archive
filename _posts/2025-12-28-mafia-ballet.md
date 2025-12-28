@@ -3,7 +3,7 @@ layout: post
 title: "POV: You are mafia boss' girl"
 date: 2025-12-28
 category: "Modern"
-tags: [마피아, 집착, 인소, 넷플릭스, 성인물]
+tags: [마피아, 집착, 인소, 넷플릭스, 현대]
 type: Default
 image: "thumb_mafiaballet.png"
 ---
