@@ -26,12 +26,7 @@
 @font-face { font-family: 'BookkMyungjo'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2'); font-weight: 700; font-display: swap; }
 @font-face { font-family: 'ChosunIlboMyungjo'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff'); font-weight: normal; font-display: swap; }
 @font-face { font-family: 'Ridibatang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff'); font-weight: normal; font-display: swap; }
-@font-face {
-    font-family: 'MangoBoardByeolbyeol';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoByeolbyeol.woff2') format('woff2');
-    font-weight: normal;
-    font-display: swap;
-}
+@font-face { font-family: 'MangoBoardByeolbyeol'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoByeolbyeol.woff2') format('woff2'); font-weight: normal; font-display: swap;}
 
 /* 폰트 유틸리티 클래스 */
 .gruppo-regular { font-family: "Gruppo", sans-serif; font-weight: 400; font-style: normal; font-size: 24px; }
@@ -586,7 +581,6 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     font-family: 'MangoBoardByeolbyeol';
     font-size: 40px;          /* 하트 크기 조절 */
     line-height: 1;           /* 줄 높이 딱 맞게 */
-    font-family: sans-serif;  /* 이모지 폰트 방지 (깔끔한 하트 모양) */
     cursor: default;
     
     /* 🚨 핵심 기술: 글자 테두리 그리기 */
