@@ -17,4 +17,5 @@ price: "1,200"        # 가격 (없으면 Free로 뜸)
 
 ### [샘플 이미지]
 
-![샘플1](/assets/img/smp_ddlg_01.png)
+<img src="{{ '/assets/img/smp_ddlg_01.png' | relative_url }}" alt="샘플 이미지" style="width:100%; max-width:600px; display:block; margin: 20px auto;">
+
