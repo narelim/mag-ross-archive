@@ -5,7 +5,7 @@ date: 2025-12-28
 category: "Modern"
 tags: [마피아, 집착, 인소, 넷플릭스, 성인물]
 type: Default
-image: "thumb_mafiaballet"
+image: "thumb_mafiaballet.png"
 ---
 
 마피아 더글아델<br>
