@@ -14,7 +14,8 @@ layout: default
         
         <div class="dl-cover-box">
             {% if page.image %}
-                <img src="{{ page.image | relative_url }}" alt="표지">
+                <img src="{{ '/assets/thumbnails/' | append: page.image | relative_url }}" alt="표지">
+
             {% else %}
                 <div style="width:100%; aspect-ratio: 3/4; background:#eee; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:1.2rem;">
                     No Image
