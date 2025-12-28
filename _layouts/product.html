@@ -1,0 +1,95 @@
+---
+layout: default
+---
+<link rel="stylesheet" href="{{ '/assets/css/dl-style.css' | relative_url }}">
+
+<style>
+    .container, .page-content { max-width: 1000px !important; }
+    .post-header { display: none; } /* 기본 블로그 제목 숨김 */
+</style>
+
+
+<div class="dl-container" style="padding-top: 40px;">
+
+    <div class="dl-product-top">
+        
+        <div class="dl-cover-box">
+            {% if page.image %}
+                <img src="{{ page.image | relative_url }}" alt="표지">
+            {% else %}
+                <div style="height:400px; background:#eee; display:flex; align-items:center; justify-content:center;">No Image</div>
+            {% endif %}
+        </div>
+
+        <div class="dl-info-box">
+            
+            <div>
+                <div class="dl-prod-title">{{ page.title }}</div>
+                <div class="dl-prod-maker" style="margin-top:10px;">
+                    Circle: <a href="#">{{ page.author | default: "재은" }}</a>
+                </div>
+            </div>
+
+            <div class="dl-buy-panel">
+                <div class="dl-price-area">
+                    <span class="dl-price-label">판매 가격</span>
+                    <div>
+                        <span class="dl-price-val">{{ page.price | default: "Free" }}</span>
+                        {% if page.price %}<span class="dl-price-unit">point</span>{% endif %}
+                    </div>
+                </div>
+                
+                <a href="{{ page.file_link | default: '#' }}" class="dl-main-btn">
+                    {% if page.price %}
+                        카트에 담기
+                    {% else %}
+                        작품 열람하기
+                    {% endif %}
+                </a>
+                <div class="dl-sub-text">
+                    {% if page.file_size %}용량: {{ page.file_size }}{% else %}로그인 필요 없음{% endif %}
+                </div>
+            </div>
+
+            <table class="dl-spec-table">
+                <tr>
+                    <th>판매일</th>
+                    <td>{{ page.date | date: "%Y년 %m월 %d일" }}</td>
+                </tr>
+                <tr>
+                    <th>장르</th>
+                    <td>
+                        {% for tag in page.tags %}
+                            <a class="dl-link">#{{ tag }}</a> 
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>파일 형식</th>
+                    <td>{{ page.file_format | default: "Web / Text" }}</td>
+                </tr>
+                <tr>
+                    <th>연령 제한</th>
+                    <td style="color:red; font-weight:bold;">18세 미만 구입 불가</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+    <div class="dl-content-area">
+        
+        <div class="dl-content-header">작품 내용</div>
+        <div class="dl-story-box">
+            {{ content }}
+        </div>
+
+        <div class="dl-content-header">유저 리뷰</div>
+        <div style="background:#f9f9f9; padding:20px; border-radius:5px; text-align:center; color:#888;">
+            아직 작성된 리뷰가 없습니다. (사실 기능 없음)
+        </div>
+
+    </div>
+
+</div>
