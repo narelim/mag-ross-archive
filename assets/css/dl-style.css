@@ -1,0 +1,206 @@
+/* =========================================
+   SECRET PAGE (DLsite Style Layout) 🔞
+   ========================================= */
+
+:root {
+    --dl-pink: #E6007E;       /* DL사이트 특유의 핑크 */
+    --dl-gray: #F5F5F5;       /* 배경 회색 */
+    --dl-border: #DDDDDD;     /* 테두리 */
+    --dl-text: #333333;
+}
+
+/* 1. 전체 레이아웃 (2단 분할) */
+.dl-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 30px;
+    font-family: 'Pretendard', sans-serif; /* 가독성 좋은 고딕체 추천 */
+}
+
+/* 2. 왼쪽 사이드바 (메뉴) */
+.dl-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+}
+.dl-menu-box {
+    background: #fff;
+    border: 1px solid var(--dl-border);
+    margin-bottom: 20px;
+}
+.dl-menu-title {
+    background: var(--dl-gray);
+    padding: 12px 15px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--dl-border);
+    color: #111;
+}
+.dl-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.dl-menu-list li a {
+    display: block;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: #555;
+    border-bottom: 1px solid #eee;
+    transition: 0.2s;
+}
+.dl-menu-list li a:hover {
+    background: #fff0f5; /* 연한 핑크 배경 */
+    color: var(--dl-pink);
+    padding-left: 20px; /* 살짝 오른쪽으로 이동 */
+}
+
+
+/* 3. 오른쪽 메인 컨텐츠 */
+.dl-main {
+    flex: 1;
+}
+
+/* 섹션 제목 (랭킹/신작 스타일) */
+.dl-section-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid var(--dl-pink);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+.dl-section-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #111;
+    margin: 0;
+}
+.dl-section-more {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* 4. 작품 카드 그리드 */
+.dl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* 반응형 그리드 */
+    gap: 20px;
+}
+
+/* 개별 카드 디자인 */
+.dl-card {
+    background: #fff;
+    border: 1px solid var(--dl-border);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.dl-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: var(--dl-pink);
+}
+
+/* 썸네일 영역 */
+.dl-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1; /* 정사각형 (DL사이트 스타일) */
+    overflow: hidden;
+    background: #eee;
+}
+.dl-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+/* 뱃지 (R-18, New 등) */
+.dl-badge {
+    position: absolute;
+    top: 5px; left: 5px;
+    background: #cc0000; /* 빨간색 */
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 2px;
+    z-index: 1;
+}
+.dl-badge.rank { background: gold; color: #000; } /* 랭킹 뱃지 */
+
+/* 정보 영역 */
+.dl-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+/* 제목 */
+.dl-title {
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    color: #111;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* 2줄 넘어가면 말줄임표 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.dl-card:hover .dl-title { text-decoration: underline; color: var(--dl-pink); }
+
+/* 작가/서클명 */
+.dl-circle {
+    font-size: 0.8rem;
+    color: #666;
+    display: block;
+}
+
+/* 태그들 */
+.dl-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+.dl-tag {
+    font-size: 0.7rem;
+    background: #f0f0f0;
+    color: #555;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* 하단 가격/버튼 영역 */
+.dl-footer {
+    margin-top: auto; /* 바닥으로 밀기 */
+    padding-top: 10px;
+    border-top: 1px dotted #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dl-price {
+    font-weight: bold;
+    color: #cc0000; /* 가격은 빨간색 */
+    font-size: 1.1rem;
+}
+.dl-btn {
+    background: var(--dl-pink);
+    color: #fff;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* 📱 모바일 대응 */
+@media (max-width: 768px) {
+    .dl-container { flex-direction: column; }
+    .dl-sidebar { width: 100%; }
+    .dl-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } /* 모바일은 2열 */
+}
