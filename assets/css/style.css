@@ -824,7 +824,7 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     align-self: center;        /* Flexbox 안에서 혼자 중앙으로 가기 */
     
     /* 2. 액자 디자인 (원하는 크기로 조절하세요) */
-    width: 160px;              /* 액자 너비 */
+    width: 200px;              /* 액자 너비 */
     background: #fff;
     padding: 6px;              /* 흰색 테두리 두께 */
     border: 1px solid #ddd;    /* 연한 회색 선 */
