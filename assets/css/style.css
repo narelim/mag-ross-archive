@@ -814,3 +814,29 @@ header { padding: 30px 30px; text-align: center; border-bottom: 1px solid #eee; 
     }
     .editorial-pair-grid .sheet-name { font-size: 3.5rem; } /* 모바일은 넓으니까 다시 키움 */
 }
+
+/* --- [Portrait] 두상 이미지 중앙 정렬 --- */
+.editorial-pair-grid .sheet-portrait {
+    display: block !important; /* 혹시 숨겨져 있다면 보이게 */
+    
+    /* 🚨 1. 중앙 정렬 핵심 코드 */
+    margin: 0 auto 30px auto;  /* 위 0, 좌우 auto(중앙), 아래 30px */
+    align-self: center;        /* Flexbox 안에서 혼자 중앙으로 가기 */
+    
+    /* 2. 액자 디자인 (원하는 크기로 조절하세요) */
+    width: 160px;              /* 액자 너비 */
+    background: #fff;
+    padding: 6px;              /* 흰색 테두리 두께 */
+    border: 1px solid #ddd;    /* 연한 회색 선 */
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.08); /* 부드러운 그림자 */
+    
+    /* (선택) 사진이 약간 회전한 느낌을 주고 싶다면? */
+    /* transform: rotate(-2deg); */
+}
+
+.editorial-pair-grid .sheet-portrait img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
