@@ -17,4 +17,4 @@ price: "1,200"        # 가격 (없으면 Free로 뜸)
 
 ### [샘플 이미지]
 
-![샘플1](/assets/img/smp_ddlg_01.png)
+![샘플1](mog-ross-archive/assets/img/smp_ddlg_01.png)
