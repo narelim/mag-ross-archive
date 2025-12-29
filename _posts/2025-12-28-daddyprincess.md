@@ -1,5 +1,5 @@
 ---
-layout: play-viewer
+layout: product
 title: "DDLG"
 date: 2025-12-28
 category: "근친"
