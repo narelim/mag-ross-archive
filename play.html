@@ -32,9 +32,10 @@ permalink: /play/
 
     <div class="play-container" id="play-list">
         </div>
+<script>
+    console.log("--- 뷰어 로딩 시작 ---");
 
- <script>
-    // 1. 모든 포스트 데이터 가져오기 (secretposts 폴더에 있는 것도 다 가져옵니다)
+    // 1. 모든 포스트 데이터 가져오기
     const allPosts = [
         {% for post in site.posts %}
         {
@@ -44,33 +45,38 @@ permalink: /play/
             image: "{{ post.image | relative_url }}",
             author: "{{ post.author | default: 'Unknown' }}",
             
-            // 🚨 핵심: 각 글의 series_id 정보를 가져옵니다.
-            seriesId: "{{ post.series_id }}", 
-            
-            // 태그는 이제 장식용(뱃지)으로만 씁니다.
+            // 공백 제거를 위해 trim 필터 추가
+            seriesId: "{{ post.series_id | strip }}", 
             tags: {{ post.tags | jsonify }}, 
-            layout: "{{ post.layout }}"
+            layout: "{{ post.layout | strip }}"
         },
         {% endfor %}
     ];
 
-    // 2. URL에서 '?id=...' 파라미터 읽어오기
+    // 2. URL 파라미터 읽기
     const urlParams = new URLSearchParams(window.location.search);
-    const targetId = urlParams.get('id'); // 예: office_au
+    // URL에서 가져온 ID도 공백 제거
+    const targetId = (urlParams.get('id') || "").trim(); 
+
+    console.log("찾으려는 ID:", targetId);
 
     const listContainer = document.getElementById('play-list');
     let count = 0;
 
-    // 3. 목록 생성 (ID 매칭)
+    // 3. 목록 생성
     if (targetId) {
         allPosts.forEach(post => {
             
-            // 🚨 조건 변경: 태그가 아니라 'seriesId'가 같은지 확인!
+            // 디버깅용 로그 (F12 콘솔에서 확인 가능)
+            // console.log("글 검사:", post.title, "/ ID:", post.seriesId, "/ Layout:", post.layout);
+
+            // 🚨 핵심 비교 로직 (공백 제거 후 비교)
+            // 조건: 시리즈 ID가 같고 AND 레이아웃이 'product'가 아닐 것
             if (post.seriesId === targetId && post.layout !== 'product') {
                 
                 let thumbImg = post.image && post.image !== "" ? post.image : "https://via.placeholder.com/90x90?text=No+Img";
                 
-                // 태그가 있으면 첫 번째 태그를 뱃지로 보여주기
+                // 태그 뱃지
                 let badgeHTML = "";
                 if (post.tags && post.tags.length > 0) {
                     badgeHTML = `<span class="play-badge">${post.tags[0]}</span>`;
@@ -94,14 +100,17 @@ permalink: /play/
         });
     }
 
-    // 4. 결과 없을 때 메시지
+    // 4. 결과 없음 처리
     if (count === 0) {
         listContainer.innerHTML = `
             <div style="text-align:center; padding:50px; color:#888;">
                 <i class="fas fa-folder-open" style="font-size:3rem; margin-bottom:10px;"></i><br>
                 연결된 에피소드가 없습니다.<br>
-                <span style="font-size:0.8rem; color:#aaa;">(Series ID: ${targetId || '없음'})</span>
+                <span style="font-size:0.8rem; color:#aaa;">(Series ID: ${targetId || '없음'})</span><br>
+                <span style="font-size:0.7rem; color:#ccc;">ID가 정확한지 YAML 파일을 확인해보세요!</span>
             </div>`;
+    } else {
+        console.log("총 " + count + "개의 에피소드를 찾았습니다.");
     }
 </script>
 
