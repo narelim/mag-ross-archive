@@ -2,84 +2,75 @@
 layout: default
 ---
 <link rel="stylesheet" href="{{ '/assets/css/dl-style.css' | relative_url }}">
-
 <style>
+    /* 블로그 기본 스타일 간섭 제거 */
     .container, .page-content { max-width: 100% !important; padding: 0 !important; }
     .post-header { display: none; }
 </style>
 
 <div class="dl-container">
 
-    <div class="dl-product-top">
+    <div class="dl-header-area">
+        <div class="dl-breadcrumb">Secret Archive > {{ page.tags | first }}</div>
+        <div class="dl-prod-title">{{ page.title }}</div>
+    </div>
+
+    <div class="dl-gallery-stage">
+        {% if page.image %}
+            <img src="{{ page.image | relative_url }}" alt="메인 이미지" class="dl-main-img">
+        {% else %}
+            <div style="height:300px; background:#ddd; display:flex; align-items:center; justify-content:center;">No Image</div>
+        {% endif %}
         
-        <div class="dl-cover-box">
-            {% if page.image %}
-                <img src="{{ '/assets/thumbnails/' | append: page.image | relative_url }}" alt="표지">
-
-            {% else %}
-                <div style="width:100%; aspect-ratio: 3/4; background:#eee; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:1.2rem;">
-                    No Image
-                </div>
-            {% endif %}
+        <div class="dl-thumb-list">
+            {% if page.image %}<img src="{{ page.image | relative_url }}" class="dl-thumb-item">{% endif %}
+            <div class="dl-thumb-item" style="background:#ddd;"></div>
+            <div class="dl-thumb-item" style="background:#ddd;"></div>
         </div>
+        <div class="dl-caption">번역자 「나레」의 샘플을 표시 중입니다.</div>
+    </div>
 
-        <div class="dl-info-box">
-            <div>
-                <div class="dl-prod-title">{{ page.title }}</div>
-                <div class="dl-prod-maker">
-                    Circle: <a href="#">{{ page.author | default: "none" }}</a>
-                </div>
-            </div>
-
-            <div class="dl-buy-panel">
-                <div class="dl-price-area">
-                    <span class="dl-price-label" style="font-size:1rem;">판매 가격</span>
-                    <div>
-                        <span class="dl-price-val">{{ page.price | default: "Free" }}</span>
-                        {% if page.price %}<span class="dl-price-unit">point</span>{% endif %}
-                    </div>
-                </div>
-                <a href="{{ page.file_link | default: '#' }}" class="dl-main-btn">
-                    {% if page.price %}카트에 담기{% else %}작품 열람하기{% endif %}
-                </a>
-                <div class="dl-sub-text">
-                    {% if page.file_size %}용량: {{ page.file_size }}{% else %}로그인 필요 없음{% endif %}
-                </div>
-            </div>
+    <div class="dl-buy-bar">
+        <div>
+            <span style="font-size:0.9rem; color:#555;">판매 가격</span>
+            <span class="dl-price-info">{{ page.price | default: "Free" }} p</span>
         </div>
+        <a href="{{ page.file_link | default: '#' }}" class="dl-buy-btn">
+            {% if page.price %}카트에 담기{% else %}작품 열람{% endif %}
+        </a>
+    </div>
 
-    </div> <div class="dl-content-area">
-        
-        <h3 class="dl-content-header">작품 정보</h3>
-        <table class="dl-spec-table">
-            <tr>
-                <th>판매일</th>
-                <td>{{ page.date | date: "%Y년 %m월 %d일" }}</td>
-            </tr>
-            <tr>
-                <th>장르</th>
-                <td>
-                    {% for tag in page.tags %}
-                        <span style="display:inline-block; background:#f0f0f0; padding:2px 6px; margin-right:5px; border-radius:4px; font-size:0.9rem;">#{{ tag }}</span>
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <th>파일 형식</th>
-                <td>{{ page.file_format | default: "Web / Text" }}</td>
-            </tr>
-            <tr>
-                <th>연령 제한</th>
-                <td style="color:red; font-weight:bold;">18세 미만 구입 불가</td>
-            </tr>
-        </table>
+    <div class="dl-section-title">작품 정보</div>
+    <table class="dl-info-table">
+        <tr>
+            <th>판매일</th>
+            <td>{{ page.date | date: "%Y년 %m월 %d일" }}</td>
+        </tr>
+        <tr>
+            <th>작가</th>
+            <td>{{ page.author | default: "재은" }}</td>
+        </tr>
+        <tr>
+            <th>장르</th>
+            <td>
+                {% for tag in page.tags %}
+                    <span class="dl-tag-badge">#{{ tag }}</span>
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <th>파일 형식</th>
+            <td>{{ page.file_format | default: "Web / Text" }}</td>
+        </tr>
+        <tr>
+            <th>연령 제한</th>
+            <td style="color:#cc0000; font-weight:bold;">18세 미만 구입 불가</td>
+        </tr>
+    </table>
 
-        <h3 class="dl-content-header">작품 내용</h3>
-        <div class="dl-story-box">
-            {{ content }}
-        </div>
-        
-        <div class="dl-sub-text" style="margin-bottom:20px;">
-            ※ 위 내용은 샘플 이미지 및 텍스트입니다.
-        </div>
-    </div> </div> 
+    <div class="dl-section-title">작품 내용</div>
+    <div class="dl-content-box">
+        {{ content }}
+    </div>
+
+</div>
