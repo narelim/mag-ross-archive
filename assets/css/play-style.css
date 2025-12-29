@@ -1,0 +1,124 @@
+/* =========================================
+   DLsite Play Style Viewer (라이브러리) 📘
+   ========================================= */
+
+body.play-mode {
+    background-color: #f2f3f5; /* 앱 배경색 (연한 회색) */
+    margin: 0;
+}
+
+/* 1. 상단 파란색 앱 헤더 */
+.play-header {
+    background-color: #4086F4; /* DL Play 시그니처 블루 */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.play-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.play-icon-menu { font-size: 1.5rem; cursor: pointer; }
+
+
+/* 2. 필터 바 (작품, 모두, 만화 등) */
+.play-filter-bar {
+    background: white;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+.play-chip {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #555;
+    background: #f0f0f0;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.play-chip.active {
+    background: #eaf3ff;
+    color: #4086F4;
+    font-weight: bold;
+}
+
+
+/* 3. 리스트 컨테이너 */
+.play-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+/* 4. 개별 리스트 아이템 (썰 백업 한 칸) */
+.play-item {
+    background: white;
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    border-bottom: 1px solid #eee;
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: inherit;
+    transition: background 0.2s;
+}
+.play-item:hover { background: #fafafa; }
+
+/* 썸네일 (왼쪽) */
+.play-thumb {
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #eee;
+    border: 1px solid #f0f0f0;
+}
+.play-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 정보 (오른쪽) */
+.play-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.play-item-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.play-item-meta {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* 초록색 뱃지 (만화/CG) */
+.play-badge {
+    display: inline-block;
+    background: #4CAF50; /* 초록색 */
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-top: auto;
+    align-self: flex-start;
+}
