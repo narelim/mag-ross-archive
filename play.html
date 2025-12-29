@@ -48,7 +48,8 @@ permalink: /play/
             seriesId: "{{ post.series_id }}", 
             
             // 태그는 이제 장식용(뱃지)으로만 씁니다.
-            tags: {{ post.tags | jsonify }} 
+            tags: {{ post.tags | jsonify }}, 
+            layout: "{{ post.layout }}"
         },
         {% endfor %}
     ];
@@ -65,7 +66,7 @@ permalink: /play/
         allPosts.forEach(post => {
             
             // 🚨 조건 변경: 태그가 아니라 'seriesId'가 같은지 확인!
-            if (post.seriesId === targetId) {
+            if (post.seriesId === targetId && post.layout !== 'product') {
                 
                 let thumbImg = post.image && post.image !== "" ? post.image : "https://via.placeholder.com/90x90?text=No+Img";
                 
