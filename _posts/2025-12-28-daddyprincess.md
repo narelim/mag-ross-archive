@@ -2,12 +2,12 @@
 layout: product
 title: "DDLG"
 date: 2025-12-28
-category: "근친"
+series_id: "dmar20250001"
+category: "Family"
 tags: [부녀, 근친, 대디플, 첫사랑]
 type: Secret
 image: 
 price: "1,200"        # 가격 (없으면 Free로 뜸)
-series_id: "dmar20250001"
 ---
 
 ### [작품 소개]
