@@ -211,16 +211,13 @@
    ========================================= */
 
 /* 1. 전체 컨테이너 */
-.dl-container {
+.dl-container.product-view {
    display: block !important;
     max-width: 900px; /* 너무 넓지 있게 중앙 정렬 */
     margin: 0 auto;
     padding: 40px 20px;
     font-family: 'Pretendard', sans-serif;
     color: #333;
-
-   gap:0;
-   align-items: unset;
 }
 
 /* 2. 제목 영역 */
