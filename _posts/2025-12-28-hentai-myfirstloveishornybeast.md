@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: product
 title: "짝사랑하던 소꿉친구가 사실은 절륜수컷이라고요?!"
 date: 2025-12-28
 series_id: "dmar20250004"
