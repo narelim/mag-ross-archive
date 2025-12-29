@@ -33,37 +33,47 @@ permalink: /play/
     <div class="play-container" id="play-list">
         </div>
 
-    <script>
-        // Jekyll의 모든 포스트 데이터를 자바스크립트 배열로 저장
-        const allPosts = [
-            {% for post in site.posts %}
-            {
-                title: "{{ post.title | replace: '"', '\"' }}",
-                url: "{{ post.url | relative_url }}",
-                date: "{{ post.date | date: '%Y.%m.%d' }}",
-                tags: {{ post.tags | jsonify }},
-                image: "{{ post.image | relative_url }}",
-                author: "{{ post.author | default: 'Unknown' }}",
-                // 🚨 AU 구분을 위한 태그가 있는지 확인
-                category: "{{ post.category }}" 
-            },
-            {% endfor %}
-        ];
+ <script>
+    // 1. 모든 포스트 데이터 가져오기 (secretposts 폴더에 있는 것도 다 가져옵니다)
+    const allPosts = [
+        {% for post in site.posts %}
+        {
+            title: "{{ post.title | replace: '"', '\"' }}",
+            url: "{{ post.url | relative_url }}",
+            date: "{{ post.date | date: '%Y.%m.%d' }}",
+            image: "{{ post.image | relative_url }}",
+            author: "{{ post.author | default: 'Unknown' }}",
+            
+            // 🚨 핵심: 각 글의 series_id 정보를 가져옵니다.
+            seriesId: "{{ post.series_id }}", 
+            
+            // 태그는 이제 장식용(뱃지)으로만 씁니다.
+            tags: {{ post.tags | jsonify }} 
+        },
+        {% endfor %}
+    ];
 
-        // URL에서 '?tag=AU이름' 파라미터 읽어오기
-        const urlParams = new URLSearchParams(window.location.search);
-        const targetTag = urlParams.get('tag'); // 예: #오피스AU
+    // 2. URL에서 '?id=...' 파라미터 읽어오기
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetId = urlParams.get('id'); // 예: office_au
 
-        const listContainer = document.getElementById('play-list');
-        let count = 0;
+    const listContainer = document.getElementById('play-list');
+    let count = 0;
 
-        // 목록 생성 함수
+    // 3. 목록 생성 (ID 매칭)
+    if (targetId) {
         allPosts.forEach(post => {
-            // 🚨 조건: URL에 있는 태그를 가진 글만 보여준다!
-            if (post.tags.includes(targetTag)) {
+            
+            // 🚨 조건 변경: 태그가 아니라 'seriesId'가 같은지 확인!
+            if (post.seriesId === targetId) {
                 
-                // 썸네일 처리 (없으면 기본 이미지)
                 let thumbImg = post.image && post.image !== "" ? post.image : "https://via.placeholder.com/90x90?text=No+Img";
+                
+                // 태그가 있으면 첫 번째 태그를 뱃지로 보여주기
+                let badgeHTML = "";
+                if (post.tags && post.tags.length > 0) {
+                    badgeHTML = `<span class="play-badge">${post.tags[0]}</span>`;
+                }
 
                 const itemHTML = `
                     <a href="${post.url}" class="play-item">
@@ -73,7 +83,7 @@ permalink: /play/
                         <div class="play-info">
                             <div class="play-item-title">${post.title}</div>
                             <div class="play-item-meta">${post.author} · ${post.date}</div>
-                            <span class="play-badge">Text · Sseol</span>
+                            ${badgeHTML}
                         </div>
                     </a>
                 `;
@@ -81,17 +91,19 @@ permalink: /play/
                 count++;
             }
         });
+    }
 
-        // 만약 글이 하나도 없으면?
-        if (count === 0) {
-            listContainer.innerHTML = `
-                <div style="text-align:center; padding:50px; color:#888;">
-                    <i class="fas fa-folder-open" style="font-size:3rem; margin-bottom:10px;"></i><br>
-                    보관된 기록이 없습니다.<br>
-                    (태그: #${targetTag || '없음'})
-                </div>`;
-        }
-    </script>
+    // 4. 결과 없을 때 메시지
+    if (count === 0) {
+        listContainer.innerHTML = `
+            <div style="text-align:center; padding:50px; color:#888;">
+                <i class="fas fa-folder-open" style="font-size:3rem; margin-bottom:10px;"></i><br>
+                연결된 에피소드가 없습니다.<br>
+                <span style="font-size:0.8rem; color:#aaa;">(Series ID: ${targetId || '없음'})</span>
+            </div>`;
+    }
+</script>
+
 
 </body>
 </html>
