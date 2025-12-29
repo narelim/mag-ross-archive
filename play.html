@@ -56,7 +56,7 @@ permalink: /play/
 
     // 2. URL에서 '?id=...' 파라미터 읽어오기
     const urlParams = new URLSearchParams(window.location.search);
-    const targetId = urlParams.get('series_id'); // 예: office_au
+    const targetId = urlParams.get('id'); // 예: office_au
 
     const listContainer = document.getElementById('play-list');
     let count = 0;
