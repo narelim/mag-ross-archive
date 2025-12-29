@@ -212,6 +212,7 @@
 
 /* 1. 전체 컨테이너 */
 .dl-container {
+   display: block !important;
     max-width: 900px; /* 너무 넓지 있게 중앙 정렬 */
     margin: 0 auto;
     padding: 40px 20px;
