@@ -35,9 +35,9 @@ layout: default
             <span style="font-size:0.9rem; color:#555;">판매 가격</span>
             <span class="dl-price-info">{{ page.price | default: "Free" }} p</span>
         </div>
-        <a href="{{ page.file_link | default: '#' }}" class="dl-buy-btn">
-            {% if page.price %}카트에 담기{% else %}작품 열람{% endif %}
-        </a>
+        <a href="{{ '/play/' | relative_url }}?tag={{ page.target_tag }}" class="dl-main-btn">
+    라이브러리에서 열기
+</a>
     </div>
 
     <div class="dl-section-title">작품 정보</div>
