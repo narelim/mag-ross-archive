@@ -2,140 +2,193 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>{{ page.title }} - Viewer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- 뷰어 스타일 (종이 느낌) --- */
+        /* --- 기본 설정 --- */
         body {
-            background-color: #f4f4f4; /* 배경: 옅은 회색 */
+            background-color: #f2f3f5; /* 앱 배경색 */
             margin: 0;
-            padding: 20px;
-            font-family: 'Noto Serif KR', serif; /* 명조체 (소설 느낌) */
-            line-height: 1.8;
+            padding-top: 130px; /* 헤더 높이만큼 띄우기 */
+            font-family: 'Noto Sans KR', sans-serif;
             color: #333;
         }
 
-        .viewer-paper {
-            max-width: 700px;       /* 너무 넓지 않게 */
-            margin: 0 auto;
-            background: #fff;       /* 종이: 흰색 */
-            padding: 40px 30px;     /* 여백 넉넉하게 */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            min-height: 90vh;
-            border-radius: 4px;
-        }
-
-        /* 제목 영역 */
-        .viewer-header {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .viewer-title { font-size: 1.5rem; font-weight: bold; margin: 0 0 10px 0; }
-        .viewer-date { font-size: 0.85rem; color: #888; font-family: sans-serif; }
-
-        /* 본문 텍스트 */
-        .viewer-content {
-            font-size: 1.05rem;     /* 글자 크기 적당히 */
-            white-space: pre-wrap;  /* 줄바꿈, 띄어쓰기 있는 그대로 표시 */
-            word-break: break-all;
-        }
-
-        /* 📎 첨부 이미지 박스 */
-        .attachment-box {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 2px dashed #ddd;
-        }
-        .attach-label {
-            font-size: 0.9rem; font-weight: bold; color: #555; margin-bottom: 10px; font-family: sans-serif;
-        }
-        .attach-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        /* 이미지 버튼 스타일 */
-        .img-btn {
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            padding: 10px 15px;
-            text-align: left;
-            border-radius: 4px;
-            cursor: pointer;
-            font-family: sans-serif;
-            font-size: 0.9rem;
-            color: #444;
-            transition: 0.2s;
+        /* 1. 🔵 최상단 파란 헤더 (DLsite Play 느낌) */
+        .app-header {
+            background-color: #4086F4;
+            color: white;
+            height: 50px;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-        .img-btn:hover { background: #eaf3ff; border-color: #4086F4; color: #4086F4; }
-        .img-icon { font-size: 1.2rem; }
-
-        /* 뒤로가기 버튼 (우측 상단 고정) */
-        .close-btn {
+            padding: 0 15px;
             position: fixed;
-            top: 20px; right: 20px;
-            background: #333; color: #fff;
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            text-decoration: none;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            opacity: 0.7;
-        }
-        .close-btn:hover { opacity: 1; }
-
-        /* 🖼️ 이미지 모달 (클릭하면 뜨는 창) */
-        #img-modal {
-            display: none;
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            top: 0; left: 0; right: 0;
             z-index: 1000;
-            align-items: center; justify-content: center;
-            cursor: zoom-out;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        #modal-img {
-            max-width: 95%; max-height: 95%;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border-radius: 4px;
+        .back-btn {
+            background: none; border: none; color: white;
+            font-size: 1.2rem; cursor: pointer; padding: 5px 10px 5px 0;
+        }
+        .app-title { font-weight: bold; flex: 1; font-size: 1rem; }
+        .app-icons i { margin-left: 15px; cursor: pointer; }
+
+
+        /* 2. ℹ️ 작품 정보 헤더 (썸네일 + 제목) */
+        .info-header {
+            background: white;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            position: fixed;
+            top: 50px; left: 0; right: 0; /* 파란 헤더 바로 아래 */
+            z-index: 900;
+            border-bottom: 1px solid #ddd;
+            height: 80px; box-sizing: border-box;
+        }
+        .info-thumb {
+            width: 50px; height: 50px;
+            border-radius: 4px; overflow: hidden;
+            border: 1px solid #eee; flex-shrink: 0;
+        }
+        .info-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .info-text { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .info-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;}
+        .info-tags { font-size: 0.75rem; color: #888; }
+        .info-tags span { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; margin-right: 4px; }
+        .open-app-btn {
+            background: #4086F4; color: white; border: none;
+            padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;
+            align-self: center; cursor: default;
+        }
+
+
+        /* 3. 📂 폴더 탭 (계층 구조 느낌) */
+        .folder-tab-bar {
+            max-width: 800px; margin: 20px auto 0 auto;
+            padding: 0 20px;
+            display: flex;
+        }
+        .folder-tab {
+            background: #eaf3ff; /* 연한 파랑 */
+            color: #4086F4;
+            padding: 8px 20px;
+            border-radius: 10px 10px 0 0; /* 위쪽만 둥글게 */
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex; align-items: center; gap: 8px;
+            position: relative;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+        }
+        /* 탭 아래 하얀 선 가리기용 */
+        .folder-tab::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+            height: 4px; background: white;
+        }
+
+
+        /* 4. 📄 텍스트 뷰어 (종이) */
+        .viewer-paper {
+            max-width: 800px;
+            margin: 0 auto 50px auto; /* 탭 바로 아래 */
+            background: #fff;
+            padding: 40px 30px;
+            min-height: 80vh;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            /* 모서리 둥글게 (탭 연결부 제외) */
+            border-radius: 0 4px 4px 4px; 
+            font-family: 'Noto Serif KR', serif; /* 본문은 명조체 */
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* 📎 첨부파일 버튼 스타일 */
+        .attach-box { margin-top: 40px; padding-top: 20px; border-top: 2px dashed #eee; }
+        .attach-title { font-size: 0.9rem; font-weight: bold; color: #555; margin-bottom: 10px; font-family: sans-serif; }
+        .file-btn {
+            display: flex; align-items: center; gap: 10px;
+            background: #f9f9f9; border: 1px solid #eee;
+            padding: 10px; margin-bottom: 8px; border-radius: 6px;
+            cursor: pointer; text-align: left; font-family: sans-serif; font-size: 0.9rem; color: #444;
+        }
+        .file-btn:hover { background: #f0f8ff; border-color: #4086F4; }
+        .file-icon { color: #ff9800; font-size: 1.2rem; } /* 주황색 폴더/파일 아이콘 */
+
+        /* 이미지 모달 */
+        #img-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; align-items: center; justify-content: center; cursor: zoom-out; }
+        #modal-img { max-width: 95%; max-height: 95%; border-radius: 4px; }
+
+        /* 모바일 대응 */
+        @media (max-width: 600px) {
+            .viewer-paper { padding: 30px 20px; }
+            .info-header { padding: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <a href="javascript:history.back()" class="close-btn">X</a>
-
-    <div class="viewer-paper">
-        
-        <header class="viewer-header">
-            <h1 class="viewer-title">{{ page.title }}</h1>
-            <div class="viewer-date">{{ page.date | date: "%Y.%m.%d" }} · {{ page.tags | join: ", " }}</div>
-        </header>
-
-        <div class="viewer-content">
-            {{ content }}
+    <header class="app-header">
+        <button class="back-btn" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="app-title">DLsite Play</div>
+        <div class="app-icons">
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-download"></i>
         </div>
+    </header>
 
-        {% if page.attachments %}
-        <div class="attachment-box">
-            <div class="attach-label">📎 첨부 이미지 ({{ page.attachments | size }})</div>
-            <div class="attach-list">
-                {% for img in page.attachments %}
-                <button class="img-btn" onclick="openModal('{{ img | relative_url }}')">
-                    <span class="img-icon">🖼️</span>
-                    <span>이미지 확인하기 ({{ forloop.index }})</span>
-                </button>
+    <div class="info-header">
+        <div class="info-thumb">
+            {% if page.image %}
+                <img src="{{ page.image | relative_url }}">
+            {% else %}
+                <img src="https://via.placeholder.com/50x50?text=No+Img">
+            {% endif %}
+        </div>
+        <div class="info-text">
+            <div class="info-title">{{ page.title }}</div>
+            <div class="info-tags">
+                {% for tag in page.tags limit:3 %}
+                    <span>{{ tag }}</span>
                 {% endfor %}
             </div>
         </div>
-        {% endif %}
-
+        <button class="open-app-btn">앱에서 열기</button>
     </div>
+
+
+    <div class="folder-tab-bar">
+        <div class="folder-tab">
+            <i class="fas fa-folder-open"></i>
+            {{ page.tags | first | default: "Library" }}
+        </div>
+    </div>
+
+
+    <div class="viewer-paper">
+        {{ content }}
+
+        {% if page.attachments %}
+        <div class="attach-box">
+            <div class="attach-title">📂 첨부 파일 (Images)</div>
+            {% for img in page.attachments %}
+            <button class="file-btn" onclick="openModal('{{ img | relative_url }}')">
+                <i class="fas fa-image file-icon"></i>
+                <div style="display:flex; flex-direction:column;">
+                    <span style="font-weight:bold;">Image_File_{{ forloop.index }}.jpg</span>
+                    <span style="font-size:0.75rem; color:#888;">Tap to view</span>
+                </div>
+            </button>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
 
     <div id="img-modal" onclick="this.style.display='none'">
         <img id="modal-img" src="">
