@@ -49,7 +49,7 @@ body.play-mode {
     cursor: pointer;
 }
 .play-chip.active {
-    background: #FE8CCA;
+    background: #FFDEF0;
     color: #FE8CCA;
     font-weight: bold;
 }
