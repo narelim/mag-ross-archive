@@ -33,58 +33,74 @@ permalink: /play/
     <div class="play-container" id="play-list">
         </div>
 <script>
-    console.log("--- 🕵️‍♀️ 통합 검색 시작 ---");
+    console.log("--- 🕵️‍♀️ 통합 검색 시작 (이미지 경로 보정판) ---");
 
     const allPosts = [
-        // 1. [포스트] _posts 폴더에 있는 글들 (날짜 있는 것)
+        // 1. [포스트] _posts 폴더
         {% for post in site.posts %}
         {
             title: "{{ post.title | replace: '"', '\"' }}",
             url: "{{ post.url | relative_url }}",
             date: "{{ post.date | date: '%Y.%m.%d' }}",
-            image: "{{ post.image | relative_url }}",
             author: "{{ post.author | default: 'Unknown' }}",
             seriesId: "{{ post.series_id | strip }}", 
             tags: {{ post.tags | jsonify }}, 
-            layout: "{{ post.layout | strip }}"
+            layout: "{{ post.layout | strip }}",
+
+            // 🚨 핵심 수정: 이미지가 있으면 경로를 확인해서 자동으로 맞춰줌!
+            {% if post.image %}
+                {% if post.image contains '/' %}
+                    image: "{{ post.image | relative_url }}",
+                {% else %}
+                    image: "{{ '/assets/img/' | append: post.image | relative_url }}",
+                {% endif %}
+            {% else %}
+                image: "", // 이미지 없으면 빈카
+            {% endif %}
         },
         {% endfor %}
 
-        // 2. [페이지] _posts 밖, 일반 폴더에 있는 글들 (secretposts 폴더 등) 🚨 여기 추가됨!
+        // 2. [페이지] _posts 밖 (secretposts 등)
         {% for page in site.pages %}
-            // series_id가 있는 페이지만 가져옵니다 (속도 최적화)
             {% if page.series_id %}
             {
                 title: "{{ page.title | replace: '"', '\"' }}",
                 url: "{{ page.url | relative_url }}",
-                // 페이지는 날짜가 없을 수도 있어서 수정일 등을 가져옴
                 date: "{{ page.date | default: site.time | date: '%Y.%m.%d' }}",
-                image: "{{ page.image | relative_url }}",
                 author: "{{ page.author | default: 'Unknown' }}",
                 seriesId: "{{ page.series_id | strip }}", 
                 tags: {{ page.tags | jsonify }}, 
-                layout: "{{ page.layout | strip }}"
+                layout: "{{ page.layout | strip }}",
+
+                // 🚨 핵심 수정: 페이지 쪽도 똑같이 적용!
+                {% if page.image %}
+                    {% if page.image contains '/' %}
+                        image: "{{ page.image | relative_url }}",
+                    {% else %}
+                        image: "{{ '/assets/img/' | append: page.image | relative_url }}",
+                    {% endif %}
+                {% else %}
+                    image: "",
+                {% endif %}
             },
             {% endif %}
         {% endfor %}
     ];
 
-    // URL 파라미터 읽기
+    // (아래 로직은 그대로 유지)
     const urlParams = new URLSearchParams(window.location.search);
     const targetId = (urlParams.get('id') || "").trim(); 
-
-    console.log("찾는 ID:", targetId);
-    console.log("검색 대상 문서 수:", allPosts.length);
-
+    // ... 나머지 코드 그대로 ...
+    
+    // 3. 목록 생성 부분 (여기도 살짝 안전하게 수정)
     const listContainer = document.getElementById('play-list');
     let count = 0;
 
-    // 목록 생성
     if (targetId) {
         allPosts.forEach(post => {
-            // ID가 같고 && 레이아웃이 product(부모)가 아닌 것
             if (post.seriesId === targetId && post.layout !== 'product') {
                 
+                // 이미지가 비어있으면 기본 이미지 사용
                 let thumbImg = post.image && post.image !== "" ? post.image : "https://via.placeholder.com/90x90?text=No+Img";
                 
                 let badgeHTML = "";
@@ -116,13 +132,11 @@ permalink: /play/
             <div style="text-align:center; padding:50px; color:#888;">
                 <i class="fas fa-search-minus" style="font-size:3rem; margin-bottom:10px;"></i><br>
                 불러올 파일이 없습니다.<br>
-                <span style="font-size:0.8rem; color:#aaa;">(ID: ${targetId})</span><br><br>
-                <span style="font-size:0.75rem; background:#eee; padding:5px; border-radius:3px;">
-                    팁: secretposts 폴더가 _posts 밖에 있나요?
-                </span>
+                <span style="font-size:0.8rem; color:#aaa;">(ID: ${targetId})</span>
             </div>`;
     }
 </script>
+
 
 </body>
 </html>
