@@ -121,6 +121,7 @@ permalink: /play/
     const allPosts = [
         {% for post in site.posts %}
         {
+        {if post.url contains 'secret' or post.type contains 'secret' %}
             title: "{{ post.title | replace: '"', '\"' }}",
             url: "{{ post.url | relative_url }}",
             date: "{{ post.date | date: '%Y.%m.%d' }}",
@@ -138,10 +139,11 @@ permalink: /play/
                 image: "",
             {% endif %}
         },
+                {% endif %}
         {% endfor %}
         
         {% for page in site.pages %}
-            {% if page.series_id %}
+            {% if page.series_id and page.url contains 'secret' %}
             {
                 title: "{{ page.title | replace: '"', '\"' }}",
                 url: "{{ page.url | relative_url }}",
