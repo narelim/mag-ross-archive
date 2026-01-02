@@ -17,9 +17,11 @@ layout: default
 
     <div class="dl-gallery-stage">
         
-        <div class="dl-main-img-wrapper" style="min-height:300px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+        <div class="dl-main-img-wrapper" style="height: 450px; display:flex; align-items:center; justify-content:center; overflow:hidden; background-color: #fff;">
             {% if page.image %}
-                <img id="mainImage" src="{{ '/assets/img/' | append: page.image | relative_url }}" alt="메인 이미지" class="dl-main-img">
+                <img id="mainImage" src="{{ '/assets/img/' | append: page.image | relative_url }}" alt="메인 이미지" 
+                     class="dl-main-img" 
+                     style="width: 100%; height: 100%; object-fit: contain;">
             {% else %}
                 <div style="color:#aaa;">No Image</div>
             {% endif %}
@@ -37,7 +39,7 @@ layout: default
             {% endif %}
         </div>
 
-        <div class="dl-caption">번역자 「재은」의 샘플을 표시 중입니다.</div>
+        <div class="dl-caption">번역자 「나레」의 샘플을 표시 중입니다.</div>
     </div>
 
     <script>
