@@ -1,21 +1,42 @@
----
-layout: null
-permalink: /play/
----
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library Viewer</title>
+    <title>My Library</title>
     <link rel="stylesheet" href="{{ '/assets/css/play-style.css' | relative_url }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="play-mode">
 
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div class="play-sidebar" id="sidebar">
+        <div class="sidebar-profile">
+            <div class="profile-img"><i class="fas fa-user"></i></div>
+            <div class="profile-name">재은님의 라이브러리</div>
+            <div class="profile-desc">나만의 썰 백업 저장소 🌸</div>
+        </div>
+        <div class="sidebar-menu">
+            <div class="sidebar-item" onclick="filterList('all')">
+                <i class="fas fa-list"></i> 전체 작품 보기
+            </div>
+            <div class="sidebar-item" onclick="filterList('liked')">
+                <i class="fas fa-heart"></i> 찜한 작품 모아보기
+            </div>
+            <div class="sidebar-divider"></div>
+            <div class="sidebar-item" onclick="location.href='/'">
+                <i class="fas fa-home"></i> 메인으로 나가기
+            </div>
+            <div class="sidebar-item" onclick="toggleSidebar()">
+                <i class="fas fa-times"></i> 메뉴 닫기
+            </div>
+        </div>
+    </div>
+
     <header class="play-header">
         <div class="play-title">
-            <i class="fas fa-bars play-icon-menu"></i> <span>라이브러리</span>
+            <i class="fas fa-bars play-icon-menu" onclick="toggleSidebar()"></i> 
+            <span>라이브러리</span>
         </div>
         <div>
             <i class="fas fa-search play-icon-menu" style="margin-right:15px;"></i>
@@ -24,19 +45,25 @@ permalink: /play/
     </header>
 
     <div class="play-filter-bar">
-        <div class="play-chip active">작품</div>
-        <div class="play-chip">모두</div>
-        <div class="play-chip">만화 · CG</div>
-        <div class="play-chip">소설</div>
+        <div class="play-chip active" id="chip-all">전체</div>
+        <div class="play-chip" id="chip-liked">찜한 작품</div>
     </div>
 
     <div class="play-container" id="play-list">
         </div>
-<script>
-    console.log("--- 🕵️‍♀️ 통합 검색 시작 (이미지 경로 보정판) ---");
 
+
+<script>
+    // --- 0. 사이드바 열고 닫기 기능 ---
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.querySelector('.sidebar-overlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+
+    // --- 1. 데이터 가져오기 ---
     const allPosts = [
-        // 1. [포스트] _posts 폴더
         {% for post in site.posts %}
         {
             title: "{{ post.title | replace: '"', '\"' }}",
@@ -46,8 +73,6 @@ permalink: /play/
             seriesId: "{{ post.series_id | strip }}", 
             tags: {{ post.tags | jsonify }}, 
             layout: "{{ post.layout | strip }}",
-
-            // 🚨 핵심 수정: 이미지가 있으면 경로를 확인해서 자동으로 맞춰줌!
             {% if post.image %}
                 {% if post.image contains '/' %}
                     image: "{{ post.image | relative_url }}",
@@ -55,12 +80,11 @@ permalink: /play/
                     image: "{{ '/assets/img/' | append: post.image | relative_url }}",
                 {% endif %}
             {% else %}
-                image: "", // 이미지 없으면 빈카
+                image: "",
             {% endif %}
         },
         {% endfor %}
-
-        // 2. [페이지] _posts 밖 (secretposts 등)
+        
         {% for page in site.pages %}
             {% if page.series_id %}
             {
@@ -71,8 +95,6 @@ permalink: /play/
                 seriesId: "{{ page.series_id | strip }}", 
                 tags: {{ page.tags | jsonify }}, 
                 layout: "{{ page.layout | strip }}",
-
-                // 🚨 핵심 수정: 페이지 쪽도 똑같이 적용!
                 {% if page.image %}
                     {% if page.image contains '/' %}
                         image: "{{ page.image | relative_url }}",
@@ -87,56 +109,114 @@ permalink: /play/
         {% endfor %}
     ];
 
-    // (아래 로직은 그대로 유지)
     const urlParams = new URLSearchParams(window.location.search);
     const targetId = (urlParams.get('id') || "").trim(); 
-    // ... 나머지 코드 그대로 ...
-    
-    // 3. 목록 생성 부분 (여기도 살짝 안전하게 수정)
     const listContainer = document.getElementById('play-list');
-    let count = 0;
 
-    if (targetId) {
+    // --- 2. 찜하기 기능 (LocalStorage) ---
+    // 내 브라우저에 저장된 찜 목록 가져오기
+    function getLikedItems() {
+        const stored = localStorage.getItem('my_liked_posts');
+        return stored ? JSON.parse(stored) : [];
+    }
+
+    // 찜 버튼 눌렀을 때 실행
+    function toggleLike(url, btn) {
+        // 이벤트 버블링 방지 (리스트 클릭해서 이동하는 것 막기)
+        event.preventDefault(); 
+        event.stopPropagation();
+
+        let likes = getLikedItems();
+        
+        if (likes.includes(url)) {
+            // 이미 찜했으면 -> 취소
+            likes = likes.filter(item => item !== url);
+            btn.classList.remove('liked');
+            btn.innerHTML = '<i class="far fa-heart"></i>'; // 빈 하트
+        } else {
+            // 찜 안했으면 -> 추가
+            likes.push(url);
+            btn.classList.add('liked');
+            btn.innerHTML = '<i class="fas fa-heart"></i>'; // 채운 하트
+        }
+
+        // 저장
+        localStorage.setItem('my_liked_posts', JSON.stringify(likes));
+    }
+
+
+    // --- 3. 리스트 그리기 함수 (필터 기능 포함) ---
+    function renderList(filterType) {
+        listContainer.innerHTML = ''; // 초기화
+        let count = 0;
+        const myLikes = getLikedItems(); // 찜 목록 로딩
+
+        // 칩 스타일 변경
+        document.getElementById('chip-all').classList.toggle('active', filterType === 'all');
+        document.getElementById('chip-liked').classList.toggle('active', filterType === 'liked');
+
         allPosts.forEach(post => {
-            if (post.seriesId === targetId && post.layout !== 'product') {
-                
-                // 이미지가 비어있으면 기본 이미지 사용
+            // 기본 조건: ID가 같고, 상품페이지가 아닐 것
+            let isValid = (post.seriesId === targetId && post.layout !== 'product');
+
+            // 찜한 작품 보기 모드라면? -> 찜 목록에 있는지 추가 확인
+            if (filterType === 'liked') {
+                if (!myLikes.includes(post.url)) isValid = false;
+            }
+
+            if (isValid) {
                 let thumbImg = post.image && post.image !== "" ? post.image : "https://via.placeholder.com/90x90?text=No+Img";
-                
-                let badgeHTML = "";
-                if (post.tags && post.tags.length > 0) {
-                    badgeHTML = `<span class="play-badge">${post.tags[0]}</span>`;
-                }
+                let badgeHTML = post.tags && post.tags.length > 0 ? `<span class="play-badge">${post.tags[0]}</span>` : "";
+
+                // 이 글이 찜 되어 있는지 확인
+                const isLiked = myLikes.includes(post.url);
+                const heartClass = isLiked ? 'liked' : '';
+                const heartIcon = isLiked ? 'fas fa-heart' : 'far fa-heart';
 
                 const itemHTML = `
-                    <a href="${post.url}" class="play-item">
-                        <div class="play-thumb">
-                            <img src="${thumbImg}" alt="thumb">
+                    <div class="play-item-wrapper" style="position:relative;">
+                        <a href="${post.url}" class="play-item">
+                            <div class="play-thumb">
+                                <img src="${thumbImg}" alt="thumb">
+                            </div>
+                            <div class="play-info">
+                                <div class="play-item-title">${post.title}</div>
+                                <div class="play-item-meta">${post.author} · ${post.date}</div>
+                                ${badgeHTML}
+                            </div>
+                        </a>
+                        <div class="play-like-btn ${heartClass}" onclick="toggleLike('${post.url}', this)">
+                            <i class="${heartIcon}"></i>
                         </div>
-                        <div class="play-info">
-                            <div class="play-item-title">${post.title}</div>
-                            <div class="play-item-meta">${post.author} · ${post.date}</div>
-                            ${badgeHTML}
-                        </div>
-                    </a>
+                    </div>
                 `;
                 listContainer.innerHTML += itemHTML;
                 count++;
             }
         });
+
+        if (count === 0) {
+            let msg = filterType === 'liked' ? "찜한 작품이 없습니다." : "연결된 에피소드가 없습니다.";
+            listContainer.innerHTML = `
+                <div style="text-align:center; padding:50px; color:#888;">
+                    <i class="far fa-folder-open" style="font-size:3rem; margin-bottom:10px;"></i><br>
+                    ${msg}
+                </div>`;
+        }
+        
+        // 모바일에서 메뉴 누르고 나면 사이드바 닫아주기
+        document.getElementById('sidebar').classList.remove('active');
+        document.querySelector('.sidebar-overlay').classList.remove('active');
     }
 
-    // 결과 없음 처리
-    if (count === 0) {
-        listContainer.innerHTML = `
-            <div style="text-align:center; padding:50px; color:#888;">
-                <i class="fas fa-search-minus" style="font-size:3rem; margin-bottom:10px;"></i><br>
-                불러올 파일이 없습니다.<br>
-                <span style="font-size:0.8rem; color:#aaa;">(ID: ${targetId})</span>
-            </div>`;
+    // --- 4. 메뉴 클릭 시 실행 함수 ---
+    function filterList(type) {
+        renderList(type);
     }
+
+    // 처음 시작할 땐 '전체(all)' 보여주기
+    renderList('all');
+
 </script>
-
-
 </body>
 </html>
