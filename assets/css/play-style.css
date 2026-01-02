@@ -126,3 +126,75 @@ body.play-mode {
     margin-top: auto;
     align-self: flex-start;
 }
+
+/* --- 📱 사이드바 (서랍 메뉴) 스타일 --- */
+
+/* 1. 어두운 배경 (오버레이) */
+.sidebar-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); /* 반투명 검정 */
+    z-index: 1500;
+    opacity: 0; visibility: hidden; /* 평소엔 숨김 */
+    transition: all 0.3s;
+}
+.sidebar-overlay.active { opacity: 1; visibility: visible; }
+
+/* 2. 사이드바 본체 */
+.play-sidebar {
+    position: fixed; top: 0; left: -280px; /* 화면 밖으로 숨겨둠 */
+    width: 280px; height: 100%;
+    background: #FFF9FB;
+    z-index: 2000;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 부드러운 움직임 */
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column;
+}
+.play-sidebar.active { left: 0; /* 화면 안으로 들어옴 */ }
+
+/* 3. 사이드바: 프로필 영역 */
+.sidebar-profile {
+    background: #E87A90; /* 핑크 헤더 */
+    padding: 40px 20px 20px 20px;
+    color: white;
+}
+.profile-img {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: white; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: #E87A90; font-size: 1.5rem;
+}
+.profile-name { font-size: 1.1rem; font-weight: bold; }
+.profile-desc { font-size: 0.8rem; opacity: 0.8; margin-top: 5px; }
+
+/* 4. 사이드바: 메뉴 리스트 */
+.sidebar-menu { padding: 10px 0; flex: 1; overflow-y: auto; }
+.sidebar-item {
+    padding: 15px 20px;
+    display: flex; align-items: center; gap: 15px;
+    color: #444; cursor: pointer; transition: 0.2s;
+    font-size: 0.95rem; font-weight: 500;
+}
+.sidebar-item:hover { background: #FFF0F5; color: #E87A90; }
+.sidebar-item i { width: 20px; text-align: center; color: #E87A90; }
+
+/* 구분선 */
+.sidebar-divider { height: 1px; background: #eee; margin: 5px 20px; }
+
+/* ❤️ 하트 버튼 (리스트 아이템 위에 둥둥 뜸) */
+.play-like-btn {
+    position: absolute; right: 10px; bottom: 10px;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: white; border: 1px solid #eee;
+    display: flex; align-items: center; justify-content: center;
+    color: #ccc; cursor: pointer; z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: 0.2s;
+}
+/* 찜 했을 때 (활성화) */
+.play-like-btn.liked {
+    color: #E87A90; border-color: #E87A90;
+    background: #FFF0F5;
+}
+/* 리스트 아이템에 relative 추가 (하트 위치 잡기 위해) */
+.play-item { position: relative; }
+
