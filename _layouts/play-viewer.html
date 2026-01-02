@@ -8,18 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- 기본 설정 --- */
+        /* --- 기본 설정 (사쿠라 테마) --- */
         body {
-            background-color: #f2f3f5; /* 앱 배경색 */
+            background-color: #FFF9FB; /* 배경: 아주 연한 핑크 화이트 */
             margin: 0;
-            padding-top: 130px; /* 헤더 높이만큼 띄우기 */
+            padding-top: 130px;
             font-family: 'Noto Sans KR', sans-serif;
-            color: #FE8CCA;
+            color: #333; /* 기본 글자는 가독성 좋게 진한 회색 */
         }
 
-        /* 1. 🔵 최상단 파란 헤더 (DLsite Play 느낌) */
+        /* 1. 🌸 최상단 헤더 (웜 핑크) */
         .app-header {
-            background-color: #FE8CCA;
+            background-color: #E87A90; /* 차분한 로즈 핑크 */
             color: white;
             height: 50px;
             display: flex;
@@ -28,7 +28,7 @@
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(232, 122, 144, 0.2); /* 그림자도 핑크톤 */
         }
         .back-btn {
             background: none; border: none; color: white;
@@ -38,53 +38,54 @@
         .app-icons i { margin-left: 15px; cursor: pointer; }
 
 
-        /* 2. ℹ️ 작품 정보 헤더 (썸네일 + 제목) */
+        /* 2. ℹ️ 작품 정보 헤더 */
         .info-header {
             background: white;
             padding: 15px;
             display: flex;
             gap: 15px;
             position: fixed;
-            top: 50px; left: 0; right: 0; /* 파란 헤더 바로 아래 */
+            top: 50px; left: 0; right: 0;
             z-index: 900;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #FFF0F5; /* 구분선 아주 연한 핑크 */
             height: 80px; box-sizing: border-box;
         }
         .info-thumb {
             width: 50px; height: 50px;
             border-radius: 4px; overflow: hidden;
-            border: 1px solid #eee; flex-shrink: 0;
+            border: 1px solid #FFE4E1; flex-shrink: 0;
         }
         .info-thumb img { width: 100%; height: 100%; object-fit: cover; }
         .info-text { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .info-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;}
-        .info-tags { font-size: 0.75rem; color: #888; }
-        .info-tags span { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; margin-right: 4px; }
+        .info-title { font-size: 0.95rem; font-weight: bold; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; color: #444;}
+        .info-tags { font-size: 0.75rem; color: #999; }
+        .info-tags span { background: #FFF0F5; padding: 2px 5px; border-radius: 3px; margin-right: 4px; color: #E87A90; }
+        
+        /* 앱에서 열기 버튼 */
         .open-app-btn {
-            background: #FE8CCA; color: white; border: none;
+            background: #E87A90; color: white; border: none;
             padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;
             align-self: center; cursor: default;
         }
 
 
-        /* 3. 📂 폴더 탭 (계층 구조 느낌) */
+        /* 3. 📂 폴더 탭 */
         .folder-tab-bar {
             max-width: 800px; margin: 20px auto 0 auto;
             padding: 0 20px;
             display: flex;
         }
         .folder-tab {
-            background: #FFDEF0; /* 연한 파랑 */
-            color: #33282E;
+            background: #FFF0F5; /* 탭 배경: 연한 딸기우유색 */
+            color: #E87A90;       /* 글자: 로즈 핑크 */
             padding: 8px 20px;
-            border-radius: 10px 10px 0 0; /* 위쪽만 둥글게 */
+            border-radius: 10px 10px 0 0;
             font-weight: bold;
             font-size: 0.9rem;
             display: flex; align-items: center; gap: 8px;
             position: relative;
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.02);
         }
-        /* 탭 아래 하얀 선 가리기용 */
         .folder-tab::after {
             content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
             height: 4px; background: white;
@@ -94,82 +95,53 @@
         /* 4. 📄 텍스트 뷰어 (종이) */
         .viewer-paper {
             max-width: 800px;
-            margin: 0 auto 50px auto; /* 탭 바로 아래 */
+            margin: 0 auto 50px auto;
             background: #fff;
             padding: 40px 30px;
             min-height: 80vh;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            /* 모서리 둥글게 (탭 연결부 제외) */
+            box-shadow: 0 2px 10px rgba(232, 122, 144, 0.05); /* 그림자에 아주 살짝 핑크 섞기 */
             border-radius: 0 4px 4px 4px; 
-            font-family: 'Noto Serif KR', serif; /* 본문은 명조체 */
+            font-family: 'Noto Serif KR', serif;
             line-height: 1.8;
             font-size: 1.05rem;
+            color: #333;
         }
 
-/* --- 📎 첨부파일 리스트 스타일 (업그레이드) --- */
-.attach-box { 
-    margin-top: 50px; 
-    padding-top: 20px; 
-    border-top: 2px dashed #eee; 
-}
-.attach-title { 
-    font-size: 0.95rem; 
-    font-weight: bold; 
-    color: #555; 
-    margin-bottom: 15px; 
-    font-family: sans-serif; 
-}
+        /* --- 📎 첨부파일 리스트 스타일 --- */
+        .attach-box { 
+            margin-top: 50px; 
+            padding-top: 20px; 
+            border-top: 2px dashed #FFE4E1; /* 점선도 핑크 */
+        }
+        .attach-title { 
+            font-size: 0.95rem; font-weight: bold; color: #888; 
+            margin-bottom: 15px; font-family: sans-serif; 
+        }
 
-/* 버튼 디자인 */
-.file-btn {
-    display: flex; 
-    align-items: center; 
-    gap: 15px; /* 썸네일과 글자 사이 간격 */
-    background: #fff; 
-    border: 1px solid #eee;
-    padding: 10px; 
-    margin-bottom: 10px; 
-    border-radius: 8px; /* 둥근 모서리 */
-    cursor: pointer; 
-    text-align: left; 
-    font-family: sans-serif; 
-    color: #444;
-    transition: all 0.2s;
-    width: 100%; /* 버튼 꽉 채우기 */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-.file-btn:hover { 
-    background: #f0f8ff; 
-    border-color: #E6007E; 
-    transform: translateY(-2px); /* 살짝 떠오르는 효과 */
-}
+        /* 버튼 디자인 */
+        .file-btn {
+            display: flex; align-items: center; gap: 15px;
+            background: #fff; border: 1px solid #eee;
+            padding: 10px; margin-bottom: 10px; border-radius: 8px;
+            cursor: pointer; text-align: left; font-family: sans-serif; 
+            color: #444; transition: all 0.2s; width: 100%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .file-btn:hover { 
+            background: #FFF0F5; /* 호버 시 연한 핑크 배경 */
+            border-color: #E87A90; /* 테두리 로즈 핑크 */
+            transform: translateY(-2px);
+        }
 
-/* 🖼️ 썸네일 이미지 스타일 */
-.file-thumb-img {
-    width: 60px;          /* 가로 크기 */
-    height: 60px;         /* 세로 크기 */
-    border-radius: 6px;   /* 썸네일도 둥글게 */
-    object-fit: cover;    /* 이미지가 찌그러지지 않고 꽉 차게 */
-    border: 1px solid #ddd;
-    background-color: #eee;
-}
+        /* 썸네일 */
+        .file-thumb-img {
+            width: 60px; height: 60px; border-radius: 6px;
+            object-fit: cover; border: 1px solid #FFE4E1; background-color: #FFF0F5;
+        }
 
-/* 파일명 텍스트 */
-.file-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.file-name {
-    font-size: 0.95rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 3px;
-}
-.file-sub {
-    font-size: 0.75rem;
-    color: #888;
-}
+        .file-info { display: flex; flex-direction: column; justify-content: center; }
+        .file-name { font-size: 0.95rem; font-weight: bold; color: #444; margin-bottom: 3px; }
+        .file-sub { font-size: 0.75rem; color: #999; }
 
 
         /* 이미지 모달 */
@@ -183,71 +155,62 @@
         }
 
         /* --- 아코디언(접이식) 스타일 --- */
-details {
-    background: #fff;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    margin-bottom: 15px; /* 박스 간격 */
-    overflow: hidden;
-    transition: all 0.3s;
-}
+        details {
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
 
-/* 제목 부분 (클릭하는 곳) */
-summary {
-    background: #fafafa;
-    padding: 15px 20px;
-    font-weight: bold;
-    font-family: 'Noto Sans KR', sans-serif; /* 제목은 고딕이 어울림 */
-    font-size: 0.95rem;
-    color: #FFDEF0;
-    cursor: pointer;
-    list-style: none; /* 기본 화살표 제거 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-/* 크롬 등에서 기본 화살표 숨기기 */
-summary::-webkit-details-marker { display: none; }
+        /* 제목 부분 */
+        summary {
+            background: #fafafa;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 0.95rem;
+            color: #555; /* 평소엔 잘 보이게 회색 */
+            cursor: pointer;
+            list-style: none;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
 
-/* 마우스 올렸을 때 */
-summary:hover { background: #f0f8ff; color: #FE8CCA; }
+        /* 마우스 올렸을 때 */
+        summary:hover { background: #FFF0F5; color: #E87A90; }
 
-/* 제목 옆에 화살표 아이콘 만들기 */
-summary::after {
-    content: '\f078'; /* FontAwesome 아래 화살표 */
-    font-family: "Font Awesome 5 Free"; 
-    font-weight: 900;
-    transition: transform 0.3s;
-    font-size: 0.8rem;
-    color: #bbb;
-}
+        /* 화살표 */
+        summary::after {
+            content: '\f078'; font-family: "Font Awesome 5 Free"; font-weight: 900;
+            transition: transform 0.3s; font-size: 0.8rem; color: #ccc;
+        }
 
-/* 펼쳐졌을 때 스타일 */
-details[open] {
-    border-color: #FE8CCA; /* 테두리 파란색으로 강조 */
-    box-shadow: 0 4px 10px rgba(64, 134, 244, 0.1);
-}
-details[open] summary {
-    border-bottom: 1px solid #eee;
-    color: #FE8CCA;
-}
-details[open] summary::after {
-    transform: rotate(180deg); /* 화살표 뒤집기 */
-    color: #FE8CCA;
-}
+        /* 펼쳐졌을 때 */
+        details[open] {
+            border-color: #E87A90; /* 테두리 핑크 */
+            box-shadow: 0 4px 10px rgba(232, 122, 144, 0.1);
+        }
+        details[open] summary {
+            border-bottom: 1px solid #FFF0F5;
+            color: #E87A90; /* 제목 핑크색으로 변신 */
+            background: #FFF9FB;
+        }
+        details[open] summary::after {
+            transform: rotate(180deg);
+            color: #E87A90;
+        }
 
-/* _layouts/play-viewer.html 의 <style> 안쪽 */
-
-details .details-content {
-    padding: 20px;
-    line-height: 1.8;
-    color: #333;
-    background: #fff;
-    white-space: pre-wrap; 
-    word-break: break-all; /* 긴 영어 단어도 잘라서 줄바꿈 */
-}
-
-
+        /* 내용 */
+        details .details-content {
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+            background: #fff;
+            white-space: pre-wrap; 
+            word-break: break-all;
+        }
     </style>
 </head>
 <body>
@@ -266,7 +229,7 @@ details .details-content {
     <div class="info-header">
         <div class="info-thumb">
             {% if page.image %}
-                <img src="{{ page.image | relative_url }}">
+                <img src="{{ '/assets/img/' | append: page.image | relative_url }}">
             {% else %}
                 <img src="https://via.placeholder.com/50x50?text=No+Img">
             {% endif %}
@@ -294,28 +257,28 @@ details .details-content {
     <div class="viewer-paper">
         {{ content }}
 
-{% if page.attachments %}
-<div class="attach-box">
-    <div class="attach-title">
-        <i class="fas fa-paperclip"></i> 첨부 파일 ({{ page.attachments | size }}개)
-    </div>
-    
-    {% for img in page.attachments %}
-    
-    {% assign filename = img | split: '/' | last %}
+        {% if page.attachments %}
+        <div class="attach-box">
+            <div class="attach-title">
+                <i class="fas fa-paperclip"></i> 첨부 파일 ({{ page.attachments | size }}개)
+            </div>
+            
+            {% for img in page.attachments %}
+            
+            {% assign filename = img | split: '/' | last %}
 
-    <button class="file-btn" onclick="openModal('{{ img | relative_url }}')">
-        
-        <img src="{{ img | relative_url }}" class="file-thumb-img" alt="thumb">
-        
-        <div class="file-info">
-            <span class="file-name">{{ filename }}</span>
-            <span class="file-sub">이미지 크게 보기 (Click to view)</span>
+            <button class="file-btn" onclick="openModal('{{ img | relative_url }}')">
+                
+                <img src="{{ img | relative_url }}" class="file-thumb-img" alt="thumb">
+                
+                <div class="file-info">
+                    <span class="file-name">{{ filename }}</span>
+                    <span class="file-sub">이미지 크게 보기 (Click to view)</span>
+                </div>
+            </button>
+            {% endfor %}
         </div>
-    </button>
-    {% endfor %}
-</div>
-{% endif %}
+        {% endif %}
 
     </div>
 
