@@ -3,13 +3,13 @@
    ========================================= */
 
 body.play-mode {
-    background-color: #f2f3f5; /* 앱 배경색 (연한 회색) */
+    background-color: #FEFBFC; /* 앱 배경색 (연한 회색) */
     margin: 0;
 }
 
 /* 1. 상단 파란색 앱 헤더 */
 .play-header {
-    background-color: #4086F4; /* DL Play 시그니처 블루 */
+    background-color: #FE8CCA; /* DL Play 시그니처 블루 */
     color: white;
     padding: 15px 20px;
     display: flex;
@@ -49,8 +49,8 @@ body.play-mode {
     cursor: pointer;
 }
 .play-chip.active {
-    background: #eaf3ff;
-    color: #4086F4;
+    background: #FE8CCA;
+    color: #FE8CCA;
     font-weight: bold;
 }
 
