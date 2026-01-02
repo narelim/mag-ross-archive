@@ -6,7 +6,7 @@ series_id: "dmar20250001"
 category: "Family"
 tags: [부녀, 근친, 대디플, 첫사랑]
 type: Secret
-image: 
+image: "thumb_ddlg.png"
 price: "1,200"        # 가격 (없으면 Free로 뜸)
 ---
 
