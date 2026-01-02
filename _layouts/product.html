@@ -15,11 +15,11 @@ layout: default
         <div class="dl-prod-title">{{ page.title }}</div>
     </div>
 
-        <div class="dl-gallery-stage">
+    <div class="dl-gallery-stage">
         
         <div class="dl-main-img-wrapper" style="min-height:300px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
             {% if page.image %}
-                <img id="mainImage" src="{{ page.image | relative_url }}" alt="메인 이미지" class="dl-main-img">
+                <img id="mainImage" src="{{ '/assets/img/' | append: page.image | relative_url }}" alt="메인 이미지" class="dl-main-img">
             {% else %}
                 <div style="color:#aaa;">No Image</div>
             {% endif %}
@@ -27,17 +27,17 @@ layout: default
         
         <div class="dl-thumb-list">
             {% if page.image %}
-            <img src="{{ page.image | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
+            <img src="{{ '/assets/img/' | append: page.image | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
             {% endif %}
 
             {% if page.gallery_images %}
                 {% for img in page.gallery_images %}
-                <img src="{{ img | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
+                <img src="{{ '/assets/img/' | append: img | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
                 {% endfor %}
             {% endif %}
         </div>
 
-        <div class="dl-caption">번역자 「나레」의 샘플을 표시 중입니다.</div>
+        <div class="dl-caption">번역자 「재은」의 샘플을 표시 중입니다.</div>
     </div>
 
     <script>
