@@ -19,7 +19,7 @@
 
         /* 1. 🔵 최상단 파란 헤더 (DLsite Play 느낌) */
         .app-header {
-            background-color: #E6007E;
+            background-color: #FE8CCA;
             color: white;
             height: 50px;
             display: flex;
@@ -61,7 +61,7 @@
         .info-tags { font-size: 0.75rem; color: #888; }
         .info-tags span { background: #f0f0f0; padding: 2px 5px; border-radius: 3px; margin-right: 4px; }
         .open-app-btn {
-            background: #E6007E; color: white; border: none;
+            background: #FE8CCA; color: white; border: none;
             padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;
             align-self: center; cursor: default;
         }
@@ -74,8 +74,8 @@
             display: flex;
         }
         .folder-tab {
-            background: #FF9BD2; /* 연한 파랑 */
-            color: #E6007E;
+            background: #FFDEF0; /* 연한 파랑 */
+            color: #FE8CCA;
             padding: 8px 20px;
             border-radius: 10px 10px 0 0; /* 위쪽만 둥글게 */
             font-weight: bold;
@@ -199,7 +199,7 @@ summary {
     font-weight: bold;
     font-family: 'Noto Sans KR', sans-serif; /* 제목은 고딕이 어울림 */
     font-size: 0.95rem;
-    color: #444;
+    color: #FFDEF0;
     cursor: pointer;
     list-style: none; /* 기본 화살표 제거 */
     display: flex;
@@ -210,7 +210,7 @@ summary {
 summary::-webkit-details-marker { display: none; }
 
 /* 마우스 올렸을 때 */
-summary:hover { background: #f0f8ff; color: #E6007E; }
+summary:hover { background: #f0f8ff; color: #FE8CCA; }
 
 /* 제목 옆에 화살표 아이콘 만들기 */
 summary::after {
@@ -224,16 +224,16 @@ summary::after {
 
 /* 펼쳐졌을 때 스타일 */
 details[open] {
-    border-color: #E6007E; /* 테두리 파란색으로 강조 */
+    border-color: #FE8CCA; /* 테두리 파란색으로 강조 */
     box-shadow: 0 4px 10px rgba(64, 134, 244, 0.1);
 }
 details[open] summary {
     border-bottom: 1px solid #eee;
-    color: #E6007E;
+    color: #FE8CCA;
 }
 details[open] summary::after {
     transform: rotate(180deg); /* 화살표 뒤집기 */
-    color: #E6007E;
+    color: #FE8CCA;
 }
 
 /* _layouts/play-viewer.html 의 <style> 안쪽 */
