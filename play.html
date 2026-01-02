@@ -21,7 +21,7 @@ permalink: /play/
                 <span id="user-name-display">게스트</span>님의 라이브러리
                 <i class="fas fa-pen" onclick="editProfile()" style="font-size:0.8rem; margin-left:5px; cursor:pointer; opacity:0.7;"></i>
             </div>
-            <div class="profile-desc">Backstage 🌸</div>
+            <div class="profile-desc">나만의 썰 백업 저장소 🌸</div>
         </div>
         
         <div class="sidebar-menu">
@@ -37,8 +37,8 @@ permalink: /play/
             </div>
             <div class="sidebar-divider"></div>
             <div class="sidebar-item" onclick="location.href='https://narelim.github.io/mag-ross-archive/secret/'">
-    <i class="fas fa-home"></i> 시크릿 메인으로
-</div>
+                <i class="fas fa-home"></i> 시크릿 메인으로
+            </div>
             <div class="sidebar-item" onclick="toggleSidebar()">
                 <i class="fas fa-times"></i> 메뉴 닫기
             </div>
@@ -120,26 +120,28 @@ permalink: /play/
     // --- 3. 데이터 가져오기 ---
     const allPosts = [
         {% for post in site.posts %}
-        {
-        {if post.url contains 'secret' or post.categories contains 'secret' %}
-            title: "{{ post.title | replace: '"', '\"' }}",
-            url: "{{ post.url | relative_url }}",
-            date: "{{ post.date | date: '%Y.%m.%d' }}",
-            author: "{{ post.author | default: 'Unknown' }}",
-            seriesId: "{{ post.series_id | strip }}", 
-            tags: {{ post.tags | jsonify }}, 
-            layout: "{{ post.layout | strip }}",
-            {% if post.image %}
-                {% if post.image contains '/' %}
-                    image: "{{ post.image | relative_url }}",
+            // 🚨 오타 수정됨: {if -> {% if
+            // 🚨 위치 수정됨: 조건문 안으로 객체 시작({)을 넣어서 빈 데이터 방지
+            {% if post.url contains 'secret' or post.categories contains 'secret' %}
+            {
+                title: "{{ post.title | replace: '"', '\"' }}",
+                url: "{{ post.url | relative_url }}",
+                date: "{{ post.date | date: '%Y.%m.%d' }}",
+                author: "{{ post.author | default: 'Unknown' }}",
+                seriesId: "{{ post.series_id | strip }}", 
+                tags: {{ post.tags | jsonify }}, 
+                layout: "{{ post.layout | strip }}",
+                {% if post.image %}
+                    {% if post.image contains '/' %}
+                        image: "{{ post.image | relative_url }}",
+                    {% else %}
+                        image: "{{ '/assets/img/' | append: post.image | relative_url }}",
+                    {% endif %}
                 {% else %}
-                    image: "{{ '/assets/img/' | append: post.image | relative_url }}",
+                    image: "",
                 {% endif %}
-            {% else %}
-                image: "",
+            },
             {% endif %}
-        },
-                {% endif %}
         {% endfor %}
         
         {% for page in site.pages %}
@@ -196,7 +198,7 @@ permalink: /play/
     }
 
 
-    // --- 5. 리스트 그리기 (핵심 수정됨) ---
+    // --- 5. 리스트 그리기 ---
     function renderList(filterType) {
         listContainer.innerHTML = ''; 
         let count = 0;
@@ -209,7 +211,7 @@ permalink: /play/
             // [검사 1] 레이아웃이 'product'(부모페이지)가 아닐 것
             if (post.layout === 'product') return;
 
-            // [검사 2] 보여줄 조건 확인 (여기가 바뀌었습니다! ✨)
+            // [검사 2] 보여줄 조건 확인
             let isTargetMatch = false;
 
             if (viewMode === 'global') {
