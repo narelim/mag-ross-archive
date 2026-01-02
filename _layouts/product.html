@@ -27,17 +27,23 @@ layout: default
             {% endif %}
         </div>
         
-        <div class="dl-thumb-list">
+                <div class="dl-thumb-list">
+            
             {% if page.image %}
             <img src="{{ '/assets/img/' | append: page.image | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
             {% endif %}
 
             {% if page.gallery_images %}
                 {% for img in page.gallery_images %}
-                <img src="{{ '/assets/img/' | append: img | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
+                    
+                    {% if img != page.image %}
+                    <img src="{{ '/assets/img/' | append: img | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
+                    {% endif %}
+
                 {% endfor %}
             {% endif %}
         </div>
+
 
         <div class="dl-caption">번역자 「나레」의 샘플을 표시 중입니다.</div>
     </div>
