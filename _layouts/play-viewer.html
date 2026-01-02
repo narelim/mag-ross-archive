@@ -227,13 +227,18 @@
     </header>
 
     <div class="info-header">
-        <div class="info-thumb">
-            {% if page.image %}
-                <img src="{{ '/assets/img/' | append: page.image | relative_url }}">
-            {% else %}
-                <img src="https://via.placeholder.com/50x50?text=No+Img">
-            {% endif %}
-        </div>
+<div class="info-thumb">
+    {% if page.image %}
+        {% if page.image contains '/' %}
+            <img src="{{ page.image | relative_url }}">
+        {% else %}
+            <img src="{{ '/assets/img/' | append: page.image | relative_url }}">
+        {% endif %}
+    {% else %}
+        <img src="https://via.placeholder.com/50x50?text=No+Img">
+    {% endif %}
+</div>
+
         <div class="info-text">
             <div class="info-title">{{ page.title }}</div>
             <div class="info-tags">
