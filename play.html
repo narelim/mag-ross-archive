@@ -17,19 +17,27 @@ permalink: /play/
     <div class="play-sidebar" id="sidebar">
         <div class="sidebar-profile">
             <div class="profile-img"><i class="fas fa-user"></i></div>
-            <div class="profile-name">재은님의 라이브러리</div>
+            <div class="profile-name">
+                <span id="user-name-display">게스트</span>님의 라이브러리
+                <i class="fas fa-pen" onclick="editProfile()" style="font-size:0.8rem; margin-left:5px; cursor:pointer; opacity:0.7;"></i>
+            </div>
             <div class="profile-desc">나만의 썰 백업 저장소 🌸</div>
         </div>
+        
         <div class="sidebar-menu">
-            <div class="sidebar-item" onclick="filterList('all')">
-                <i class="fas fa-list"></i> 전체 작품 보기
+            <div class="sidebar-item" onclick="showGlobalAll()">
+                <i class="fas fa-layer-group"></i> 모든 작품 보기 (전체)
             </div>
+            <div class="sidebar-item" onclick="resetSeriesFilter()">
+                <i class="fas fa-undo"></i> 현재 시리즈 다시 보기
+            </div>
+
             <div class="sidebar-item" onclick="filterList('liked')">
                 <i class="fas fa-heart"></i> 찜한 작품 모아보기
             </div>
             <div class="sidebar-divider"></div>
-            <div class="sidebar-item" href="http://narelim.github.io/mag-ross-archive/secret/">
-                <i class="fas fa-home"></i> 메인으로 나가기
+            <div class="sidebar-item" onclick="location.href='/secret/'">
+                <i class="fas fa-home"></i> 시크릿 메인으로
             </div>
             <div class="sidebar-item" onclick="toggleSidebar()">
                 <i class="fas fa-times"></i> 메뉴 닫기
@@ -40,7 +48,7 @@ permalink: /play/
     <header class="play-header">
         <div class="play-title">
             <i class="fas fa-bars play-icon-menu" onclick="toggleSidebar()"></i> 
-            <span>라이브러리</span>
+            <span id="header-title">라이브러리</span>
         </div>
         <div>
             <i class="fas fa-search play-icon-menu" style="margin-right:15px;"></i>
@@ -49,16 +57,25 @@ permalink: /play/
     </header>
 
     <div class="play-filter-bar">
-        <div class="play-chip active" id="chip-all">전체</div>
-        <div class="play-chip" id="chip-liked">찜한 작품</div>
+        <div class="play-chip active" id="chip-all" onclick="filterList('all')">모두</div>
+        <div class="play-chip" id="chip-liked" onclick="filterList('liked')">찜한 작품</div>
     </div>
 
-    <div class="play-container" id="play-list">
-        </div>
+    <div class="play-container" id="play-list"></div>
 
 
 <script>
-    // --- 0. 사이드바 열고 닫기 기능 ---
+    // --- 0. 전역 변수 (상태 관리) ---
+    // viewMode: 'series' (기본: 특정 시리즈만) / 'global' (전체 다 보기)
+    let viewMode = 'series'; 
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetId = (urlParams.get('id') || "").trim(); 
+    const listContainer = document.getElementById('play-list');
+    const headerTitle = document.getElementById('header-title');
+
+
+    // --- 1. 사이드바 & 보기 모드 변경 기능 ---
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.querySelector('.sidebar-overlay');
@@ -66,7 +83,41 @@ permalink: /play/
         overlay.classList.toggle('active');
     }
 
-    // --- 1. 데이터 가져오기 ---
+    // [NEW] 모든 작품 다 보여주는 함수
+    function showGlobalAll() {
+        viewMode = 'global'; // 모드 변경
+        renderList('all');   // 다시 그리기
+        toggleSidebar();     // 사이드바 닫기
+        headerTitle.innerText = "전체 보관함 📚"; // 제목 변경
+    }
+
+    // [NEW] 다시 원래 시리즈만 보여주는 함수
+    function resetSeriesFilter() {
+        viewMode = 'series';
+        renderList('all');
+        toggleSidebar();
+        headerTitle.innerText = "라이브러리";
+    }
+
+
+    // --- 2. 닉네임 관리 ---
+    function loadUserName() {
+        const savedName = localStorage.getItem('play_username') || '게스트';
+        document.getElementById('user-name-display').innerText = savedName;
+    }
+
+    function editProfile() {
+        const newName = prompt("이 라이브러리의 주인 이름을 알려주세요!", "재은");
+        if (newName) {
+            localStorage.setItem('play_username', newName);
+            document.getElementById('user-name-display').innerText = newName;
+            alert(newName + "님의 라이브러리로 설정되었습니다! 🌸");
+        }
+    }
+    loadUserName();
+
+
+    // --- 3. 데이터 가져오기 ---
     const allPosts = [
         {% for post in site.posts %}
         {
@@ -113,112 +164,116 @@ permalink: /play/
         {% endfor %}
     ];
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const targetId = (urlParams.get('id') || "").trim(); 
-    const listContainer = document.getElementById('play-list');
 
-    // --- 2. 찜하기 기능 (LocalStorage) ---
-    // 내 브라우저에 저장된 찜 목록 가져오기
+    // --- 4. 찜하기 기능 ---
     function getLikedItems() {
         const stored = localStorage.getItem('my_liked_posts');
         return stored ? JSON.parse(stored) : [];
     }
 
-    // 찜 버튼 눌렀을 때 실행
     function toggleLike(url, btn) {
-        // 이벤트 버블링 방지 (리스트 클릭해서 이동하는 것 막기)
         event.preventDefault(); 
         event.stopPropagation();
 
         let likes = getLikedItems();
-        
         if (likes.includes(url)) {
-            // 이미 찜했으면 -> 취소
             likes = likes.filter(item => item !== url);
             btn.classList.remove('liked');
-            btn.innerHTML = '<i class="far fa-heart"></i>'; // 빈 하트
+            btn.innerHTML = '<i class="far fa-heart"></i>';
         } else {
-            // 찜 안했으면 -> 추가
             likes.push(url);
             btn.classList.add('liked');
-            btn.innerHTML = '<i class="fas fa-heart"></i>'; // 채운 하트
+            btn.innerHTML = '<i class="fas fa-heart"></i>';
         }
-
-        // 저장
         localStorage.setItem('my_liked_posts', JSON.stringify(likes));
+        
+        const currentFilter = document.getElementById('chip-liked').classList.contains('active') ? 'liked' : 'all';
+        if(currentFilter === 'liked') {
+            renderList('liked');
+        }
     }
 
 
-    // --- 3. 리스트 그리기 함수 (필터 기능 포함) ---
+    // --- 5. 리스트 그리기 (핵심 수정됨) ---
     function renderList(filterType) {
-        listContainer.innerHTML = ''; // 초기화
+        listContainer.innerHTML = ''; 
         let count = 0;
-        const myLikes = getLikedItems(); // 찜 목록 로딩
+        const myLikes = getLikedItems(); 
 
-        // 칩 스타일 변경
         document.getElementById('chip-all').classList.toggle('active', filterType === 'all');
         document.getElementById('chip-liked').classList.toggle('active', filterType === 'liked');
 
         allPosts.forEach(post => {
-            // 기본 조건: ID가 같고, 상품페이지가 아닐 것
-            let isValid = (post.seriesId === targetId && post.layout !== 'product');
+            // [검사 1] 레이아웃이 'product'(부모페이지)가 아닐 것
+            if (post.layout === 'product') return;
 
-            // 찜한 작품 보기 모드라면? -> 찜 목록에 있는지 추가 확인
+            // [검사 2] 보여줄 조건 확인 (여기가 바뀌었습니다! ✨)
+            let isTargetMatch = false;
+
+            if (viewMode === 'global') {
+                // 모드가 '전체(global)'이면 무조건 통과!
+                isTargetMatch = true; 
+            } else {
+                // 모드가 '시리즈'이면 ID가 같아야 통과
+                if (post.seriesId === targetId) isTargetMatch = true;
+            }
+
+            // 조건 불일치면 건너뛰기
+            if (!isTargetMatch) return;
+
+
+            // [검사 3] 찜 필터 확인
             if (filterType === 'liked') {
-                if (!myLikes.includes(post.url)) isValid = false;
+                if (!myLikes.includes(post.url)) return;
             }
 
-            if (isValid) {
-                let thumbImg = post.image && post.image !== "" ? post.image : "https://via.placeholder.com/90x90?text=No+Img";
-                let badgeHTML = post.tags && post.tags.length > 0 ? `<span class="play-badge">${post.tags[0]}</span>` : "";
+            // --- 통과! 그리기 시작 ---
+            let thumbImg = post.image && post.image !== "" ? post.image : "https://via.placeholder.com/90x90?text=No+Img";
+            let badgeHTML = post.tags && post.tags.length > 0 ? `<span class="play-badge">${post.tags[0]}</span>` : "";
 
-                // 이 글이 찜 되어 있는지 확인
-                const isLiked = myLikes.includes(post.url);
-                const heartClass = isLiked ? 'liked' : '';
-                const heartIcon = isLiked ? 'fas fa-heart' : 'far fa-heart';
+            const isLiked = myLikes.includes(post.url);
+            const heartClass = isLiked ? 'liked' : '';
+            const heartIcon = isLiked ? 'fas fa-heart' : 'far fa-heart';
 
-                const itemHTML = `
-                    <div class="play-item-wrapper" style="position:relative;">
-                        <a href="${post.url}" class="play-item">
-                            <div class="play-thumb">
-                                <img src="${thumbImg}" alt="thumb">
-                            </div>
-                            <div class="play-info">
-                                <div class="play-item-title">${post.title}</div>
-                                <div class="play-item-meta">${post.author} · ${post.date}</div>
-                                ${badgeHTML}
-                            </div>
-                        </a>
-                        <div class="play-like-btn ${heartClass}" onclick="toggleLike('${post.url}', this)">
-                            <i class="${heartIcon}"></i>
+            const itemHTML = `
+                <div class="play-item-wrapper" style="position:relative;">
+                    <a href="${post.url}" class="play-item">
+                        <div class="play-thumb">
+                            <img src="${thumbImg}" alt="thumb">
                         </div>
+                        <div class="play-info">
+                            <div class="play-item-title">${post.title}</div>
+                            <div class="play-item-meta">${post.author} · ${post.date}</div>
+                            ${badgeHTML}
+                        </div>
+                    </a>
+                    <div class="play-like-btn ${heartClass}" onclick="toggleLike('${post.url}', this)">
+                        <i class="${heartIcon}"></i>
                     </div>
-                `;
-                listContainer.innerHTML += itemHTML;
-                count++;
-            }
+                </div>
+            `;
+            listContainer.innerHTML += itemHTML;
+            count++;
         });
 
         if (count === 0) {
-            let msg = filterType === 'liked' ? "찜한 작품이 없습니다." : "연결된 에피소드가 없습니다.";
+            let msg = filterType === 'liked' ? "찜한 작품이 없습니다." : "작품이 없습니다.";
             listContainer.innerHTML = `
                 <div style="text-align:center; padding:50px; color:#888;">
                     <i class="far fa-folder-open" style="font-size:3rem; margin-bottom:10px;"></i><br>
                     ${msg}
                 </div>`;
         }
-        
-        // 모바일에서 메뉴 누르고 나면 사이드바 닫아주기
-        document.getElementById('sidebar').classList.remove('active');
-        document.querySelector('.sidebar-overlay').classList.remove('active');
     }
 
-    // --- 4. 메뉴 클릭 시 실행 함수 ---
     function filterList(type) {
         renderList(type);
+        if(document.getElementById('sidebar').classList.contains('active')) {
+             toggleSidebar();
+        }
     }
 
-    // 처음 시작할 땐 '전체(all)' 보여주기
+    // 시작: 전체 목록으로
     renderList('all');
 
 </script>
