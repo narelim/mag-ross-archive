@@ -9,7 +9,7 @@ type: Secret
 image: "thumb_ddlg.png"
 price: "1,200"        # 가격 (없으면 Free로 뜸)
 gallery_images:
-  -"thumb_ddlg.png"
+  - "thumb_ddlg.png"
 ---
 
 ### [작품 소개]
