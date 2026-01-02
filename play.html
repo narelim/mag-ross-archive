@@ -121,7 +121,7 @@ permalink: /play/
     const allPosts = [
         {% for post in site.posts %}
         {
-        {if post.url contains 'secret' or post.type contains 'secret' %}
+        {if post.url contains 'secret' or post.categories contains 'secret' %}
             title: "{{ post.title | replace: '"', '\"' }}",
             url: "{{ post.url | relative_url }}",
             date: "{{ post.date | date: '%Y.%m.%d' }}",
