@@ -211,6 +211,52 @@
             white-space: pre-wrap; 
             word-break: break-all;
         }
+
+        /* --- 💬 심플 채팅 스타일 (말풍선 Only) --- */
+
+.chat-room {
+    background-color: #FFF0F5; /* 연한 핑크 배경 */
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 말풍선 간격 */
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.msg-row {
+    display: flex;
+    max-width: 100%;
+}
+
+/* ☁️ 말풍선 공통 디자인 */
+.msg-bubble {
+    padding: 10px 14px;
+    border-radius: 15px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    max-width: 80%;
+    word-break: break-all; /* 긴 단어 줄바꿈 */
+}
+
+/* ⬅️ 상대방 (왼쪽, 흰색) */
+.msg-row.left { justify-content: flex-start; }
+.msg-row.left .msg-bubble {
+    background: #ffffff;
+    color: #333;
+    border-bottom-left-radius: 2px; /* 꼬리 느낌 */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* ➡️ 나 (오른쪽, 핑크색) */
+.msg-row.right { justify-content: flex-end; }
+.msg-row.right .msg-bubble {
+    background: #E87A90;
+    color: white;
+    border-bottom-right-radius: 2px; /* 꼬리 느낌 */
+}
+
     </style>
 </head>
 <body>
