@@ -257,6 +257,65 @@
     border-bottom-right-radius: 2px; /* 꼬리 느낌 */
 }
 
+        /* 📸 말풍선 안의 이미지 스타일 */
+.msg-bubble img {
+    max-width: 100%;       /* 말풍선 너비에 맞춰서 줄어듦 */
+    border-radius: 10px;   /* 이미지 모서리 둥글게 */
+    display: block;        /* 이미지 아래 빈공간 제거 */
+    margin-top: 5px;       /* 텍스트랑 같이 쓸 때 간격 */
+    margin-bottom: 5px;
+}
+
+        /* --- 🐦 트위터 타래(Thread) 스타일 (심플 버전) --- */
+
+/* 전체 타래 컨테이너 (왼쪽 선) */
+.twitter-thread {
+    margin-left: 15px; /* 벽에서 살짝 띄우기 */
+    border-left: 2px solid #E87A90; /* 🌸 핑크색 연결선 */
+    padding-left: 25px; /* 선과 내용 사이 간격 */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* 개별 트윗 박스 */
+.tweet-item {
+    position: relative;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px; /* 트윗 사이 간격 */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* 타임라인 점 (●) 꾸미기 */
+.tweet-item::before {
+    content: '';
+    position: absolute;
+    left: -32px; /* 선 위로 점 옮기기 */
+    top: 15px;   /* 점 위치 조정 */
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 2px solid #E87A90; /* 🌸 핑크 테두리 점 */
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* (옵션) 앤오님 썰은 살짝 다르게 표시하고 싶다면? */
+/* 앤오 트윗엔 배경색을 아주 연하게 줌 */
+.tweet-item.partner {
+    background: #FFF9FB; 
+    border-color: #FFE4E1;
+}
+/* 앤오 트윗은 점을 꽉 채운 핑크로 */
+.tweet-item.partner::before {
+    background: #E87A90; 
+}
+
     </style>
 </head>
 <body>
