@@ -287,6 +287,49 @@ permalink: /play/
     // 시작: 전체 목록으로
     renderList('all');
 
+// --- 📲 PWA 설치 매니저 ---
+
+let deferredPrompt; // 안드로이드 설치 팝업을 저장할 변수
+const installBtn = document.getElementById('install-btn');
+
+// 1. 갤럭시(안드로이드): 설치 가능한 상태가 되면 브라우저가 이 이벤트를 보냄
+window.addEventListener('beforeinstallprompt', (e) => {
+    // 크롬이 지 혼자 설치바 띄우는 거 막기 (우리가 만든 버튼으로 하려고)
+    e.preventDefault();
+    deferredPrompt = e;
+    
+    // 이제 버튼을 보여준다!
+    installBtn.style.display = 'flex'; // 혹은 block
+});
+
+// 2. 버튼을 눌렀을 때 실행되는 함수
+installBtn.addEventListener('click', () => {
+    
+    // (A) 갤럭시/안드로이드인 경우: 저장해둔 설치 팝업을 띄운다!
+    if (deferredPrompt) {
+        deferredPrompt.prompt(); // 🚀 진짜 설치 창 뜸!
+        
+        // 유저가 설치했는지 취소했는지 확인 (선택사항)
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('앱 설치를 승락하셨습니다! 🎉');
+                installBtn.style.display = 'none'; // 설치했으니 버튼 숨김
+            }
+            deferredPrompt = null; // 변수 초기화
+        });
+    } 
+    // (B) 아이폰/아이패드인 경우: 설명 팝업을 띄운다
+    else {
+        const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        if (isIOS) {
+            alert("💌 아이폰 설치 방법\n\n1. 하단의 [공유] 버튼 클릭\n2. [홈 화면에 추가 ➕] 선택\n\n이렇게 하면 진짜 앱처럼 쓸 수 있어요! 🌸");
+        } else {
+            // 그 외 (PC 등)
+            alert("브라우저 메뉴(점 3개)에서 \n[앱 설치] 또는 [홈 화면에 추가]를 찾아보세요!");
+        }
+    }
+});
+
 </script>
 </body>
 </html>
