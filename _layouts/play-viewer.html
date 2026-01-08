@@ -17,7 +17,7 @@
         body {
             background-color: #FFF9FB; /* 배경: 아주 연한 핑크 화이트 */
             margin: 0;
-            padding-top: 140px;
+            padding-top: 135px;
             font-family: 'Noto Sans KR', sans-serif;
             color: #333; /* 기본 글자는 가독성 좋게 진한 회색 */
         }
@@ -26,21 +26,22 @@
         .app-header {
             background-color: #E87A90; /* 차분한 로즈 핑크 */
             color: white;
-            height: 60px;
             display: flex;
             align-items: center;
-            padding: 0 15px;
+            padding: 15 20px;
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(232, 122, 144, 0.2); /* 그림자도 핑크톤 */
+            box-sizing: border-box;
         }
         .back-btn {
             background: none; border: none; color: white;
-            font-size: 1.2rem; cursor: pointer; padding: 5px 10px 5px 0;
+            font-size: 1.5rem; cursor: pointer; padding: 5px 10px 5px 0;
         }
-        .app-title { font-weight: bold; flex: 1; font-size: 1rem; }
-        .app-icons i { margin-left: 15px; cursor: pointer; }
+        .app-title { font-weight: bold; flex: 1; font-size: 1.2rem; }
+        .app-icons { font-size: 1.5rem; display: flex; gap: 15px; }
+        .app-icons i { cursor: pointer; }
 
 
         /* 2. ℹ️ 작품 정보 헤더 */
@@ -50,7 +51,7 @@
             display: flex;
             gap: 15px;
             position: fixed;
-            top: 60px; left: 0; right: 0;
+            top: 55px; left: 0; right: 0;
             z-index: 900;
             border-bottom: 1px solid #FFF0F5; /* 구분선 아주 연한 핑크 */
             height: 80px; box-sizing: border-box;
