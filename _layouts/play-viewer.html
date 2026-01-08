@@ -10,9 +10,7 @@
 <meta name="theme-color" content="#E87A90">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="icon" type="image/x-icon" href="{{ '/mag-ross-archive/assets/img/favicon_s.ico' | relative_url }}">
-
-    
+<link rel="icon" type="image/x-icon" href="https://narelim.github.io/mag-ross-archive/assets/img/favicon_s.ico">
     <style>
         /* --- 기본 설정 (사쿠라 테마) --- */
         body {
@@ -357,7 +355,6 @@
     </style>
 </head>
 <body>
-
     <header class="app-header">
         <button class="back-btn" onclick="history.back()">
             <i class="fas fa-arrow-left"></i>
@@ -392,14 +389,12 @@
         </div>
     </div>
 
-
     <div class="folder-tab-bar">
         <div class="folder-tab">
             <i class="fas fa-folder-open"></i>
             {{ page.tags | first | default: "Library" }}
         </div>
     </div>
-
 
     <div class="viewer-paper">
         {{ content }}
