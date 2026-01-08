@@ -8,19 +8,27 @@ body.play-mode {
     margin: 0;
 }
 
-/* 1. 상단 앱 헤더 (눈이 편한 웜 핑크) */
+/* [play-style.css 수정] */
+
+/* 1. 상단 앱 헤더 */
 .play-header {
-    background-color: #E87A90; /* 말린 장미색 (너무 쨍하지 않고 차분함) */
+    background-color: #E87A90;
     color: white;
-    padding: 15px 20px;
+    
+    /* 🚨 여기도 똑같이 수정해주세요! */
+    height: 56px;      /* 높이 고정 */
+    padding: 0 20px;   /* 위아래 패딩 0, 좌우 20px */
+    
     display: flex;
-    align-items: center;
+    align-items: center; /* 수직 중앙 정렬 */
     justify-content: space-between;
-    box-shadow: 0 2px 5px rgba(232, 122, 144, 0.2); /* 그림자도 핑크빛으로 은은하게 */
+    box-shadow: 0 2px 5px rgba(232, 122, 144, 0.2);
     position: sticky;
     top: 0;
     z-index: 100;
+    box-sizing: border-box; /* 테두리 포함 계산 */
 }
+
 .play-title {
     font-size: 1.2rem;
     font-weight: bold;
