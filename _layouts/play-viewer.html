@@ -15,48 +15,76 @@
     <style>
         /* --- 기본 설정 (사쿠라 테마) --- */
         body {
-            background-color: #FFF9FB; /* 배경: 아주 연한 핑크 화이트 */
+            background-color: #FFF9FB;
             margin: 0;
-            padding-top: 135px;
+            padding-top: 136px; /* 140 -> 136 으로 미세 조정 */
             font-family: 'Noto Sans KR', sans-serif;
-            color: #333; /* 기본 글자는 가독성 좋게 진한 회색 */
+            color: #333;
         }
-
-        /* 1. 🌸 최상단 헤더 (웜 핑크) */
+        
+        /* 1. 🌸 최상단 헤더 (높이 강제 고정으로 오차 0mm 만들기) */
         .app-header {
-            background-color: #E87A90; /* 차분한 로즈 핑크 */
+            background-color: #E87A90;
             color: white;
+            
+            /* 🚨 핵심 변경: 높이를 56px로 고정 (모바일 앱 표준 높이) */
+            height: 56px; 
+            padding: 0 20px; /* 위아래 패딩 삭제, 좌우만 유지 */
+            
             display: flex;
-            align-items: center;
-            padding: 15px 20px;
+            align-items: center; /* 내용물 수직 중앙 정렬 (이거 덕분에 글자가 가운데 옴) */
+            justify-content: space-between; /* 양쪽 정렬 */
+            
             position: fixed;
             top: 0; left: 0; right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(232, 122, 144, 0.2); /* 그림자도 핑크톤 */
+            box-shadow: 0 2px 5px rgba(232, 122, 144, 0.2);
             box-sizing: border-box;
         }
+
+        /* 뒤로가기 버튼 (높이 영향 없애기) */
         .back-btn {
             background: none; border: none; color: white;
-            font-size: 1.5rem; cursor: pointer; padding: 0; margin-right: 15px;
-            display: flex; align-items: center;
+            font-size: 1.3rem; /* 아이콘 크기 */
+            cursor: pointer; 
+            padding: 0; margin: 0; /* 여백 완전 제거 */
+            margin-right: 15px;
+            display: flex; align-items: center; justify-content: center;
+            height: 100%; /* 헤더 높이에 맞춤 */
         }
-        .app-title { font-weight: bold; flex: 1; font-size: 1.2rem; }
-        .app-icons { font-size: 1.5rem; display: flex; gap: 15px; }
-        .app-icons i { cursor: pointer; }
+
+        .app-title { 
+            font-weight: bold; 
+            font-size: 1.2rem; /* play.html과 폰트 크기 통일 */
+            flex: 1; 
+            line-height: 1; /* 글자 높이 딱 맞추기 */
+        }
+        
+        .app-icons { 
+            font-size: 1.3rem; 
+            display: flex; gap: 15px; align-items: center; 
+            height: 100%;
+        }
 
 
-        /* 2. ℹ️ 작품 정보 헤더 */
+        /* 2. ℹ️ 작품 정보 헤더 (위치 재조정) */
         .info-header {
+            /* 위에서 헤더를 56px로 잡았으니, 바로 그 아래 붙임 */
+            top: 56px; 
+            
             background: white;
             padding: 15px;
             display: flex;
             gap: 15px;
             position: fixed;
-            top: 55px; left: 0; right: 0;
+            left: 0; right: 0;
             z-index: 900;
-            border-bottom: 1px solid #FFF0F5; /* 구분선 아주 연한 핑크 */
+            border-bottom: 1px solid #FFF0F5;
             height: 80px; box-sizing: border-box;
         }
+
+
+
         .info-thumb {
             width: 50px; height: 50px;
             border-radius: 4px; overflow: hidden;
