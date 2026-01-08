@@ -56,7 +56,7 @@ permalink: /play/
         </div>
         <div>
             <i class="fas fa-search play-icon-menu" style="margin-right:15px;"></i>
-            <i class="fas fa-sort-amount-down play-icon-menu"></i>
+            <i id="install-btn" class="fas fa-download"></i>
         </div>
     </header>
 
@@ -283,6 +283,45 @@ permalink: /play/
 
     // 시작: 전체 목록으로
     renderList('all');
+
+        // --- 📲 (추가됨) 앱 설치 기능 스크립트 ---
+        
+        let deferredPrompt; // 안드로이드 설치 팝업 저장용
+        const installBtn = document.getElementById('install-btn');
+
+        // 1. 안드로이드: 설치 가능한 상태 감지
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // 설치 가능할 때만 버튼이 반짝이거나 색이 진해지게 할 수도 있음 (선택사항)
+            // 여기서는 일단 기능만 연결합니다.
+        });
+
+        // 2. 버튼 클릭 시 동작
+        installBtn.addEventListener('click', () => {
+            
+            // (A) 안드로이드: 진짜 설치 창 띄우기
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('설치 완료!');
+                        installBtn.style.display = 'none'; // 설치했으면 숨김
+                    }
+                    deferredPrompt = null;
+                });
+            } 
+            // (B) 아이폰/PC: 친절한 설명 띄우기
+            else {
+                const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (isIOS) {
+                    alert("💌 아이폰 설치 팁\n\n하단 [공유] 버튼 -> [홈 화면에 추가 ➕]\n\n이렇게 하면 진짜 앱처럼 전체화면으로 볼 수 있어요! 🌸");
+                } else {
+                    alert("브라우저 메뉴에서 [앱 설치] 또는 [홈 화면에 추가]를 찾아보세요!");
+                }
+            }
+        });
+
 </script>
 </body>
 </html>
