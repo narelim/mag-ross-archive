@@ -17,7 +17,7 @@
         body {
             background-color: #FFF9FB; /* 배경: 아주 연한 핑크 화이트 */
             margin: 0;
-            padding-top: 130px;
+            padding-top: 140px;
             font-family: 'Noto Sans KR', sans-serif;
             color: #333; /* 기본 글자는 가독성 좋게 진한 회색 */
         }
@@ -26,7 +26,7 @@
         .app-header {
             background-color: #E87A90; /* 차분한 로즈 핑크 */
             color: white;
-            height: 50px;
+            height: 60px;
             display: flex;
             align-items: center;
             padding: 0 15px;
@@ -50,7 +50,7 @@
             display: flex;
             gap: 15px;
             position: fixed;
-            top: 50px; left: 0; right: 0;
+            top: 60px; left: 0; right: 0;
             z-index: 900;
             border-bottom: 1px solid #FFF0F5; /* 구분선 아주 연한 핑크 */
             height: 80px; box-sizing: border-box;
@@ -404,11 +404,52 @@
     </div>
 
     <script>
+        // (기존) 이미지 모달 함수
         function openModal(src) {
             document.getElementById('modal-img').src = src;
             document.getElementById('img-modal').style.display = 'flex';
         }
+
+
+        // --- 📲 (추가됨) 앱 설치 기능 스크립트 ---
+        
+        let deferredPrompt; // 안드로이드 설치 팝업 저장용
+        const installBtn = document.getElementById('install-btn');
+
+        // 1. 안드로이드: 설치 가능한 상태 감지
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // 설치 가능할 때만 버튼이 반짝이거나 색이 진해지게 할 수도 있음 (선택사항)
+            // 여기서는 일단 기능만 연결합니다.
+        });
+
+        // 2. 버튼 클릭 시 동작
+        installBtn.addEventListener('click', () => {
+            
+            // (A) 안드로이드: 진짜 설치 창 띄우기
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('설치 완료!');
+                        installBtn.style.display = 'none'; // 설치했으면 숨김
+                    }
+                    deferredPrompt = null;
+                });
+            } 
+            // (B) 아이폰/PC: 친절한 설명 띄우기
+            else {
+                const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+                if (isIOS) {
+                    alert("💌 아이폰 설치 팁\n\n하단 [공유] 버튼 -> [홈 화면에 추가 ➕]\n\n이렇게 하면 진짜 앱처럼 전체화면으로 볼 수 있어요! 🌸");
+                } else {
+                    alert("브라우저 메뉴에서 [앱 설치] 또는 [홈 화면에 추가]를 찾아보세요!");
+                }
+            }
+        });
     </script>
+
 
 </body>
 </html>
