@@ -8,12 +8,12 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/assets/img/icon.jpg",
+      "src": "https://narelim.github.io/mag-ross-archive/assets/img/icon.png",
       "sizes": "192x192",
       "type": "image/jpg"
     },
     {
-      "src": "/assets/img/icon.jpg",
+      "src": "https://narelim.github.io/mag-ross-archive/assets/img/icon.png",
       "sizes": "512x512",
       "type": "image/jpg"
     }
