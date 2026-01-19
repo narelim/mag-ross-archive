@@ -33,13 +33,15 @@ layout: default
             
             {% if page.image %}
             <img src="{{ '/assets/img/' | append: page.image | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
+            <img src="{{ '/assets/attachment/' | append: page.image | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
             {% endif %}
 
             {% if page.gallery_images %}
                 {% for img in page.gallery_images %}
                     
                     {% if img != page.image %}
-                    <img src="{{ '/assets/img/' | append: img | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
+                    <img src="{{ '/assets/img/' | append: img | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">                  
+            <img src="{{ '/assets/attachment/' | append: page.image | relative_url }}" class="dl-thumb-item" onclick="changeImage(this.src)">
                     {% endif %}
 
                 {% endfor %}
