@@ -10,6 +10,7 @@ image: "thumb_ddlg.png"
 price: "1,200"        # 가격 (없으면 Free로 뜸)
 gallery_images:
   - "thumb_ddlg.png"
+  - "dmar_20250001_01.PNG"
 ---
 
 ### [작품 소개]
